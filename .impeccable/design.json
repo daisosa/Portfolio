@@ -1,0 +1,178 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-26T00:00:00.000Z",
+  "title": "Design System: Dai Sosa — Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "violeta-electrico": {
+        "role": "primary",
+        "displayName": "Violeta Eléctrico",
+        "canonical": "oklch(48% 0.18 310)",
+        "tonalRamp": ["#220041", "#49006e", "#732a9d", "#a15acf", "#c07af1", "#e199ff", "#ffbaff", "#ffcaff"]
+      },
+      "violeta-electrico-brillante": {
+        "role": "primary",
+        "displayName": "Violeta Eléctrico Brillante",
+        "canonical": "oklch(64% 0.16 305)"
+      },
+      "violeta-electrico-frio": {
+        "role": "primary",
+        "displayName": "Violeta Eléctrico Frío",
+        "canonical": "oklch(40% 0.17 288)"
+      },
+      "violeta-electrico-calido": {
+        "role": "primary",
+        "displayName": "Violeta Eléctrico Cálido",
+        "canonical": "oklch(44% 0.16 335)"
+      },
+      "lila-suave": {
+        "role": "secondary",
+        "displayName": "Lila Suave",
+        "canonical": "oklch(84% 0.045 300)",
+        "tonalRamp": ["#0e061b", "#312941", "#59506b", "#847b98", "#a299b7", "#c2b8d7", "#e2d8f8", "#f3e8ff"]
+      },
+      "noche": {
+        "role": "neutral",
+        "displayName": "Noche",
+        "canonical": "oklch(14% 0.012 300)",
+        "tonalRamp": ["#0c0a10", "#2f2d33", "#56545b", "#817f86", "#9f9da5", "#bfbcc4", "#dfdce5", "#efedf6"]
+      },
+      "noche-suave": {
+        "role": "neutral",
+        "displayName": "Noche Suave",
+        "canonical": "oklch(18% 0.014 300)"
+      },
+      "papel-crema": {
+        "role": "neutral",
+        "displayName": "Papel Crema",
+        "canonical": "oklch(96.5% 0.012 80)",
+        "tonalRamp": ["#0e0b06", "#312d27", "#59554e", "#848078", "#a29e96", "#c2bdb5", "#e2ddd5", "#f3eee6"]
+      },
+      "papel-crema-sombreado": {
+        "role": "neutral",
+        "displayName": "Papel Crema Sombreado",
+        "canonical": "oklch(93% 0.014 80)"
+      },
+      "tinta": {
+        "role": "neutral",
+        "displayName": "Tinta",
+        "canonical": "oklch(20% 0.012 300)",
+        "tonalRamp": ["#0c0a10", "#2f2d33", "#56545b", "#817f86", "#9f9da5", "#bfbcc4", "#dfdce5", "#efedf6"]
+      },
+      "tinta-atenuada": {
+        "role": "neutral",
+        "displayName": "Tinta Atenuada",
+        "canonical": "oklch(42% 0.03 300)"
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Titular del hero únicamente; la cursiva interna usa Lila Suave." },
+      "headline": { "displayName": "Headline", "purpose": "Título de cada sección numerada." },
+      "title": { "displayName": "Title", "purpose": "Nombre de proyecto, título de servicio, encabezado de paso de proceso." },
+      "body": { "displayName": "Body", "purpose": "Párrafos y copy general." },
+      "label": { "displayName": "Label", "purpose": "Kickers numerados, tags, navegación, footer — siempre uppercase, tracking abierto." }
+    },
+    "shadows": [
+      { "name": "ambient-card", "value": "0 24px 48px -24px rgba(20,10,40,.18)", "purpose": "Reposo de una superficie clara que flota (testimonios, CTA principal)." },
+      { "name": "lifted-card", "value": "0 32px 60px -20px rgba(20,10,40,.24)", "purpose": "Hover/activo de la misma superficie clara." },
+      { "name": "ambient-glow-dark", "value": "0 24px 48px -16px rgba(161,90,207,.25)", "purpose": "Reposo de una superficie oscura que flota (marcos de trabajo) — resplandor violeta, no sombra oscura, porque no se vería contra un fondo casi negro." },
+      { "name": "lifted-glow-dark", "value": "0 28px 64px -12px rgba(161,90,207,.4)", "purpose": "Hover/activo de la misma superficie oscura." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "cubic-bezier(.16,.84,.24,1)", "purpose": "Easing por defecto de transiciones y reveals." },
+      { "name": "ease-soft", "value": "cubic-bezier(.4,0,.2,1)", "purpose": "Easing para fundidos de opacidad." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "600px" },
+      { "name": "md", "value": "860px" },
+      { "name": "lg", "value": "1180px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botón Editorial",
+      "kind": "button",
+      "refersTo": "button-editorial",
+      "description": "Botón sin relleno, solo reglas superior/inferior — variante secundaria del sistema.",
+      "html": "<button class=\"ds-btn-editorial\">Escribime<svg class=\"ds-btn-editorial-icon\" viewBox=\"0 0 24 24\"><path d=\"M5 19 L19 5 M9 5 H19 V15\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></button>",
+      "css": ".ds-btn-editorial{ display:inline-flex; align-items:center; gap:14px; padding:14px 2px; font-family:var(--sans,'Inter Tight',sans-serif); font-weight:600; font-size:14px; letter-spacing:.02em; border:none; border-top:1px solid currentColor; border-bottom:1px solid currentColor; background:none; color:var(--ink, oklch(20% 0.012 300)); cursor:pointer; transition: opacity .3s ease; } .ds-btn-editorial-icon{ width:16px; height:16px; flex:none; transition: transform .45s cubic-bezier(.16,.84,.24,1); } .ds-btn-editorial:hover{ opacity:.7; } .ds-btn-editorial:hover .ds-btn-editorial-icon{ transform: translateX(8px); } .ds-btn-editorial:focus-visible{ outline: 2px solid var(--violet-bright, oklch(64% 0.16 305)); outline-offset:3px; }"
+    },
+    {
+      "name": "Botón Táctil (CTA principal)",
+      "kind": "button",
+      "refersTo": "button-tactile",
+      "description": "Pill lleno con sombra ambient-card, usado en las dos acciones de conversión del sitio (hero-cta, finale-submit).",
+      "html": "<button class=\"ds-btn-tactile\">Escribime y analicemos<svg class=\"ds-btn-tactile-icon\" viewBox=\"0 0 24 24\"><path d=\"M5 19 L19 5 M9 5 H19 V15\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></button>",
+      "css": ".ds-btn-tactile{ display:inline-flex; align-items:center; gap:14px; padding:18px 32px; border:none; border-radius:100px; font-family:var(--sans,'Inter Tight',sans-serif); font-weight:600; font-size:14px; letter-spacing:.02em; background:var(--violet-mid, oklch(48% 0.18 310)); color:var(--paper, oklch(96.5% 0.012 80)); cursor:pointer; box-shadow:0 24px 48px -24px rgba(20,10,40,.4); transition: background .3s cubic-bezier(.16,.84,.24,1), transform .3s cubic-bezier(.16,.84,.24,1), box-shadow .3s cubic-bezier(.16,.84,.24,1); } .ds-btn-tactile-icon{ width:16px; height:16px; flex:none; transition: transform .45s cubic-bezier(.16,.84,.24,1); } .ds-btn-tactile:hover{ background:var(--violet-bright, oklch(64% 0.16 305)); transform:translateY(-3px); box-shadow:0 32px 60px -20px rgba(20,10,40,.5); } .ds-btn-tactile:hover .ds-btn-tactile-icon{ transform: translateX(8px); }"
+    },
+    {
+      "name": "Chip de Servicio",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Etiqueta informativa sin relleno, borde fino, texto atenuado.",
+      "html": "<span class=\"ds-chip\">Línea editorial</span>",
+      "css": ".ds-chip{ display:inline-block; font-family:var(--sans,'Inter Tight',sans-serif); font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-muted, oklch(42% 0.03 300)); border:1px solid currentColor; border-radius:100px; padding:6px 12px; }"
+    },
+    {
+      "name": "Tarjeta de Testimonio",
+      "kind": "card",
+      "refersTo": "testimonial-card",
+      "description": "Componente signature del sistema: rotación tipo Polaroid disperso + sombra tibia. Es la referencia de profundidad que el resto de las tarjetas debería adoptar.",
+      "html": "<figure class=\"ds-testimonial-card\"><div class=\"ds-testimonial-shot\"></div><figcaption>Captura de testimonio</figcaption></figure>",
+      "css": ".ds-testimonial-card{ background:var(--paper, oklch(96.5% 0.012 80)); padding:12px 12px 16px; transform:rotate(-1.4deg); box-shadow:0 24px 48px -24px rgba(20,10,40,.18); transition: transform .4s cubic-bezier(.16,.84,.24,1), box-shadow .4s cubic-bezier(.16,.84,.24,1); } .ds-testimonial-shot{ aspect-ratio:4/5; background:var(--paper-dim, oklch(93% 0.014 80)); } .ds-testimonial-card figcaption{ margin-top:12px; font-size:11px; letter-spacing:.06em; color:var(--ink-muted, oklch(42% 0.03 300)); } .ds-testimonial-card:hover{ transform:rotate(0) translateY(-6px); box-shadow:0 32px 60px -20px rgba(20,10,40,.24); }"
+    },
+    {
+      "name": "Tarjeta de Trabajo",
+      "kind": "card",
+      "refersTo": "work-card",
+      "description": "Marco de trabajo con resplandor violeta (ambient-glow-dark) en reposo — una sombra oscura no se vería contra el fondo casi negro de la sección.",
+      "html": "<div class=\"ds-work-card\"><div class=\"ds-work-frame\"></div><div class=\"ds-work-meta\"><h3>Nombre del proyecto</h3><span>Cliente</span></div></div>",
+      "css": ".ds-work-card{ display:block; } .ds-work-frame{ aspect-ratio:9/16; border-radius:2px; background:var(--black-soft, oklch(18% 0.014 300)); box-shadow:0 24px 48px -16px rgba(161,90,207,.25); transition: box-shadow .4s cubic-bezier(.16,.84,.24,1), transform .4s cubic-bezier(.16,.84,.24,1); } .ds-work-card:hover .ds-work-frame{ box-shadow:0 28px 64px -12px rgba(161,90,207,.4); transform:translateY(-4px); } .ds-work-meta{ margin-top:12px; } .ds-work-meta h3{ font-family:var(--serif,'Instrument Serif',serif); font-size:clamp(18px,1.6vw,22px); font-weight:400; margin:0; } .ds-work-meta span{ font-size:12px; color:var(--ink-muted, oklch(42% 0.03 300)); }"
+    },
+    {
+      "name": "Link de Navegación",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Subrayado que se revela de izquierda a derecha al hover.",
+      "html": "<a class=\"ds-nav-link\" href=\"#\">Servicios</a>",
+      "css": ".ds-nav-link{ position:relative; font-family:var(--sans,'Inter Tight',sans-serif); font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; text-decoration:none; color:inherit; } .ds-nav-link::after{ content:''; position:absolute; left:0; right:100%; bottom:-4px; height:1px; background:currentColor; transition: right .3s cubic-bezier(.4,0,.2,1); } .ds-nav-link:hover::after{ right:0; }"
+    },
+    {
+      "name": "Campo de Formulario",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Sin caja: label en Label sobre el campo, foco reemplaza el outline por color de borde.",
+      "html": "<div class=\"ds-field\"><label for=\"ds-demo\">Email</label><input id=\"ds-demo\" type=\"email\"/></div>",
+      "css": ".ds-field label{ display:block; font-family:var(--sans,'Inter Tight',sans-serif); font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-muted, oklch(42% 0.03 300)); margin-bottom:8px; } .ds-field input{ width:100%; border:none; border-bottom:1px solid var(--line-on-light, oklch(20% 0.01 300 / .14)); background:none; font-size:17px; padding:8px 2px; font-family:var(--sans,'Inter Tight',sans-serif); } .ds-field input:focus{ outline:none; border-color:var(--violet-bright, oklch(64% 0.16 305)); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "El Cuaderno de Estrategia",
+    "overview": "Un cuaderno de trabajo editorial, no un producto de SaaS: numeración de secciones (01, 02, 03…), reglas finas en vez de cajas, y una serif de autor que interrumpe la sans-serif técnica para marcar énfasis, como si alguien subrayara una palabra al escribir a mano. El tono es expresivo, profesional pero cercano — el resplandor violeta y los degradés cinematográficos en las secciones oscuras le dan dramatismo, pero el papel crema y la tipografía contenida en las secciones claras lo devuelven a un registro de estudio, no de discoteca.\n\nEl sitio alterna entre dos temperaturas: secciones \"papel\" (crema, tinta oscura, editorial) y secciones \"noche\" (violeta-negro, texto claro, más teatral). Ambas comparten la misma tipografía y el mismo lenguaje de reglas finas — es una sola voz con dos iluminaciones distintas, no dos sistemas.",
+    "keyCharacteristics": [
+      "Serif de autor (Instrument Serif) para todo titular y para el énfasis en cursiva; sans técnica (Inter Tight) para todo lo demás.",
+      "Kicker numerado (\"01 — Portada\") como firma recurrente de navegación editorial.",
+      "Violeta eléctrico como único acento de color; el resto es tinta, papel y noche.",
+      "El sistema nació plano (sin sombra) y ahora combina superficies planas (listas, formularios) con profundidad táctil en las superficies discretas: sombra tibia sobre papel, resplandor violeta sobre noche."
+    ],
+    "rules": [
+      { "name": "La Regla de un Solo Acento", "body": "El violeta es el único color con significado; todo lo demás es tinta, papel o noche. Si hace falta un segundo color para diferenciar algo, se resuelve con tipografía o espaciado, no con otro tono.", "section": "colors" },
+      { "name": "La Regla del Kicker Numerado", "body": "Cada sección principal abre con \"NN — Nombre\" en Label. Es la firma de navegación del sistema; no se usa este patrón para nada que no sea el inicio de una sección de primer nivel.", "section": "typography" },
+      { "name": "La Regla de la Sombra Tibia", "body": "Ninguna sombra es gris neutro: sobre papel se tiñe de violeta-tinta oscuro (rgba(20,10,40,...)); sobre noche se invierte a un resplandor violeta claro (rgba(161,90,207,...)) porque una sombra oscura no se ve contra un fondo oscuro.", "section": "elevation" },
+      { "name": "La Regla de Superficie Flotante", "body": "La sombra/resplandor se reserva para componentes que son objetos discretos con espacio alrededor (cards con gap, botones). No se aplica a filas de una lista continua — ahí la profundidad se resuelve invirtiendo el color al hover, no con box-shadow.", "section": "elevation" }
+    ],
+    "dos": [
+      "Usar Violeta Eléctrico como único acento con significado; todo lo demás son neutros de tinta/papel/noche.",
+      "Teñir cualquier sombra nueva del mismo violeta-tinta oscuro (rgba(20,10,40,...)) sobre papel, o del resplandor violeta claro (rgba(161,90,207,...)) sobre noche — nunca gris neutro.",
+      "Usar el kicker numerado (NN — Nombre, Label) solo para el inicio de una sección de primer nivel.",
+      "Reservar la variante táctil (fondo sólido + sombra) para el CTA principal y las cards discretas (trabajo, testimonios); el resto de los botones se queda editorial.",
+      "Resolver la profundidad de listas continuas (fila de servicio) con el invertido de color al hover, no con box-shadow."
+    ],
+    "donts": [
+      "Introducir un segundo color de acento — el sistema es deliberadamente mono-acento.",
+      "Usar radios intermedios tipo \"8px card\" — el vocabulario de forma es recto, circular o pill, nada entre medio.",
+      "Apagar el foco visible (outline:none) sin un reemplazo de contraste equivalente.",
+      "Aplicar box-shadow a una fila de una lista continua con divisores hairline — choca contra el borde del vecino (\"tarjeta fantasma\"); usar el invertido de color en su lugar."
+    ]
+  }
+}

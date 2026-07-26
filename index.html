@@ -257,7 +257,18 @@ section{ position:relative; }
   display:flex; align-items:center; gap:10px; font-size:11px; letter-spacing:.16em; text-transform:uppercase; opacity:.6;
 }
 .hero-scroll-cue svg{ width:12px; height:18px; animation: float-y 2.2s ease-in-out infinite; }
-.hero-cta{ color: var(--paper); }
+/* tactile CTA variant (DESIGN.md: more physical presence than the line-only editorial button) */
+.hero-cta, .finale-submit{
+  border:none; border-radius:100px; background: var(--violet-mid); color: var(--paper);
+  padding: 18px 32px;
+  box-shadow: 0 24px 48px -24px rgba(20,10,40,.4);
+  transition: background .3s var(--ease), transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.hero-cta:hover, .finale-submit:hover{
+  opacity:1; background: var(--violet-bright);
+  transform: translateY(-3px);
+  box-shadow: 0 32px 60px -20px rgba(20,10,40,.5);
+}
 
 /* ==========================================================================
    MARCAS (logos + stats)
@@ -345,7 +356,12 @@ section{ position:relative; }
   position:relative; aspect-ratio: 9/16; border-radius: var(--radius-soft);
   background: linear-gradient(160deg, var(--violet-cool), var(--black-soft) 55%, var(--violet-warm));
   overflow:hidden; isolation:isolate;
+  /* a dark rgba(20,10,40) shadow reads as intended on paper but disappears against this section's near-black
+     background, so on-dark surfaces get a violet glow instead — same "warm, never neutral" rule, adapted for depth */
+  box-shadow: 0 24px 48px -16px rgba(161,90,207,.25);
+  transition: box-shadow .4s var(--ease), transform .4s var(--ease);
 }
+.work-card:hover .work-frame{ box-shadow: 0 28px 64px -12px rgba(161,90,207,.4); transform: translateY(-4px); }
 .work-frame::before{
   content:''; position:absolute; inset:0;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/></svg>");
@@ -527,7 +543,7 @@ section{ position:relative; }
 }
 .field textarea{ resize:none; min-height: 70px; }
 .field input:focus, .field textarea:focus{ outline:none; border-color: var(--violet-bright); }
-.finale-submit{ align-self:flex-start; margin-top:8px; color: var(--paper); }
+.finale-submit{ align-self:flex-start; margin-top:8px; }
 
 .finale-footer{
   margin-top: clamp(80px,10vw,140px); padding-top: clamp(28px,4vw,40px);
