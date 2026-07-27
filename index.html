@@ -318,10 +318,9 @@ section{ position:relative; }
 .audience-item p{ font-size: clamp(15px,1.6vw,18px); line-height:1.5; }
 
 .audience-outro{
-  margin-top: clamp(28px,4vw,36px);
-  display:flex; align-items:center; gap:14px; font-family: var(--serif); font-size: clamp(1.2rem,1.9vw,1.5rem); font-style:italic;
+  margin-top: clamp(56px,8vw,88px); text-align:center;
+  font-family: var(--serif); font-size: clamp(1.8rem,3.4vw,3rem); font-style:italic;
 }
-.audience-outro svg{ width:24px; height:24px; color: var(--terracota); flex:none; }
 
 /* ==========================================================================
    CASOS DE ESTUDIO — marcos tipo polaroid
@@ -684,18 +683,13 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
           <p class="audience-lead">Trabajo con marcas y creadores que quieren <span class="underline-key">dejar de publicar por publicar.</span></p>
         </div>
         <div class="hairline vertical" aria-hidden="true"></div>
-        <div>
-          <ul class="audience-list">
-            <li class="audience-item" data-reveal><span class="dot"></span><p>Buscás construir una identidad sin perder tu autenticidad.</p></li>
-            <li class="audience-item" data-reveal><span class="dot"></span><p>Necesitás una comunicación más clara y consistente.</p></li>
-            <li class="audience-item" data-reveal><span class="dot"></span><p>Querés convertir la atención en oportunidades.</p></li>
-          </ul>
-          <div class="audience-outro" data-reveal>
-            <svg class="g-icon"><use href="#i-ring"/></svg>
-            Estás en el <span class="underline-key">lugar correcto</span>.
-          </div>
-        </div>
+        <ul class="audience-list">
+          <li class="audience-item" data-reveal><span class="dot"></span><p>Buscás construir una identidad sin perder tu autenticidad.</p></li>
+          <li class="audience-item" data-reveal><span class="dot"></span><p>Necesitás una comunicación más clara y consistente.</p></li>
+          <li class="audience-item" data-reveal><span class="dot"></span><p>Querés convertir la atención en oportunidades.</p></li>
+        </ul>
       </div>
+      <p class="audience-outro" data-reveal>Estás en el <span class="underline-key">lugar correcto</span>.</p>
     </div>
   </section>
 
@@ -1076,7 +1070,7 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
         p.textContent = full.slice(0, i);
         i++;
         if (i <= full.length) {
-          setTimeout(tick, 12);
+          setTimeout(tick, 32);
         } else {
           step.classList.remove('is-typing');
         }
@@ -1088,7 +1082,7 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
       pvTicking = false;
       const rect = pvSection.getBoundingClientRect();
       const vh = window.innerHeight;
-      const progress = Math.min(Math.max((vh * 0.75 - rect.top) / (rect.height * 0.55), 0), 1);
+      const progress = Math.min(Math.max((vh * 0.75 - rect.top) / (rect.height * 1.1), 0), 1);
       pvFill.style.transform = `scaleX(${progress})`;
       const activeIdx = progress > 0 ? Math.min(pvSteps.length - 1, Math.floor(progress * pvSteps.length)) : -1;
       pvSteps.forEach((step, i) => {
