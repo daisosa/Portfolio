@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#F8F0EA;color:#3A2A2E}img{max-width:100%}</style>
+<meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#D9D0DD;color:#362A3B}img{max-width:100%}</style>
 <title>Dai Sosa — Estrategia de Contenido | Portfolio Freelance</title>
 <meta name="description" content="Portfolio de Dai Sosa: estrategia de contenido y creación de contenido para marcas. Buenos Aires, Argentina.">
 <link rel="preload" href="fonts/archivo-100-900-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -11,30 +11,31 @@
 @font-face{font-family:'Caveat';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/caveat-700-normal.woff2') format('woff2');}
 /* ==========================================================================
    DAI SOSA — PORTFOLIO
-   Sistema visual: "Lavanda-durazno" — cálido artesanal, inspirado libremente
-   en Muse Studio (no copiado literal). Crema tibio en toda la superficie,
-   dos blobs pastel muy difuminados (lavanda + durazno) como firma atmosférica
-   recurrente. Georgia editorial para titulares, Caveat (script real) solo
-   para la palabra de énfasis del hero, Archivo para cuerpo. Sin mono técnico,
-   sin esquinas duras: esto reemplaza por completo al sistema anterior
-   ("Sala de Montaje", cinematográfico y de acento único amatista).
+   Sistema visual: "Ciruela premium" — reskin de color sobre el mismo sistema
+   "Lavanda-durazno" (misma estructura, layout, jerarquía y componentes).
+   Base lavanda-gris tibia en toda la superficie, dos blobs difuminados
+   (accent rosado + secondary ciruela) como firma atmosférica recurrente.
+   Georgia editorial para titulares, Caveat (script real) solo para la
+   palabra de énfasis del hero, Archivo para cuerpo. Sin mono técnico,
+   sin esquinas duras — únicamente cambia la paleta, no la interfaz.
    ========================================================================== */
 
 
 /* ---------- 1. TOKENS ---------- */
 :root{
-  /* color — paleta pinneada "Lavanda-durazno" (cálido artesanal) */
-  --cream:      #F8F0EA; /* base tibia — hero, para quién es, proceso, servicios, sobre mí */
-  --cream-warm: #F4E6D8; /* casos de estudio, testimonios */
-  --cream-deep: #EDE0D0; /* CTA final / footer — el crema más profundo, nunca negro */
-  --ink:        #3A2A2E; /* texto principal, marcos oscuros de foto/video */
-  --ink-soft:   color-mix(in oklch, #3A2A2E 85%, white 15%);
-  --ink-muted:  #6B5058; /* texto secundario — ~6.4:1 sobre --cream (WCAG AA) */
-  --lavanda:       #D8C7E8; /* blob 1, CTA principal */
-  --lavanda-hover: color-mix(in oklch, #D8C7E8 78%, #6B4E6B 22%);
-  --durazno:       #F0C9A0; /* blob 2, dots y tintes decorativos — nunca texto */
-  --terracota:     #B2703C; /* énfasis de titular y numerales grandes — 3.5:1, solo texto ≥24px */
-  --line-on-cream: oklch(30% 0.03 340 / 0.14);
+  /* color — paleta pinneada "Ciruela premium" (elegante, moderna, premium) */
+  --cream:      #D9D0DD; /* base — hero, para quién es, proceso, servicios, sobre mí (Background Light, ajustado para contraste AA) */
+  --cream-warm: #D2C3D7; /* casos de estudio, testimonios */
+  --cream-deep: #C3AECB; /* CTA final / footer — el tono más saturado, nunca negro */
+  --ink:        #362A3B; /* texto principal, marcos oscuros de foto/video — derivado de Primary */
+  --ink-soft:   color-mix(in oklch, #362A3B 85%, white 15%);
+  --ink-muted:  #513C55; /* texto secundario — ~5.9:1 sobre --cream-warm (WCAG AA) */
+  --lavanda:       #E6CBD6; /* Accent — blob 1, CTA principal */
+  --lavanda-hover: #5E4966; /* Primary oscurecido — hover del CTA */
+  --durazno:       #9077A0; /* Secondary — blob 2, dots y tintes decorativos — nunca texto */
+  --terracota:     #3E5220; /* Success/Contrast — énfasis de titular y numerales grandes — 4.2:1+, solo texto ≥24px */
+  --line-on-cream: oklch(32% 0.05 320 / 0.16);
+  --shadow-rgb: 107, 83, 112; /* Primary — base de todas las sombras del sitio */
 
   /* type */
   --serif: Georgia, 'Times New Roman', serif;
@@ -127,6 +128,11 @@ section{ position:relative; }
 }
 .blob{ animation: blob-breathe 14s var(--ease-soft) infinite; }
 .blob-durazno{ animation-delay: -7s; }
+
+/* reusable ambient glow — same blob vocabulary, toned down for content-dense
+   light sections; sits behind the section's own .container via z-index */
+.section-glow{ position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+.section-glow .blob{ opacity:.28; }
 
 /* reveal utilities (JS toggles .is-in) */
 [data-reveal]{ opacity:0; transform: translateY(28px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
@@ -240,13 +246,13 @@ section{ position:relative; }
 .hero-cta, .finale-submit{
   border:none; border-radius: var(--radius-pill); background: var(--lavanda); color: var(--ink);
   padding: 18px 32px;
-  box-shadow: 0 20px 40px -22px rgba(90,60,70,.35);
+  box-shadow: 0 20px 40px -22px rgba(var(--shadow-rgb),.35);
   transition: background .3s var(--ease), transform .3s var(--ease), box-shadow .3s var(--ease);
 }
 .hero-cta:hover, .finale-submit:hover{
   opacity:1; background: var(--lavanda-hover); color: var(--cream);
   transform: translateY(-3px);
-  box-shadow: 0 26px 52px -18px rgba(90,60,70,.45);
+  box-shadow: 0 26px 52px -18px rgba(var(--shadow-rgb),.45);
 }
 
 /* ==========================================================================
@@ -288,7 +294,10 @@ section{ position:relative; }
 /* ==========================================================================
    PARA QUIÉN ES
    ========================================================================== */
-.audience{ padding-block: var(--section-y); }
+.audience{ padding-block: var(--section-y); overflow:hidden; }
+.audience > .container{ position:relative; z-index:1; }
+.audience .section-glow .blob-lavanda{ width:clamp(260px,32vw,420px); height:clamp(260px,32vw,420px); top:-10%; right:-8%; }
+.audience .section-glow .blob-durazno{ width:clamp(220px,28vw,360px); height:clamp(220px,28vw,360px); bottom:-15%; left:-6%; }
 .audience-top{ display:grid; grid-template-columns: 1fr 1px 1fr; gap: clamp(32px,6vw,80px); align-items:start; }
 .audience-top .hairline.vertical{ width:1px; height:100%; }
 .audience-lead{ font-family: var(--serif); font-size: clamp(1.9rem,3.2vw,3rem); line-height:1.24; }
@@ -340,10 +349,10 @@ section{ position:relative; }
 .work-frame{
   position:relative; aspect-ratio: 9/16; border-radius: var(--radius-card);
   background: var(--cream); padding: 12px 12px 34px; isolation:isolate;
-  box-shadow: 0 20px 40px -20px rgba(90,60,70,.24);
+  box-shadow: 0 20px 40px -20px rgba(var(--shadow-rgb),.24);
   transition: box-shadow .4s var(--ease);
 }
-.work-card:hover .work-frame{ box-shadow: 0 28px 56px -16px rgba(90,60,70,.32); }
+.work-card:hover .work-frame{ box-shadow: 0 28px 56px -16px rgba(var(--shadow-rgb),.32); }
 .work-frame .plate{ position:absolute; inset:12px 12px 34px; border-radius:10px; background: linear-gradient(160deg, var(--ink-soft), var(--ink) 60%); overflow:hidden; }
 .work-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition: opacity .6s var(--ease); }
 .work-frame.is-loaded .work-video{ opacity:1; }
@@ -413,12 +422,12 @@ section{ position:relative; }
   scroll-snap-align:center; flex: none; width: clamp(240px,27vw,320px); aspect-ratio: 3/4;
   background: var(--cream); border-radius: var(--radius-card); padding: 16px 16px 20px;
   display:flex; flex-direction:column; justify-content:space-between;
-  box-shadow: 0 20px 40px -22px rgba(90,60,70,.22);
+  box-shadow: 0 20px 40px -22px rgba(var(--shadow-rgb),.22);
   transition: box-shadow .4s var(--ease), transform .4s var(--ease);
 }
 .testimonial-card:nth-child(odd){ transform: rotate(-1.6deg); }
 .testimonial-card:nth-child(even){ transform: rotate(1.8deg); margin-top: 24px; }
-.testimonial-card:hover{ transform: rotate(0) translateY(-6px); box-shadow: 0 28px 52px -18px rgba(90,60,70,.3); }
+.testimonial-card:hover{ transform: rotate(0) translateY(-6px); box-shadow: 0 28px 52px -18px rgba(var(--shadow-rgb),.3); }
 .testimonial-shot{
   flex:1; border-radius:10px; position:relative; overflow:hidden;
   background: repeating-linear-gradient(135deg, var(--cream-warm), var(--cream-warm) 10px, var(--cream) 10px, var(--cream) 20px);
@@ -468,12 +477,15 @@ section{ position:relative; }
    SOBRE MÍ
    ========================================================================== */
 .about{ padding-block: var(--section-y); background: var(--cream); overflow:hidden; }
+.about > .container{ position:relative; z-index:1; }
+.about .section-glow .blob-lavanda{ width:clamp(240px,30vw,400px); height:clamp(240px,30vw,400px); top:-12%; left:-8%; }
+.about .section-glow .blob-durazno{ width:clamp(220px,26vw,340px); height:clamp(220px,26vw,340px); bottom:-10%; right:-6%; }
 .about-grid{ display:block; position:relative; }
 .about-photo{ position:absolute; top:0; right:0; width: clamp(180px,24vw,300px); }
 .about-photo-frame{
   aspect-ratio: 4/5; background: linear-gradient(160deg, var(--ink-soft), var(--ink) 60%);
   position:relative; overflow:hidden; border-radius: var(--radius-card);
-  box-shadow: 0 20px 40px -20px rgba(90,60,70,.28);
+  box-shadow: 0 20px 40px -20px rgba(var(--shadow-rgb),.28);
   transform: rotate(2deg);
 }
 .about-photo-frame .fig{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color: var(--cream); opacity:.5; }
@@ -481,7 +493,7 @@ section{ position:relative; }
 .about-photo-cap{
   position:absolute; left:12px; bottom:-14px; background: var(--cream);
   padding: 7px 13px; font-family: var(--serif); font-style:italic; font-size:12px; color: var(--ink-muted);
-  border-radius: var(--radius-pill); box-shadow: 0 8px 18px -10px rgba(90,60,70,.3);
+  border-radius: var(--radius-pill); box-shadow: 0 8px 18px -10px rgba(var(--shadow-rgb),.3);
 }
 .about-copy{ padding-right: clamp(200px,26vw,320px); max-width:100%; }
 .about-copy .kicker{ margin-bottom: 18px; display:block; }
@@ -677,6 +689,10 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
        03 — PARA QUIÉN ES
        ========================================================================== -->
   <section class="audience settle-section" id="para-quien">
+    <div class="section-glow" aria-hidden="true">
+      <div class="blob blob-lavanda"></div>
+      <div class="blob blob-durazno"></div>
+    </div>
     <div class="container">
       <div class="audience-top">
         <div data-reveal>
@@ -893,6 +909,10 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
        08 — SOBRE MÍ
        ========================================================================== -->
   <section class="about settle-section" id="sobre-mi">
+    <div class="section-glow" aria-hidden="true">
+      <div class="blob blob-lavanda"></div>
+      <div class="blob blob-durazno"></div>
+    </div>
     <div class="container">
       <div class="about-grid">
         <div class="about-copy" data-reveal>
