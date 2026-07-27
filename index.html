@@ -255,17 +255,33 @@ section{ position:relative; }
 }
 
 /* ==========================================================================
-   MARCAS (departures-style static row + stats)
+   MARCAS (auto-scroll marquee of PNG logos + stats)
    ========================================================================== */
 .brands{ background: var(--cream); padding-block: clamp(56px,8vw,88px) 0; }
-.board{ border-top:1px solid var(--line-on-cream); border-bottom:1px solid var(--line-on-cream); padding-block: clamp(18px,2.6vw,28px); }
-.board-row{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap: clamp(20px,3.4vw,44px); padding-inline: var(--gutter); }
-.brand-item{
-  display:flex; align-items:center; gap: clamp(20px,3.4vw,44px);
-  font-family: var(--serif); font-size: clamp(18px,1.8vw,24px); white-space:nowrap; color: var(--ink-muted);
+.marquee{
+  border-top:1px solid var(--line-on-cream); border-bottom:1px solid var(--line-on-cream);
+  padding-block: clamp(18px,2.6vw,28px); overflow:hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
+.marquee-track{
+  display:flex; align-items:center; width:max-content; gap: clamp(40px,6vw,72px);
+  animation: marquee 36s linear infinite;
+}
+.marquee:hover .marquee-track{ animation-play-state: paused; }
+@keyframes marquee{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
+.brand-item{ display:flex; align-items:center; gap: clamp(20px,3.4vw,44px); flex:none; }
 .brand-item .tick{ width:5px; height:5px; border-radius:50%; background: var(--durazno); opacity:.9; flex:none; }
-.brand-item:last-child .tick{ display:none; }
+/* logo art comes from the client, so it's neutralized to grayscale to keep the warm
+   editorial palette intact; hover reveals real color as a small reward, not the default state */
+.brand-logo{
+  height: clamp(22px,2.6vw,32px); width:auto; max-width: 160px; object-fit:contain;
+  filter: grayscale(1); opacity:.55;
+  transition: opacity .35s var(--ease-soft), filter .35s var(--ease-soft);
+}
+.brand-item:hover .brand-logo{ filter:grayscale(0); opacity:1; }
+.brand-fallback{
+  font-family: var(--serif); font-size: clamp(18px,1.8vw,24px); color: var(--ink-muted); white-space:nowrap;
+}
 
 .stats{ display:grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 0; margin-top: clamp(48px,7vw,72px); }
 .stats .stat{ padding: clamp(20px,3vw,32px) clamp(20px,4vw,40px); border-left:1px solid var(--line-on-cream); }
@@ -600,15 +616,22 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
        02 — MARCAS
        ========================================================================== -->
   <section class="brands settle-section" id="marcas">
-    <div class="board" style="margin-top:24px">
-      <div class="board-row">
-        <div class="brand-item"><span>Hongos Porto</span><span class="tick"></span></div>
-        <div class="brand-item"><span>Café Martínez</span><span class="tick"></span></div>
-        <div class="brand-item"><span>Brahma</span><span class="tick"></span></div>
-        <div class="brand-item"><span>Roche</span><span class="tick"></span></div>
-        <div class="brand-item"><span>Oregon Hotel</span><span class="tick"></span></div>
-        <div class="brand-item"><span>Tun</span></div>
+    <div class="marquee" style="margin-top:24px">
+      <div class="marquee-track" id="brand-track" aria-hidden="true">
+        <div class="brand-item"><img class="brand-logo" src="logos/hongos-porto.png" alt="Hongos Porto" loading="lazy"><span class="tick"></span></div>
+        <div class="brand-item"><img class="brand-logo" src="logos/cafe-martinez.png" alt="Café Martínez" loading="lazy"><span class="tick"></span></div>
+        <div class="brand-item"><img class="brand-logo" src="logos/brahma.png" alt="Brahma" loading="lazy"><span class="tick"></span></div>
+        <div class="brand-item"><img class="brand-logo" src="logos/roche.png" alt="Roche" loading="lazy"><span class="tick"></span></div>
+        <div class="brand-item"><img class="brand-logo" src="logos/oregon-hotel.png" alt="Oregon Hotel" loading="lazy"><span class="tick"></span></div>
+        <div class="brand-item"><img class="brand-logo" src="logos/tun.png" alt="Tun" loading="lazy"><span class="tick"></span></div>
+        <div class="brand-item"><img class="brand-logo" src="logos/hongos-porto.png" alt="Hongos Porto" loading="lazy"><span class="tick"></span></div>
+        <div class="brand-item"><img class="brand-logo" src="logos/cafe-martinez.png" alt="Café Martínez" loading="lazy"><span class="tick"></span></div>
+        <div class="brand-item"><img class="brand-logo" src="logos/brahma.png" alt="Brahma" loading="lazy"><span class="tick"></span></div>
+        <div class="brand-item"><img class="brand-logo" src="logos/roche.png" alt="Roche" loading="lazy"><span class="tick"></span></div>
+        <div class="brand-item"><img class="brand-logo" src="logos/oregon-hotel.png" alt="Oregon Hotel" loading="lazy"><span class="tick"></span></div>
+        <div class="brand-item"><img class="brand-logo" src="logos/tun.png" alt="Tun" loading="lazy"></div>
       </div>
+      <span class="visually-hidden">Marcas con las que trabajé: Hongos Porto, Café Martínez, Brahma, Roche, Oregon Hotel, Tun.</span>
     </div>
 
     <div class="container">
@@ -945,6 +968,19 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
   /* ---------- year ---------- */
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* ---------- brand logos: fall back to the name if the PNG isn't there yet ---------- */
+  const brandTrack = document.getElementById('brand-track');
+  if (brandTrack) {
+    brandTrack.querySelectorAll('.brand-logo').forEach(img => {
+      img.addEventListener('error', () => {
+        const fallback = document.createElement('span');
+        fallback.className = 'brand-fallback';
+        fallback.textContent = img.alt;
+        img.replaceWith(fallback);
+      }, { once: true });
+    });
+  }
 
   /* ---------- mobile nav ---------- */
   const navToggle = document.getElementById('nav-toggle');
