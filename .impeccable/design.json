@@ -1,31 +1,35 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-07-26T00:00:00.000Z",
+  "generatedAt": "2026-07-27T00:00:00.000Z",
   "title": "Design System: Dai Sosa — Portfolio",
   "extensions": {
     "colorMeta": {
-      "noir": { "role": "neutral", "displayName": "Dark Purple", "canonical": "#3A1C36", "tonalRamp": ["#150A13", "#221120", "#3A1C36", "#573153", "#785271", "#9B71B2", "#C09FCB", "#E3D0EA"] },
-      "amethyst": { "role": "primary", "displayName": "Amethyst", "canonical": "#9B71B2", "tonalRamp": ["#2D1F33", "#4A3452", "#6B4B76", "#9B71B2", "#B191C4", "#C6B0D6", "#DBD0E7", "#F0EFF7"] },
-      "thistle": { "role": "neutral", "displayName": "Thistle", "canonical": "#E3D0EA", "tonalRamp": ["#3A1C36", "#6B4B76", "#9B71B2", "#C6B0D6", "#E3D0EA", "#EEE2F1", "#F6EEF8", "#FBF7FC"] },
-      "olive": { "role": "secondary", "displayName": "Olive", "canonical": "#6C6D11", "tonalRamp": ["#25260A", "#3D3E10", "#54551A", "#6C6D11", "#8B8C2E", "#ABAC55", "#C9CA88", "#E6E7BE"] },
-      "moss": { "role": "secondary", "displayName": "Cal Poly Green", "canonical": "#374126", "tonalRamp": ["#131711", "#20261A", "#2C3521", "#374126", "#4E5C37", "#6C7C4E", "#93A575", "#C3CFAE"] },
-      "paper": { "role": "neutral", "displayName": "Paper", "canonical": "#F4EEF4", "tonalRamp": ["#3A1C36", "#6B5568", "#A692A8", "#D2C4D4", "#ECE0EC", "#F4EEF4", "#F9F5F9", "#FDFCFD"] },
-      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#1E1220", "tonalRamp": ["#0A060B", "#1E1220", "#332030", "#4E3849", "#6B5568", "#8F7B92", "#B7A9B9", "#E0D9E0"] }
+      "cream": { "role": "neutral", "displayName": "Warm Cream", "canonical": "#F8F0EA", "tonalRamp": ["#2E2620", "#4E443A", "#726456", "#9C8C7A", "#C7B9A8", "#E1D5C4", "#F8F0EA", "#FCF9F5"] },
+      "cream-warm": { "role": "neutral", "displayName": "Cream Warm", "canonical": "#F4E6D8", "tonalRamp": ["#2C2318", "#4B3E2C", "#6F5C42", "#998060", "#C4AB86", "#DECBB4", "#F4E6D8", "#FAF3EB"] },
+      "cream-deep": { "role": "neutral", "displayName": "Cream Deep", "canonical": "#EDE0D0", "tonalRamp": ["#2A2216", "#463823", "#6A5636", "#93794E", "#BFA679", "#D9C6A9", "#EDE0D0", "#F7F0E6"] },
+      "ink": { "role": "neutral", "displayName": "Warm Ink", "canonical": "#3A2A2E", "tonalRamp": ["#0E0A0B", "#1E1517", "#3A2A2E", "#584047", "#7A5C64", "#9F8188", "#C6ADB2", "#E7DBDE"] },
+      "ink-muted": { "role": "neutral", "displayName": "Ink Muted", "canonical": "#6B5058", "tonalRamp": ["#181214", "#2D2226", "#453338", "#6B5058", "#8F7178", "#B29A9F", "#D5C6C9", "#EDE4E6"] },
+      "lavanda": { "role": "primary", "displayName": "Soft Lavender", "canonical": "#D8C7E8", "tonalRamp": ["#2D1F38", "#4A3652", "#6B4E76", "#9271A8", "#B79EC8", "#D8C7E8", "#E9DEF1", "#F7F1FA"] },
+      "lavanda-hover": { "role": "primary", "displayName": "Lavender Hover", "canonical": "color-mix(in oklch, #D8C7E8 78%, #6B4E6B 22%)" },
+      "durazno": { "role": "secondary", "displayName": "Peach Blush", "canonical": "#F0C9A0", "tonalRamp": ["#3D260F", "#63401A", "#8A5C28", "#B27C3E", "#D2A264", "#F0C9A0", "#F7DCC0", "#FCEFE0"] },
+      "terracota": { "role": "secondary", "displayName": "Terracotta Ink", "canonical": "#B2703C", "tonalRamp": ["#291708", "#452712", "#67391C", "#8C5228", "#B2703C", "#CC9165", "#E2B892", "#F1DDC6"] }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "Titular del hero únicamente — tarjeta de título de film." },
-      "headline": { "displayName": "Headline", "purpose": "Título de cada sección, sin kicker ni numeración antepuesta." },
-      "label": { "displayName": "Label", "purpose": "Métricas, meta-info, tags — lectura de máquina, mono real. No se usa como kicker de sección." }
+      "display": { "displayName": "Display", "purpose": "Titular del hero — Georgia con la palabra de énfasis en Caveat terracota." },
+      "script": { "displayName": "Script Accent", "purpose": "Caveat 700, reservado a hero + CTA final + drop-cap de Sobre mí — nunca más lugares." },
+      "headline": { "displayName": "Headline", "purpose": "Título de cada sección." },
+      "label": { "displayName": "Label", "purpose": "Paso del proceso, tags de servicio — Archivo tracked, nunca mono." }
     },
     "shadows": [
-      { "name": "ambient-card", "value": "0 24px 48px -24px rgba(20,10,40,.18)", "purpose": "Reposo, superficie clara que flota (testimonios, CTA)." },
-      { "name": "lifted-card", "value": "0 32px 60px -20px rgba(20,10,40,.4)", "purpose": "Hover/activo de superficie clara." },
-      { "name": "ambient-glow-dark", "value": "0 24px 48px -16px rgba(155,113,178,.25)", "purpose": "Reposo, superficie oscura que flota (marcos de trabajo)." },
-      { "name": "lifted-glow-dark", "value": "0 28px 64px -12px rgba(155,113,178,.4)", "purpose": "Hover/activo de superficie oscura." }
+      { "name": "cta-rest", "value": "0 20px 40px -22px rgba(90,60,70,.35)", "purpose": "Reposo del CTA principal." },
+      { "name": "cta-hover", "value": "0 26px 52px -18px rgba(90,60,70,.45)", "purpose": "Hover del CTA principal." },
+      { "name": "card-ambient", "value": "0 20px 40px -20px rgba(90,60,70,.24)", "purpose": "Reposo de tarjetas Polaroid (trabajo, testimonios, foto)." },
+      { "name": "card-lifted", "value": "0 28px 56px -16px rgba(90,60,70,.32)", "purpose": "Hover de tarjetas Polaroid." }
     ],
     "motion": [
-      { "name": "section-dissolve", "value": "animation-timeline: view(); animation-range: entry 0% cover 30%; keyframes opacity .4→1, scale .985→1", "purpose": "Disolución de corte de edición al entrar cada sección al viewport. Solo opacity/transform — filter se probó y causaba jank de scroll." },
-      { "name": "ease-standard", "value": "cubic-bezier(.16,.84,.24,1)", "purpose": "Easing por defecto para transiciones de estado." }
+      { "name": "blob-breathe", "value": "14s ease-in-out infinite; translate 2%,-2% + scale 1.06 at 50%", "purpose": "Respiración lenta de los dos blobs atmosféricos — oculto por completo (display:none) bajo prefers-reduced-motion vía .cursor-dot y detenido por la regla global de animation-duration." },
+      { "name": "settle", "value": "animation-timeline: view(); animation-range: entry 0% cover 24%; opacity .5→1, translateY 18px→0", "purpose": "Asentamiento de cada sección al entrar al viewport." },
+      { "name": "ease-standard", "value": "cubic-bezier(.16,.84,.24,1)", "purpose": "Easing por defecto." }
     ],
     "breakpoints": [
       { "name": "lg", "value": "1180px" },
@@ -35,67 +39,68 @@
   },
   "components": [
     {
-      "name": "Tactile Button (CTA)",
+      "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-tactile",
-      "description": "CTA principal — pill, fondo Amethyst, texto oscuro, ícono de play como cue de 'play/record'.",
-      "html": "<a href=\"#contacto\" class=\"ds-btn-tactile\">Escribime y analicemos cómo potenciar tu contenido<svg class=\"ds-btn-icon\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"46\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M42 34 L68 50 L42 66 Z\" fill=\"currentColor\"/></svg></a>",
-      "css": ".ds-btn-tactile{ display:inline-flex; align-items:center; gap:14px; border:none; border-radius:100px; background:#9B71B2; color:#1E1220; padding:18px 32px; font-family:'Archivo',sans-serif; font-weight:600; font-size:14px; box-shadow:0 24px 48px -24px rgba(20,10,40,.4); transition:background .3s cubic-bezier(.16,.84,.24,1), transform .3s cubic-bezier(.16,.84,.24,1); } .ds-btn-tactile:hover{ background:#B99CC9; transform:translateY(-3px); box-shadow:0 32px 60px -20px rgba(20,10,40,.5); } .ds-btn-icon{ width:16px; height:16px; }"
+      "description": "CTA principal — hero y formulario de contacto.",
+      "html": "<a href=\"#contacto\" class=\"ds-btn-tactile\">Escribime y analicemos cómo potenciar tu contenido</a>",
+      "css": ".ds-btn-tactile { display: inline-flex; align-items: center; gap: 14px; border: none; border-radius: 100px; background: #D8C7E8; color: #3A2A2E; padding: 18px 32px; font-family: 'Archivo', sans-serif; font-weight: 600; font-size: 14px; box-shadow: 0 20px 40px -22px rgba(90,60,70,.35); cursor: pointer; transition: background .3s, transform .3s, box-shadow .3s, color .3s; } .ds-btn-tactile:hover { background: color-mix(in oklch, #D8C7E8 78%, #6B4E6B 22%); color: #F8F0EA; transform: translateY(-3px); box-shadow: 0 26px 52px -18px rgba(90,60,70,.45); } .ds-btn-tactile:focus-visible { outline: 2px solid #B2703C; outline-offset: 4px; }"
     },
     {
-      "name": "Editorial Button",
-      "kind": "button",
-      "refersTo": "button-editorial",
-      "description": "Botón secundario, sin relleno, línea superior/inferior — reservado a acciones secundarias.",
-      "html": "<button class=\"ds-btn-editorial\">Ver más</button>",
-      "css": ".ds-btn-editorial{ display:inline-flex; align-items:center; gap:14px; padding:14px 2px; font-family:'Archivo',sans-serif; font-weight:600; font-size:14px; border-top:1px solid currentColor; border-bottom:1px solid currentColor; background:none; color:#1E1220; cursor:pointer; transition:opacity .3s; } .ds-btn-editorial:hover{ opacity:.7; }"
-    },
-    {
-      "name": "Process Timeline",
-      "kind": "custom",
-      "description": "Fila de 4 pasos sobre un track horizontal con tag de timecode local y dot amatista — reemplazó la grilla asimétrica de 'Cómo trabajo' vía live-mode. No es un kicker de sección.",
-      "html": "<div class=\"pv-timeline\"><div class=\"pv-track\"></div><div class=\"pv-step\"><span class=\"pv-tag\">00:00:01:00</span><span class=\"pv-dot\"></span><h3>Diagnosticar</h3><p>...</p></div></div>",
-      "css": ".pv-timeline{ position:relative; display:grid; grid-template-columns: repeat(4,1fr); gap:24px; padding-top:32px; } .pv-timeline .pv-track{ position:absolute; left:0; right:0; top:4px; height:1px; background:#6B5568; opacity:.3; } .pv-step{ position:relative; display:flex; flex-direction:column; gap:12px; } .pv-dot{ position:absolute; top:-4px; left:0; width:9px; height:9px; border-radius:50%; background:#9B71B2; } .pv-tag{ font-family:'JetBrains Mono',monospace; font-size:10px; color:#6B5568; position:absolute; top:-28px; left:0; }"
-    },
-    {
-      "name": "Work Video Card",
+      "name": "Polaroid Card",
       "kind": "card",
-      "description": "Card de proyecto 9:16 — placeholder con grano LUT, autoplay muted on-hover cuando hay video real, tap sube el sonido.",
-      "html": "<div class=\"ds-work-frame\"><video class=\"ds-work-video\" muted loop playsinline></video><svg class=\"ds-work-play\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"46\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M42 34 L68 50 L42 66 Z\" fill=\"currentColor\"/></svg><span class=\"ds-work-label\">Placeholder de video · 9:16</span></div>",
-      "css": ".ds-work-frame{ position:relative; aspect-ratio:9/16; border-radius:2px; background:linear-gradient(160deg,#374126,#61495E 55%,#9B71B2); overflow:hidden; box-shadow:0 24px 48px -16px rgba(155,113,178,.25); } .ds-work-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; } .ds-work-play{ position:absolute; inset:0; margin:auto; width:44px; height:44px; color:#F4EEF4; } .ds-work-label{ position:absolute; bottom:12px; left:12px; right:12px; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:#F4EEF4; opacity:.55; }"
+      "refersTo": "work-card",
+      "description": "Marco táctil recurrente — trabajo, testimonios, foto de Sobre mí. Mate crema, rotación alterna, sombra tibia.",
+      "html": "<article class=\"ds-polaroid\"><div class=\"ds-polaroid-plate\"></div></article>",
+      "css": ".ds-polaroid { display: flex; flex-direction: column; gap: 14px; transform: rotate(-1.1deg); transition: transform .4s; } .ds-polaroid:hover { transform: rotate(0) translateY(-5px); } .ds-polaroid-plate { aspect-ratio: 9/16; border-radius: 16px; background: #F8F0EA; padding: 12px 12px 34px; box-shadow: 0 20px 40px -20px rgba(90,60,70,.24); }"
+    },
+    {
+      "name": "Service Row",
+      "kind": "custom",
+      "refersTo": "service-row",
+      "description": "Fila de acordeón accesible — teclado real (tabindex, role=button, aria-expanded, Enter/Espacio), no solo click.",
+      "html": "<div class=\"ds-service-row\" tabindex=\"0\" role=\"button\" aria-expanded=\"false\"><span class=\"ds-service-index\">01</span><span class=\"ds-service-title\">Estrategia de contenido</span></div>",
+      "css": ".ds-service-row { border-top: 1px solid oklch(30% 0.03 340 / 0.14); padding: 32px 24px; display: grid; grid-template-columns: 60px 1fr; align-items: center; gap: 24px; cursor: pointer; transition: background .5s; } .ds-service-row:hover, .ds-service-row:focus-visible { background: #F4E6D8; } .ds-service-row:focus-visible { outline: 2px solid #B2703C; outline-offset: -2px; } .ds-service-index { font-family: Georgia, serif; font-style: italic; color: #6B5058; } .ds-service-title { font-family: Georgia, serif; font-size: 22px; }"
+    },
+    {
+      "name": "Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Campo de formulario — borde inferior únicamente, foco terracota visible.",
+      "html": "<div class=\"ds-field\"><label>Nombre</label><input type=\"text\"></div>",
+      "css": ".ds-field label { display: block; font-size: 12px; color: #6B5058; margin-bottom: 8px; } .ds-field input { width: 100%; background: none; border: 0; border-bottom: 1px solid oklch(30% 0.03 340 / 0.14); color: #3A2A2E; font-size: 17px; padding: 8px 2px; font-family: 'Archivo', sans-serif; transition: border-color .4s; } .ds-field input:focus { outline: 2px solid #B2703C; outline-offset: 4px; border-color: #B2703C; }"
     }
   ],
   "narrative": {
-    "northStar": "La Sala de Montaje",
-    "overview": "Una sala de edición de video al atardecer, no un portfolio de vitrina: el sitio se planta como el lugar donde el trabajo de Dai efectivamente se hace. Los títulos de sección van solos, sin kicker ni numeración antepuesta. Cada transición entre secciones es un corte o una disolución de edición, y toda la superficie se ve como si pasara por una corrección de color LUT. La paleta nace de una fotografía de ciruelas y hojas de vid a la luz baja del atardecer: violeta-ciruela oscuro, amatista polvorienta, cardo claro, y verdes oliva/musgo como luces de tally puntuales.",
+    "northStar": "Lavanda-durazno",
+    "overview": "Un portfolio cálido y hecho a mano, no una vitrina corporativa fría: la calidez es la prueba de que hay una persona real detrás del contenido. Crema tibio en toda la superficie — sin una sola sección oscura, a diferencia de cada sistema anterior de este proyecto — con dos blobs pastel muy difuminados (lavanda + durazno) como firma atmosférica recurrente en el hero y en el CTA final. El mundo reemplaza por completo al anterior (\"Sala de Montaje\", cinematográfico, violeta-amatista, Bodoni Moda + JetBrains Mono). Se llegó a esta dirección explorando de forma iterativa con la usuaria en artifacts publicados, no por el mecanismo de dado del propio skill.",
     "keyCharacteristics": [
-      "Bodoni Moda (display) interrumpe Archivo (cuerpo); JetBrains Mono reservado a datos y meta-info.",
-      "Títulos de sección solos, sin kicker ni numeración — probado con timecodes y rechazado explícitamente por el usuario.",
-      "Amatista como único acento funcional; oliva/musgo solo como detalle puntual.",
-      "Grano + viñeta fijos simulan un LUT cinematográfico en toda la página.",
-      "Cada sección se disuelve al entrar al viewport vía animation-timeline: view().",
-      "Sin diseño sonoro en esta pasada — decisión explícita del usuario, documentada como fase futura."
+      "Georgia editorial para todo titular; Caveat (script real, autohospedado) reservado exclusivamente a tres puntos de énfasis — nunca más lugares. Sin monoespaciada en ningún lugar del sistema.",
+      "Dos blobs circulares muy difuminados confluyen en hero y CTA final como bookends atmosféricos; dimensionados en clamp()/vw, nunca vmax puro, para no depender de la altura variable del contenedor.",
+      "Marco Polaroid recurrente (mate crema, rotación alterna, sombra tibia) en trabajo, testimonios y la foto de Sobre mí — el vocabulario táctil que ata todo el sistema.",
+      "Terracota es el único acento de texto con significado, y solo a tamaño grande — nunca en texto chico.",
+      "Fila de marcas estática y envuelta, sin auto-scroll infinito."
     ],
     "rules": [
-      { "name": "La Regla de un Solo Acento con Significado", "body": "El amatista es el único color funcional; oliva y musgo son atmósfera y detalle, nunca superficie dominante.", "section": "colors" },
-      { "name": "La Regla del Texto Oscuro sobre Amatista", "body": "Cualquier superficie rellena de amatista lleva texto oscuro (--on-accent), nunca claro: el amatista es demasiado medio-tono para sostener blanco en contraste AA.", "section": "colors" },
-      { "name": "La Regla del Mono para Datos", "body": "JetBrains Mono se reserva a métricas y meta-info — nunca a titulares ni copy de marca.", "section": "typography" },
-      { "name": "La Regla del Grano Permanente", "body": "El grano LUT nunca se apaga del todo, ni siquiera sobre video real cargado — es identidad, no relleno de placeholder.", "section": "elevation" }
+      { "name": "La Regla del Acento sin Texto Chico", "body": "Terracota nunca lleva texto por debajo de ~24px; a ese tamaño se usa ink o ink-muted.", "section": "colors" },
+      { "name": "La Regla de las Tres Profundidades", "body": "El crema nunca se apaga a negro — la variación tonal entre secciones viene de Cream/Cream Warm/Cream Deep, nunca de una superficie oscura.", "section": "colors" },
+      { "name": "La Regla del Script Puntual", "body": "Caveat aparece solo en tres lugares (énfasis del hero, énfasis del CTA final, drop-cap de Sobre mí) — nunca como titular completo.", "section": "typography" },
+      { "name": "La Regla Sin Mono", "body": "Ningún dato pasa a monoespaciada — ese vocabulario pertenecía al sistema anterior y este mundo lo descarta por completo.", "section": "typography" },
+      { "name": "La Regla de la Sombra Tibia", "body": "Ninguna sombra es gris neutro ni lleva el tinte exacto de un acento funcional — siempre un marrón-ciruela tibio propio.", "section": "elevation" }
     ],
     "dos": [
-      "Do usar Amethyst como único acento funcional con significado.",
-      "Do poner texto oscuro sobre cualquier relleno Amethyst.",
-      "Do dejar el título (h2) de cada sección solo, sin kicker ni numeración antepuesta.",
-      "Do mantener el grano/viñeta activos incluso sobre contenido real.",
-      "Do animar transiciones de sección solo con opacity/transform, nunca filter."
+      "Do reservar Caveat a los tres puntos de énfasis — nunca como titular completo.",
+      "Do mantener terracota fuera de texto menor a ~24px.",
+      "Do dimensionar elementos atmosféricos decorativos con clamp() en vw/px, no vmax ni porcentaje del contenedor, si ese contenedor puede crecer con contenido variable.",
+      "Do dar a cada fila interactiva no nativa tabindex, role, aria-* y manejo de teclado real.",
+      "Do respetar prefers-reduced-motion ocultando, no solo pausando, cualquier elemento decorativo en movimiento continuo."
     ],
     "donts": [
-      "Don't introducir un segundo color de acento funcional.",
-      "Don't usar Inter Tight, Instrument Serif o Inter — reemplazadas por completo.",
-      "Don't volver al grid asimétrico de proyectos.",
-      "Don't autoplay con sonido sin gesto del usuario.",
-      "Don't agregar diseño sonoro sin pedirlo de nuevo.",
-      "Don't reintroducir un kicker con timecode o numeración antepuesta a los títulos de sección — rechazado explícitamente por el usuario."
+      "Don't introducir una sección oscura/noir — este mundo es crema de punta a punta.",
+      "Don't usar mono técnico para ningún dato.",
+      "Don't volver a Bodoni Moda, Instrument Serif o Inter Tight.",
+      "Don't reintroducir un marquee de auto-scroll infinito.",
+      "Don't poner terracota como color de relleno detrás de texto."
     ]
   }
 }

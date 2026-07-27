@@ -2,49 +2,47 @@
 name: Dai Sosa — Portfolio
 description: Portfolio freelance de estrategia y creación de contenido, Buenos Aires, Argentina
 colors:
-  noir: "#3A1C36"
-  noir-soft: "color-mix(in oklch, #3A1C36 80%, white 20%)"
-  amethyst: "#9B71B2"
-  amethyst-bright: "color-mix(in oklch, #9B71B2 70%, white 30%)"
-  thistle: "#E3D0EA"
-  olive: "#6C6D11"
-  moss: "#374126"
-  paper: "#F4EEF4"
-  paper-dim: "#ECE0EC"
-  ink: "#1E1220"
-  ink-muted: "#6B5568"
-  on-accent: "#1E1220"
+  cream: "#F8F0EA"
+  cream-warm: "#F4E6D8"
+  cream-deep: "#EDE0D0"
+  ink: "#3A2A2E"
+  ink-soft: "color-mix(in oklch, #3A2A2E 85%, white 15%)"
+  ink-muted: "#6B5058"
+  lavanda: "#D8C7E8"
+  lavanda-hover: "color-mix(in oklch, #D8C7E8 78%, #6B4E6B 22%)"
+  durazno: "#F0C9A0"
+  terracota: "#B2703C"
 typography:
   display:
-    fontFamily: "'Bodoni Moda', 'Times New Roman', serif"
-    fontSize: "clamp(2.6rem, 3rem + 4.6vw, 7.6rem)"
+    fontFamily: "Georgia, 'Times New Roman', serif"
+    fontSize: "clamp(2.4rem, 2.6rem + 4vw, 6rem)"
     fontWeight: 400
-    lineHeight: 0.98
-    letterSpacing: "-0.01em"
+    lineHeight: 1.04
+    letterSpacing: "-0.005em"
+  script:
+    fontFamily: "'Caveat', 'Segoe Script', cursive"
+    fontWeight: 700
   headline:
-    fontFamily: "'Bodoni Moda', 'Times New Roman', serif"
-    fontSize: "clamp(2.2rem, 4.4vw, 4.4rem)"
+    fontFamily: "Georgia, 'Times New Roman', serif"
+    fontSize: "clamp(2.1rem, 4.2vw, 4rem)"
     fontWeight: 400
-    lineHeight: 1.05
   title:
-    fontFamily: "'Bodoni Moda', 'Times New Roman', serif"
-    fontSize: "clamp(1.5rem, 3vw, 2.6rem)"
+    fontFamily: "Georgia, 'Times New Roman', serif"
+    fontSize: "clamp(1.3rem, 2.6vw, 2.2rem)"
     fontWeight: 400
-    lineHeight: 1.15
   body:
     fontFamily: "'Archivo', 'Helvetica Neue', Arial, sans-serif"
     fontSize: "16px"
     fontWeight: 400
     lineHeight: 1.5
   label:
-    fontFamily: "'JetBrains Mono', 'Courier New', monospace"
+    fontFamily: "'Archivo', 'Helvetica Neue', Arial, sans-serif"
     fontSize: "12px"
-    fontWeight: 500
+    fontWeight: 600
     letterSpacing: "0.06em"
 rounded:
-  soft: "2px"
+  card: "16px"
   pill: "100px"
-  circle: "50%"
 spacing:
   gutter: "clamp(20px, 5vw, 64px)"
   section-y: "clamp(72px, 11vw, 168px)"
@@ -55,131 +53,124 @@ components:
     typography: "{typography.body}"
     padding: "14px 2px"
   button-tactile:
-    backgroundColor: "{colors.amethyst}"
-    textColor: "{colors.on-accent}"
+    backgroundColor: "{colors.lavanda}"
+    textColor: "{colors.ink}"
     typography: "{typography.body}"
     rounded: "{rounded.pill}"
     padding: "18px 32px"
-  chip:
-    backgroundColor: "transparent"
-    textColor: "{colors.ink-muted}"
-    typography: "{typography.label}"
-    rounded: "{rounded.pill}"
-    padding: "6px 12px"
+  button-tactile-hover:
+    backgroundColor: "{colors.lavanda-hover}"
+    textColor: "{colors.cream}"
 ---
 
 # Design System: Dai Sosa — Portfolio
 
 ## Overview
 
-**Creative North Star: "La Sala de Montaje"**
+**Creative North Star: "Lavanda-durazno"**
 
-Una sala de edición de video al atardecer, no un portfolio de vitrina: el sitio se planta como el lugar donde el trabajo de Dai efectivamente se hace, no como una galería que muestra el resultado ya terminado. Los títulos de sección van solos, sin kicker ni numeración antepuesta — decisión explícita del usuario tras probar el sistema de timecodes ("no me gusta que cada sección comience con un encabezado con una descripción literal"). Cada transición entre secciones es un corte o una disolución de edición, y toda la superficie se ve como si pasara por una corrección de color LUT — grano fino, viñeta sutil, nunca un blanco puro ni un negro plano.
-
-La paleta nace de una fotografía de ciruelas y hojas de vid a la luz baja del atardecer: violeta-ciruela oscuro, amatista polvorienta, cardo claro, y verdes oliva/musgo como luces de tally puntuales. Es un mundo botánico y cinematográfico a la vez — más bodega o galpón de montaje al final del día que estudio SaaS iluminado en neón. El sistema reemplaza por completo al anterior ("El Cuaderno de Estrategia", violeta eléctrico + papel crema): esto es un reemplazo de identidad visual, no una re-coloreada del sistema previo.
+Un portfolio cálido y hecho a mano, no una vitrina corporativa fría: la calidez es la prueba de que hay una persona real detrás del contenido. Crema tibio en toda la superficie — sin una sola sección oscura, a diferencia de cada sistema anterior de este proyecto — con dos blobs pastel muy difuminados (lavanda + durazno) como firma atmosférica recurrente en el hero y en el CTA final. El mundo reemplaza por completo al anterior ("Sala de Montaje", cinematográfico, violeta-amatista, Bodoni Moda + JetBrains Mono): esto es un reemplazo de identidad visual, no una re-coloreada. Se llegó a esta dirección explorando de forma iterativa con la usuaria en artifacts publicados (seis familias de su biblioteca de curaduría personal, luego seis variaciones propias dentro de "Cálido artesanal", luego seis variantes de la referencia "Muse Studio", hasta cerrar en esta versión lisa) — no por el mecanismo de dado del propio skill.
 
 **Key Characteristics:**
-- Serif didona de autor (Bodoni Moda) para todo titular — trae presencia de tarjeta de título de film; sans técnica (Archivo) para el cuerpo; mono (JetBrains Mono) reservado a datos tabulares y meta-info (métricas, ficha del hero).
-- Amatista como único acento de color con significado; oliva y musgo aparecen solo como detalle puntual (luz de tally), nunca como superficie dominante.
-- Grano + viñeta fijos en toda la página (`.grain`, `.vignette`) simulan ver el sitio a través de un LUT cinematográfico.
-- Cada sección (excepto el hero) se "disuelve" hacia adentro al entrar en el viewport vía `animation-timeline: view()` — un corte de edición real, no un fade-on-scroll genérico.
-- Sin diseño sonoro en esta pasada: decisión explícita del usuario, no una omisión. Documentado como fase futura.
+- Georgia editorial para todo titular; Caveat (script real, autohospedado) reservado exclusivamente a la palabra de énfasis del hero, la frase de énfasis del CTA final y la drop-cap de "Sobre mí" — nunca en más lugares. Archivo para cuerpo. Sin monoespaciada en ningún lugar del sistema.
+- Dos blobs (`.blob-lavanda`, `.blob-durazno`, círculos `border-radius:50%` con `filter:blur`) confluyen en hero y CTA final como bookends atmosféricos; su tamaño usa `clamp()` en vw/px, nunca `vmax`/porcentaje puro, para no depender de la altura del contenido del contenedor.
+- Marco "Polaroid" recurrente (mate crema, esquinas suaves, rotación alterna sutil, sombra tibia nunca gris) en las tarjetas de trabajo, testimonios y la foto de "Sobre mí" — es el vocabulario táctil que ata todo el sistema.
+- Terracota es el único acento de texto con significado, y solo a tamaño grande (≥24px): titulares de énfasis, numeral destacado de stats. Nunca en texto chico — ver Named Rule de Colors.
+- Fila de marcas estática y envuelta (sin auto-scroll infinito) — el detector de antipatrones marca los marquees como patrón de IA.
 
 ## Colors
 
-Paleta de dos temperaturas heredada de una escena real (ciruelas y hojas al atardecer): violeta-ciruela oscuro + amatista como acento funcional, cardo como highlight sobre oscuro, oliva/musgo como acento secundario puntual, y un papel tibio con base cardo para las secciones claras.
+Paleta de un crema tibio en tres profundidades y dos acentos pastel, más un acento de texto terracota.
 
 ### Primary
-- **Amethyst** (`#9B71B2`): el acento funcional — línea de progreso de scroll, botones tácticos, selección de texto, bordes en foco, dot de proceso. Sobre relleno amatista el texto es oscuro (`--on-accent`, `#1E1220`), no claro — el amatista es demasiado medio-tono para sostener texto blanco con contraste AA; el texto oscuro además da un aire de "luz de tally con número grabado", coherente con el mundo de sala de edición.
-- **Amethyst Bright** (`color-mix(in oklch, #9B71B2 70%, white 30%)`): variante hover/lift del acento — CTA al pasar el mouse, cursor a medida, línea de progreso.
+- **Lavanda** (`#D8C7E8`): blob atmosférico (hero + CTA final) y relleno del CTA principal — texto oscuro encima, ~8.6:1 medido.
 
 ### Secondary
-- **Olive** (`#6C6D11`) y **Moss** (`#374126`): acentos secundarios de uso puntual — dot de estadística, extremo frío del degradé atmosférico en fondos oscuros (hero-bg, marco de foto). Nunca cubren una superficie completa ni cargan texto.
+- **Durazno** (`#F0C9A0`): segundo blob atmosférico y dots decorativos — nunca texto, es demasiado claro para sostener contraste de lectura sobre crema.
+- **Terracota** (`#B2703C`): acento de texto — palabra de énfasis del titular, numeral destacado de stats, foco de campos. ~3.5:1 sobre `--cream`: pasa AA de texto grande (≥3:1) pero no el de texto chico (4.5:1); reservado a tamaños ≥24px o a bordes/foco, nunca a caption o link de footer.
 
 ### Neutral
-- **Thistle** (`#E3D0EA`): highlight tipográfico sobre fondo oscuro — cursiva de énfasis en el hero, subtítulo. Puramente tipográfico, nunca en botones o controles.
-- **Paper** (`#F4EEF4`) y **Paper Dim** (`#ECE0EC`): fondo de las secciones claras — un papel tibio con base cardo, no el crema amarillento del sistema anterior. Paper Dim diferencia testimonios del resto del papel.
-- **Noir** (`#3A1C36`) y **Noir Soft** (`color-mix(in oklch, #3A1C36 80%, white 20%)`): fondo de las secciones oscuras (hero, trabajo, contacto) y paneles internos (marco de foto, degradé de video).
-- **Ink** (`#1E1220`) y **Ink Muted** (`#6B5568`): texto sobre papel. Ink Muted verificado en ~5.9:1 sobre `--paper` (AA para texto normal).
+- **Cream** (`#F8F0EA`), **Cream Warm** (`#F4E6D8`), **Cream Deep** (`#EDE0D0`): las tres profundidades de fondo — Cream para hero/para quién es/proceso/servicios/sobre mí, Cream Warm para trabajo/testimonios, Cream Deep (la más profunda, nunca negra) para el CTA final/footer.
+- **Ink** (`#3A2A2E`) e **Ink Muted** (`#6B5058`): texto principal (~12:1 sobre cream) y secundario (~6.4:1 sobre cream).
 
 ### Named Rules
-**La Regla de un Solo Acento con Significado.** El amatista es el único color funcional (botones, foco, selección); oliva y musgo son atmósfera y detalle, nunca controles.
-**La Regla del Texto Oscuro sobre Amatista.** Cualquier superficie rellena de `--amethyst` lleva texto en `--on-accent` (`#1E1220`), nunca `--paper`: el amatista es demasiado medio-tono para sostener blanco en contraste AA (3.4:1 medido); el oscuro sí clara (4.6:1).
+**La Regla del Acento sin Texto Chico.** Terracota nunca lleva texto por debajo de ~24px (falla 4.5:1); a ese tamaño se usa ink o ink-muted. El hover del footer usa `--ink`, no terracota, por esta misma razón.
+**La Regla de las Tres Profundidades.** El crema nunca se apaga a negro — la variación tonal entre secciones viene de Cream/Cream Warm/Cream Deep, nunca de una sección oscura.
 
 ## Typography
 
-**Display Font:** Bodoni Moda (con Times New Roman de respaldo)
-**Body Font:** Archivo (con Helvetica Neue, Arial de respaldo)
-**Label/Mono Font:** JetBrains Mono (con Courier New de respaldo)
+**Display/Body Font:** Georgia (con Times New Roman de respaldo) para titulares; Archivo (variable, 100–900) para cuerpo.
+**Script Font:** Caveat 700 (autohospedado, `fonts/caveat-700-normal.woff2`) — real, no depende de fuentes del sistema del visitante.
 
-**Character:** Una didona de autor con presencia de tarjeta de título de cine interrumpe una sans técnica y neutra; los datos — métricas, meta-info — pasan a un monoespaciado real, no decorativo, porque en esta sala son lecturas de máquina, no texto de marca.
+**Character:** Una serif editorial de peso normal sostiene toda la jerarquía de titulares; el script solo aparece como acento puntual de "escrito a mano" en tres lugares exactos (hero, CTA final, drop-cap), nunca como cuerpo de titular completo.
 
 ### Hierarchy
-- **Display** (400, `clamp(2.6rem, 3rem + 4.6vw, 7.6rem)`, line-height 0.98): titular del hero únicamente. La cursiva de énfasis usa Thistle.
-- **Headline** (400, `clamp(2.2rem, 4.4vw, 4.4rem)`): título de cada sección, sin kicker ni numeración antepuesta.
-- **Title** (400, `clamp(1.5rem, 3vw, 2.6rem)` a `clamp(18px, 1.6vw, 22px)` según componente): nombres de proyecto, título de servicio, paso de proceso.
-- **Body** (400, 16px, line-height 1.5): párrafos y copy general.
-- **Label** (500, 12px, tracking 0.06em, uppercase, mono): tags de servicio, métricas de proyecto, meta-info del hero, la etiqueta "Quién escribe esto" en Sobre mí.
+- **Display** (400, `clamp(2.4rem, 2.6rem + 4vw, 6rem)`, line-height 1.04): titular del hero. La palabra de énfasis pasa a Caveat 700, color terracota, ~1.2em.
+- **Headline** (400, `clamp(2.1rem, 4.2vw, 4rem)`): título de cada sección.
+- **Title** (400, `clamp(1.3rem, 2.6vw, 2.2rem)` según componente): nombre de servicio, paso del proceso, nombre de proyecto.
+- **Body** (400, 16px, line-height 1.5–1.7): párrafos y copy general.
+- **Label** (600, 11–13px, tracking .04–.1em): "PASO 0N" del proceso, tags de servicio.
 
 ### Named Rules
-**La Regla del Mono para Datos.** JetBrains Mono se reserva a lecturas de datos/metadata (métricas, meta-info) — nunca a titulares ni a copy de marca.
+**La Regla del Script Puntual.** Caveat aparece solo en tres lugares (énfasis del hero, énfasis del CTA final, drop-cap de "Sobre mí") — nunca como titular completo ni como cuerpo, y nunca fuera de esos tres puntos.
+**La Regla Sin Mono.** Ningún dato (métricas, timestamps, códigos) pasa a monoespaciada — ese vocabulario pertenecía al sistema anterior y este mundo lo descarta por completo.
 
 ## Layout
 
-Contenedor centrado con `max-width: 1440px` y padding lateral fluido (`--gutter`). Ritmo vertical entre secciones controlado por un único token (`--section-y`). Grid de proyectos ahora uniforme: `repeat(3, 1fr)` sin coreografía asimétrica (antes tenía spans y márgenes escalonados por card) — decisión explícita del usuario, "más sobrio". Responsive en tres quiebres (1180px, 860px, 600px); el grid de proyectos cae a 2 columnas en 860px y a 1 en 600px.
+Contenedor centrado `max-width: 1440px`, padding lateral fluido (`--gutter`). Ritmo vertical por `--section-y` (`clamp(72px,11vw,168px)`). Grid de proyectos `repeat(3, 1fr)` con rotación alterna ±1.1–1.3deg (efecto Polaroid disperso sobre la mesa). Responsive en tres quiebres (1180px, 860px, 600px): a 1180px la foto de "Sobre mí" pasa a flujo estático — pero mantiene `position:relative` (no `static`) para que su chip de caption siga contenida y no se desprenda del marco.
 
 ## Elevation & Depth
 
-Se mantiene el vocabulario de sombra tibia del sistema anterior (nunca gris neutro): sombra violeta-tinta oscura sobre papel, resplandor amatista claro sobre noir. Se suma una capa nueva, fija y global: `.grain` (ruido `feTurbulence`, opacity .07, `mix-blend-mode: overlay`) + `.vignette` (radial-gradient oscuro, `mix-blend-mode: multiply`, transparente en el 50% central). Justificación: esta textura no es decoración genérica — es el mecanismo central del brief confirmado por el usuario ("quiero que se vea a través de un LUT cinematográfico"), así que se mantiene pese a que el detector de calidad marca `feTurbulence` como antipatrón por defecto.
+Sombras siempre tibias (`rgba(90,60,70,...)` o `rgba(90,60,50,...)`), nunca grises ni con tinte del acento funcional (terracota/lavanda) en el propio color de sombra — evita el patrón de "glow coloreado" que el detector de antipatrones marca como IA. Profundidad adicional viene de la rotación sutil de las tarjetas Polaroid, no de capas de sombra apiladas.
 
 ### Shadow Vocabulary
-- **ambient-card** (`box-shadow: 0 24px 48px -24px rgba(20,10,40,.18)`): reposo, superficie clara que flota (testimonios, CTA principal).
-- **lifted-card** (`box-shadow: 0 32px 60px -20px rgba(20,10,40,.24–.5)`): hover/activo de la misma superficie clara.
-- **ambient-glow-dark** (`box-shadow: 0 24px 48px -16px rgba(155,113,178,.25)`): reposo, superficie oscura que flota (marcos de trabajo).
-- **lifted-glow-dark** (`box-shadow: 0 28px 64px -12px rgba(155,113,178,.4)`): hover/activo de la misma superficie oscura.
+- **cta-rest** / **cta-hover**: `0 20px 40px -22px rgba(90,60,70,.35)` → `0 26px 52px -18px rgba(90,60,70,.45)`, CTA principal.
+- **card-ambient** / **card-lifted**: `0 20px 40px -20px rgba(90,60,70,.24)` → `0 28px 56px -16px rgba(90,60,70,.32)`, tarjetas Polaroid (trabajo, testimonios, foto).
 
 ### Named Rules
-**La Regla de la Sombra Tibia.** Ninguna sombra es gris neutro: violeta-tinta oscura sobre papel, resplandor amatista claro sobre noir.
-**La Regla del Grano Permanente.** El grano LUT nunca se apaga del todo, ni siquiera sobre video real cargado (`.work-frame.is-loaded::before{ opacity:.22 }`) — la gradación es una propiedad del sitio, no un placeholder que desaparece con contenido real.
+**La Regla de la Sombra Tibia.** Ninguna sombra es gris neutro ni lleva el tinte exacto de lavanda/durazno/terracota — siempre `rgba(90,60,...)`, un marrón-ciruela tibio propio, distinto de los acentos funcionales.
 
 ## Shapes
 
-Sin cambios respecto al sistema anterior: radios casi rectos (`--radius-soft` 2px en marcos de imagen/video), círculo completo (dots, cursor, ícono de play) o pill (100px, botón táctil, chips). Ningún radio intermedio tipo "8px card".
+Radio suave y generoso (`--radius-card`, 16px) en tarjetas y marcos — opuesto a la casi-recta del sistema anterior. Pill (100px) reservado a botones y chips. Los dos blobs atmosféricos son círculos perfectos (`border-radius:50%`) muy difuminados, nunca blobs orgánicos de bordes irregulares — esa variante ("Bloques sólidos") fue explorada y descartada por la usuaria a favor de esta.
 
 ## Components
 
-Carácter general: **cinematográfico y táctil** — controles con relieve y una sensación de "consola de edición" (luces de tally, marcos con esquinas de encuadre, botón con cue de play), sin perder la tipografía como protagonista.
+Carácter general: **táctil y hecho a mano** — cada superficie de contenido real (foto, video) vive dentro de un marco tipo Polaroid, nunca un rectángulo plano.
 
 ### Buttons
-- **Editorial (secundario):** sin relleno, regla superior e inferior de 1px en `currentColor` (`.btn-editorial`).
-- **Táctil (CTA principal):** `.hero-cta` / `.finale-submit` — pill, fondo Amethyst, texto `--on-accent` (oscuro), ícono de play (`#i-play`) en vez de flecha — el CTA se plantea como un cue de "play/record", coherente con la Sala de Montaje. Hover pasa a Amethyst Bright + `translateY(-3px)` + sombra `lifted-card`.
+- **Editorial (secundario):** sin relleno, regla superior e inferior de 1px en `currentColor`.
+- **Táctil (CTA principal):** pill, fondo Lavanda, texto Ink. Hover pasa a Lavanda Hover (más oscuro) + texto Cream + `translateY(-3px)`. Foco visible: `outline: 2px solid var(--terracota); outline-offset: 4px`.
 
-### Cards
-- **Trabajo (`.work-card`):** grid uniforme de 3 columnas (antes asimétrico). Marco 9:16 con `<video>` real opcional (`data-src`): autoplay muted al entrar en viewport/hover estilo Reels, una sola card activa a la vez (tap en el ícono de play sube el volumen y pausa las demás), grano se atenúa pero no desaparece sobre footage real. Sin `data-src`, la card se queda en el placeholder visual (ícono + label en mono) sin intentar reproducir nada.
-- **Testimonio (`.testimonial-card`):** sin cambios de comportamiento respecto al sistema anterior — sombra `ambient-card`/`lifted-card` + rotación tipo Polaroid.
+### Cards — Marco Polaroid (componente de sistema)
+- **Trabajo (`.work-card`):** marco 9:16 mate crema con placa interna oscura (`--ink` a `--ink-soft`) para el video/placeholder; rotación alterna ±1.1–1.3deg, se endereza en hover.
+- **Testimonio (`.testimonial-card`):** mismo marco Polaroid, rotación ±1.6–1.8deg.
+- **Foto de "Sobre mí":** mismo marco, rotación fija 2deg, chip de caption en pill superpuesto en la esquina inferior.
 
 ### Process Timeline (`.pv-timeline`)
-- Reemplaza la grilla asimétrica original de "Cómo trabajo" (elegida vía live-mode). Fila única de 4 pasos sobre un track horizontal (`.pv-track`, hairline en `--line-on-light`), cada paso con un tag de timecode local en mono (`00:00:0N:00`, no confundir con el kicker de sección — es un detalle interno del componente, no un encabezado) y un dot amatista marcando su posición en el track. Colapsa a 2 columnas en ≤1180px (el track se oculta, ya no conecta visualmente al envolver) y a 1 columna en ≤600px.
+- Track punteado horizontal (no sólido — evoca puntada/costura), 4 pasos con tag "PASO 0N" en Archivo tracked y dot alternando lavanda-oscuro/terracota. Colapsa a 2 columnas en ≤1180px (el track se oculta) y a 1 en ≤600px.
+
+### Services (`.service-row`)
+- Fila con índice serif itálico, título serif, flecha terracota que rota 45°→90° al abrir. Foco de teclado real: `tabindex="0"`, `role="button"`, `aria-expanded`, activable con Enter/Espacio además de click — no es solo un div con onclick.
 
 ### Navigation
-- Sin cambios de comportamiento; header con `mix-blend-mode: difference` sobre fondo transparente, drawer mobile a pantalla completa sobre Noir.
+- Header fijo, fondo crema semitransparente + `backdrop-filter: blur`, siempre legible sobre cualquier sección (reemplaza el `mix-blend-mode: difference` del sistema anterior, que existía para funcionar sobre un hero oscuro que ya no existe). Drawer mobile a pantalla completa sobre crema.
 
-### Section Transitions (componente de sistema, no de UI)
-- Cada `<section>` de primer nivel (salvo el hero) lleva `.cut-section`: `animation-timeline: view()` anima opacity + `scale(.985→1)` mientras la sección entra al viewport (`animation-range: entry 0% cover 30%`) — lee como una disolución de corte de edición al hacer scroll. Sin `filter` animado (se probó y generaba jank real en scroll); solo opacity/transform, baratos para el compositor. Bajo `prefers-reduced-motion`, la regla global existente (`animation-duration: .001ms !important`) la neutraliza — cae a corte seco sin animación, tal como pide el brief.
+### Atmospheric Blobs (componente de sistema, no de UI)
+- `.blob-lavanda` / `.blob-durazno`: círculos con `filter:blur(56px)` y una respiración lenta (`blob-breathe`, 14s, opacity .65→ escala 1.06). Tamaño y posición en `clamp()` de vw/px — nunca `vmax` puro ni porcentaje del contenedor — para no depender de la altura de contenido variable (el CTA final crece con el formulario).
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** usar Amethyst como único acento funcional con significado; Olive/Moss quedan para detalle puntual, nunca superficie dominante.
-- **Do** poner texto `--on-accent` (oscuro) sobre cualquier relleno Amethyst — nunca `--paper` (falla contraste AA, medido 3.4:1).
-- **Do** dejar el título (h2) de cada sección solo, sin kicker ni numeración antepuesta — decisión explícita del usuario.
-- **Do** mantener el grano/viñeta activos incluso sobre contenido real (video cargado) — es identidad, no relleno de placeholder.
-- **Do** animar transiciones de sección solo con opacity/transform (nunca `filter`) para que `animation-timeline: view()` no cause jank de scroll.
+- **Do** reservar Caveat a los tres puntos de énfasis (hero, CTA final, drop-cap) — nunca como titular completo.
+- **Do** mantener terracota fuera de texto menor a ~24px; usar ink/ink-muted para links, captions y hover de footer.
+- **Do** dimensionar cualquier elemento atmosférico decorativo (blobs) con `clamp()` en vw/px, no en `vmax` ni porcentaje del contenedor, si ese contenedor puede crecer con contenido variable (formularios, copy largo).
+- **Do** dar a cada fila interactiva no nativa (como `.service-row`) `tabindex`, `role`, `aria-*` y manejo de teclado real, no solo un listener de click.
+- **Do** respetar `prefers-reduced-motion` ocultando (no solo pausando) cualquier elemento puramente decorativo y en movimiento continuo, como el cursor a medida.
 
 ### Don't:
-- **Don't** introducir un segundo color de acento funcional — el sistema es mono-acento (Amethyst), con Olive/Moss como atmósfera.
-- **Don't** usar Inter Tight, Instrument Serif o Inter — quedaron reemplazadas por Archivo/Bodoni Moda/JetBrains Mono en el reemplazo completo de identidad.
-- **Don't** volver al grid asimétrico de proyectos (spans + márgenes escalonados) — el usuario pidió explícitamente algo más sobrio y uniforme.
-- **Don't** autoplay con sonido sin gesto del usuario — los videos de proyecto arrancan siempre muted; el tap explícito en el ícono de play es lo único que sube volumen.
-- **Don't** agregar diseño sonoro sin pedirlo de nuevo — quedó fuera de alcance por decisión explícita del usuario en esta pasada.
-- **Don't** reintroducir un kicker con timecode o numeración antepuesta a los títulos de sección — probado y rechazado explícitamente por el usuario ("no me gusta que cada sección comience con un encabezado con una descripción literal").
+- **Don't** introducir una sección oscura/noir — este mundo es crema de punta a punta; la variación tonal viene de las tres profundidades de crema, nunca de una superficie negra.
+- **Don't** usar mono técnico (JetBrains Mono u otra) para ningún dato — quedó reemplazado por Archivo tracked.
+- **Don't** volver a Bodoni Moda, Instrument Serif o Inter Tight — reemplazadas por Georgia/Archivo/Caveat en el reemplazo completo de identidad.
+- **Don't** reintroducir un marquee de auto-scroll infinito para la fila de marcas.
+- **Don't** poner terracota como color de relleno detrás de texto — es un acento de texto/trazo, no de superficie.
