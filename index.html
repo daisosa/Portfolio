@@ -215,12 +215,6 @@ section{ position:relative; }
 .hero-bg .blob-durazno{ width:clamp(280px,40vw,560px); height:clamp(280px,40vw,560px); bottom:clamp(-140px,-10vw,-60px); right:clamp(-130px,-9vw,-55px); }
 .hero > .container{ position:relative; z-index:2; width:100%; }
 
-.hero-top{
-  display:flex; justify-content:flex-end; align-items:flex-start; gap:20px;
-  padding-inline: var(--gutter);
-}
-.hero-index{ font-family: var(--serif); font-style:italic; font-size:14px; text-align:right; color: var(--ink-muted); }
-
 .hero-main{ padding-inline: var(--gutter); margin-top: clamp(40px,7vw,80px); max-width: 1100px; will-change: transform, opacity; }
 .hero-title{
   font-family: var(--serif); font-weight:400;
@@ -324,8 +318,8 @@ section{ position:relative; }
 .audience-item p{ font-size: clamp(15px,1.6vw,18px); line-height:1.5; }
 
 .audience-outro{
-  margin-top: clamp(48px,7vw,72px); padding-top: clamp(28px,4vw,40px); border-top:1px solid var(--line-on-cream);
-  display:flex; align-items:center; gap:14px; font-family: var(--serif); font-size: clamp(1.3rem,2vw,1.7rem); font-style:italic;
+  margin-top: clamp(28px,4vw,36px);
+  display:flex; align-items:center; gap:14px; font-family: var(--serif); font-size: clamp(1.2rem,1.9vw,1.5rem); font-style:italic;
 }
 .audience-outro svg{ width:24px; height:24px; color: var(--terracota); flex:none; }
 
@@ -380,21 +374,30 @@ section{ position:relative; }
    PROCESO
    ========================================================================== */
 .process{ padding-block: var(--section-y); overflow:hidden; }
-.process-head{ padding-inline: var(--gutter); margin-bottom: clamp(48px,7vw,88px); }
+.process-head{ padding-inline: var(--gutter); margin-bottom: clamp(48px,7vw,88px); display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; }
 .process-head h2{ font-family: var(--serif); font-size: clamp(2.1rem,4.2vw,4rem); font-weight:400; }
+.pv-progress-label{ font-family: var(--sans); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color: var(--ink-muted); font-variant-numeric: tabular-nums; }
 
 .process-line{ position:relative; padding-inline: var(--gutter); }
-.pv-timeline{ position:relative; display:grid; grid-template-columns: repeat(4,1fr); gap: 24px; padding-top: 32px; }
-.pv-timeline .pv-track{ position:absolute; left:0; right:0; top:4px; height:1px; background-image: repeating-linear-gradient(90deg, var(--ink-muted) 0 6px, transparent 6px 12px); opacity:.35; }
-.pv-step{ position:relative; display:flex; flex-direction:column; gap:12px; }
-.pv-dot{ position:absolute; top:-4px; left:0; width:9px; height:9px; border-radius:50%; box-shadow:0 0 0 4px var(--cream); }
-.pv-step:nth-child(2) .pv-dot{ background: var(--lavanda-hover); }
-.pv-step:nth-child(3) .pv-dot{ background: var(--terracota); }
-.pv-step:nth-child(4) .pv-dot{ background: var(--lavanda-hover); }
-.pv-step:nth-child(5) .pv-dot{ background: var(--terracota); }
-.pv-tag{ font-family: var(--sans); font-weight:600; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color: var(--ink-muted); position:absolute; top:-28px; left:0; }
+.pv-rail{ position:relative; }
+.pv-track{ position:relative; height:2px; background: var(--line-on-cream); }
+.pv-fill{ position:absolute; inset:0; background: var(--terracota); transform-origin:left; transform: scaleX(0); }
+.pv-steps{ display:grid; grid-template-columns: repeat(4,1fr); gap: 24px; padding-top: 28px; }
+.pv-step{ position:relative; display:flex; flex-direction:column; gap:10px; opacity:.4; transition: opacity .5s var(--ease); }
+.pv-step.is-active{ opacity:1; }
+.pv-dot{
+  position:absolute; top:-32px; left:0; width:9px; height:9px; border-radius:50%;
+  background: var(--cream-deep); border:2px solid var(--ink-muted); box-sizing:content-box;
+  transition: background .5s var(--ease), border-color .5s var(--ease), transform .4s var(--spring);
+}
+.pv-step.is-active .pv-dot{ background: var(--terracota); border-color: var(--terracota); transform: scale(1.3); }
+.pv-tag{ font-family: var(--sans); font-weight:600; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color: var(--ink-muted); }
 .pv-step h3{ font-family: var(--serif); font-size: clamp(1.3rem,2vw,1.7rem); font-weight:400; color: var(--ink); }
-.pv-step p{ font-size:14px; line-height:1.6; color: var(--ink-muted); max-width: 26ch; }
+.pv-step p{ font-size:14px; line-height:1.6; color: var(--ink-muted); max-width: 26ch; min-height: 3.2em; opacity:0; transition: opacity .3s var(--ease); }
+.pv-step.is-active p{ opacity:1; }
+.pv-step p::after{ content:''; display:inline-block; width:2px; height:1em; margin-left:1px; background:currentColor; vertical-align:-2px; opacity:0; }
+.pv-step.is-typing p::after{ opacity:.6; animation: pv-caret .8s step-end infinite; }
+@keyframes pv-caret{ 50%{ opacity:0; } }
 
 /* ==========================================================================
    TESTIMONIOS — misma familia polaroid que el trabajo
@@ -486,9 +489,6 @@ section{ position:relative; }
 .about-copy p.drop{ font-family: var(--serif); font-size: clamp(1.4rem,2.4vw,2rem); line-height:1.42; }
 .about-copy p.drop::first-letter{ font-family: var(--script); font-weight:700; font-size: 2.1em; color: var(--terracota); line-height:.6; }
 .about-body{ margin-top: clamp(24px,3vw,32px); font-size: 16px; line-height:1.7; color: var(--ink-muted); max-width: 62ch; }
-.about-tags{ display:flex; flex-wrap:wrap; gap:10px; margin-top: clamp(24px,3vw,32px); }
-.about-tags span{ font-size:12px; color: var(--ink-muted); background: var(--cream-warm); padding: 8px 14px; border-radius: var(--radius-pill); }
-
 /* ==========================================================================
    CTA FINAL / FOOTER — segundo bookend con los mismos blobs
    ========================================================================== */
@@ -534,8 +534,8 @@ section{ position:relative; }
   .stats .stat:nth-child(3){ grid-column: span 2; border-left:0; padding-left:0; margin-top: 20px; }
   .about-photo{ position:relative; width:auto; max-width:320px; margin-top: clamp(24px,3vw,32px); }
   .about-copy{ padding-right:0; }
-  .pv-timeline{ grid-template-columns: 1fr 1fr; row-gap: 44px; }
-  .pv-timeline .pv-track{ display:none; }
+  .pv-steps{ grid-template-columns: 1fr 1fr; row-gap: 44px; }
+  .pv-track{ display:none; }
 }
 
 @media (max-width: 860px){
@@ -557,7 +557,7 @@ section{ position:relative; }
   .stats{ grid-template-columns:1fr; }
   .stats .stat{ border-left:0; padding-left:0; border-top:1px solid var(--line-on-cream); padding-top:20px; }
   .stats .stat:first-child{ border-top:0; padding-top:0; }
-  .pv-timeline{ grid-template-columns:1fr; row-gap: 36px; }
+  .pv-steps{ grid-template-columns:1fr; row-gap: 36px; }
   .work-grid{ grid-template-columns: 1fr; }
   .hero-bottom{ align-items:flex-start; flex-direction:column; }
 }
@@ -617,10 +617,6 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
       <div class="blob blob-durazno"></div>
     </div>
     <div class="container">
-      <div class="hero-top">
-        <span class="hero-index">Editora de contenido<br>Buenos Aires, Argentina</span>
-      </div>
-
       <div class="hero-main">
         <h1 class="hero-title">
           <span data-reveal-mask><span>Nunca fue tan <em>fácil</em></span></span>
@@ -688,15 +684,17 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
           <p class="audience-lead">Trabajo con marcas y creadores que quieren <span class="underline-key">dejar de publicar por publicar.</span></p>
         </div>
         <div class="hairline vertical" aria-hidden="true"></div>
-        <ul class="audience-list">
-          <li class="audience-item" data-reveal><span class="dot"></span><p>Buscás construir una identidad sin perder tu autenticidad.</p></li>
-          <li class="audience-item" data-reveal><span class="dot"></span><p>Necesitás una comunicación más clara y consistente.</p></li>
-          <li class="audience-item" data-reveal><span class="dot"></span><p>Querés convertir la atención en oportunidades.</p></li>
-        </ul>
-      </div>
-      <div class="audience-outro" data-reveal>
-        <svg class="g-icon"><use href="#i-ring"/></svg>
-        Estás en el <span class="underline-key">lugar correcto</span>.
+        <div>
+          <ul class="audience-list">
+            <li class="audience-item" data-reveal><span class="dot"></span><p>Buscás construir una identidad sin perder tu autenticidad.</p></li>
+            <li class="audience-item" data-reveal><span class="dot"></span><p>Necesitás una comunicación más clara y consistente.</p></li>
+            <li class="audience-item" data-reveal><span class="dot"></span><p>Querés convertir la atención en oportunidades.</p></li>
+          </ul>
+          <div class="audience-outro" data-reveal>
+            <svg class="g-icon"><use href="#i-ring"/></svg>
+            Estás en el <span class="underline-key">lugar correcto</span>.
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -806,14 +804,17 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
   <section class="process settle-section" id="proceso">
     <div class="process-head">
       <h2 data-reveal>De la idea a la publicación</h2>
+      <span class="pv-progress-label" id="pv-progress-label">Paso 01 / 04</span>
     </div>
     <div class="process-line">
-      <div class="pv-timeline">
-        <div class="pv-track"></div>
-        <div class="pv-step" data-reveal><span class="pv-tag">Paso 01</span><span class="pv-dot"></span><h3>Diagnosticar</h3><p>Entender la marca, la audiencia y qué se está comunicando hoy, y qué falta todavía.</p></div>
-        <div class="pv-step" data-reveal><span class="pv-tag">Paso 02</span><span class="pv-dot"></span><h3>Pensar</h3><p>Definir narrativa, formatos y una línea editorial consistente en el tiempo.</p></div>
-        <div class="pv-step" data-reveal><span class="pv-tag">Paso 03</span><span class="pv-dot"></span><h3>Escribir</h3><p>Guionar cada pieza con estructura, ritmo y un objetivo claro.</p></div>
-        <div class="pv-step" data-reveal><span class="pv-tag">Paso 04</span><span class="pv-dot"></span><h3>Optimizar</h3><p>Editar, medir resultados y ajustar la estrategia con cada entrega.</p></div>
+      <div class="pv-rail">
+        <div class="pv-track"><div class="pv-fill" id="pv-fill"></div></div>
+        <div class="pv-steps" id="pv-steps">
+          <div class="pv-step"><span class="pv-dot"></span><span class="pv-tag">Paso 01</span><h3>Diagnosticar</h3><p>Entender la marca, la audiencia y qué se está comunicando hoy, y qué falta todavía.</p></div>
+          <div class="pv-step"><span class="pv-dot"></span><span class="pv-tag">Paso 02</span><h3>Pensar</h3><p>Definir narrativa, formatos y una línea editorial consistente en el tiempo.</p></div>
+          <div class="pv-step"><span class="pv-dot"></span><span class="pv-tag">Paso 03</span><h3>Escribir</h3><p>Guionar cada pieza con estructura, ritmo y un objetivo claro.</p></div>
+          <div class="pv-step"><span class="pv-dot"></span><span class="pv-tag">Paso 04</span><h3>Optimizar</h3><p>Editar, medir resultados y ajustar la estrategia con cada entrega.</p></div>
+        </div>
       </div>
     </div>
   </section>
@@ -904,11 +905,6 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
           <span class="kicker">Quién escribe esto</span>
           <p class="drop">Soy Dai. Hace más de cuatro años acompaño a marcas y creadores a transformar ideas en contenido para redes sociales.</p>
           <p class="about-body">Estudié la Licenciatura en Ciencias de la Comunicación en UBA. Hice cursos de Community Management en la UBA, Edición y ADS en la UTN. Trabajo en marketing digital desde 2022, con agencias y marcas de forma freelance. Pienso, escribo y edito contenido para redes sociales.</p>
-          <div class="about-tags">
-            <span>UBA — Ciencias de la Comunicación</span>
-            <span>UBA — Community Management</span>
-            <span>UTN — Edición y ADS</span>
-          </div>
         </div>
         <div class="about-photo" data-reveal>
           <div class="about-photo-frame">
@@ -1056,6 +1052,56 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
     applyHeroParallax();
   }
 
+  /* ---------- process rail: scroll-linked progress fill + typewriter reveal per step ---------- */
+  const pvSection = document.getElementById('proceso');
+  const pvFill = document.getElementById('pv-fill');
+  const pvStepsWrap = document.getElementById('pv-steps');
+  const pvLabel = document.getElementById('pv-progress-label');
+  if (pvSection && pvFill && pvStepsWrap) {
+    const pvSteps = Array.from(pvStepsWrap.children);
+    const pvParas = pvSteps.map(step => {
+      const p = step.querySelector('p');
+      p.dataset.full = p.textContent;
+      if (!reduceMotion) p.textContent = '';
+      return p;
+    });
+    const typed = new Set();
+    const typeInto = (step, p) => {
+      if (typed.has(p) || reduceMotion) return;
+      typed.add(p);
+      const full = p.dataset.full;
+      let i = 0;
+      step.classList.add('is-typing');
+      const tick = () => {
+        p.textContent = full.slice(0, i);
+        i++;
+        if (i <= full.length) {
+          setTimeout(tick, 12);
+        } else {
+          step.classList.remove('is-typing');
+        }
+      };
+      tick();
+    };
+    let pvTicking = false;
+    const updatePv = () => {
+      pvTicking = false;
+      const rect = pvSection.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const progress = Math.min(Math.max((vh * 0.75 - rect.top) / (rect.height * 0.55), 0), 1);
+      pvFill.style.transform = `scaleX(${progress})`;
+      const activeIdx = progress > 0 ? Math.min(pvSteps.length - 1, Math.floor(progress * pvSteps.length)) : -1;
+      pvSteps.forEach((step, i) => {
+        const isActive = i <= activeIdx;
+        step.classList.toggle('is-active', isActive);
+        if (isActive) typeInto(step, pvParas[i]);
+      });
+      if (pvLabel) pvLabel.textContent = `Paso ${String(Math.max(activeIdx, 0) + 1).padStart(2, '0')} / ${String(pvSteps.length).padStart(2, '0')}`;
+    };
+    window.addEventListener('scroll', () => { if (!pvTicking) { pvTicking = true; requestAnimationFrame(updatePv); } }, { passive: true });
+    updatePv();
+  }
+
   /* ---------- custom cursor ---------- */
   const cursor = document.querySelector('.cursor-dot');
   if (cursor && !reduceMotion && matchMedia('(hover:hover) and (pointer:fine)').matches) {
@@ -1098,11 +1144,6 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
   const heroSmall = document.querySelector('.hero-title small');
   const heroBottomEls = document.querySelectorAll('.hero-bottom > *');
   if (!reduceMotion) {
-    const heroTop = document.querySelector('.hero-top');
-    if (heroTop) {
-      heroTop.style.cssText += 'opacity:0; transform:translateY(-14px); transition:opacity .8s cubic-bezier(.16,.84,.24,1), transform .8s cubic-bezier(.16,.84,.24,1);';
-      requestAnimationFrame(() => { heroTop.style.opacity = 1; heroTop.style.transform = 'translateY(0)'; });
-    }
     heroMaskEls.forEach((el, i) => setTimeout(() => el.classList.add('is-in'), 150 + i * 90));
     if (heroSmall) {
       heroSmall.style.cssText += 'opacity:0; transform:translateY(16px); transition:opacity .9s cubic-bezier(.16,.84,.24,1), transform .9s cubic-bezier(.16,.84,.24,1);';
