@@ -386,8 +386,10 @@ section{ position:relative; }
 
 .testimonial-strip{ display:flex; gap: clamp(22px,3vw,34px); overflow-x:auto; scroll-snap-type: x proximity; padding: 12px var(--gutter) 32px; scrollbar-width:none; }
 .testimonial-strip::-webkit-scrollbar{ display:none; }
+/* fixed footprint on purpose: whatever WhatsApp screenshot goes in (any crop, any length)
+   is contained inside it rather than cropped, so the card never has to shrink to the photo */
 .testimonial-card{
-  scroll-snap-align:center; flex: none; width: clamp(220px,25vw,290px); aspect-ratio: 4/5;
+  scroll-snap-align:center; flex: none; width: clamp(240px,27vw,320px); aspect-ratio: 3/4;
   background: var(--cream); border-radius: var(--radius-card); padding: 16px 16px 20px;
   display:flex; flex-direction:column; justify-content:space-between;
   box-shadow: 0 20px 40px -22px rgba(90,60,70,.22);
@@ -397,11 +399,17 @@ section{ position:relative; }
 .testimonial-card:nth-child(even){ transform: rotate(1.8deg); margin-top: 24px; }
 .testimonial-card:hover{ transform: rotate(0) translateY(-6px); box-shadow: 0 28px 52px -18px rgba(90,60,70,.3); }
 .testimonial-shot{
-  flex:1; border-radius:10px;
+  flex:1; border-radius:10px; position:relative; overflow:hidden;
   background: repeating-linear-gradient(135deg, var(--cream-warm), var(--cream-warm) 10px, var(--cream) 10px, var(--cream) 20px);
   display:flex; align-items:center; justify-content:center;
 }
 .testimonial-shot svg{ width:26px; height:26px; color: var(--ink-muted); opacity:.5; }
+.testimonial-photo{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background: var(--cream);
+}
+.testimonial-shot.is-empty .testimonial-photo{ display:none; }
+.testimonial-fallback-icon{ display:none; }
+.testimonial-shot.is-empty .testimonial-fallback-icon{ display:block; }
 .testimonial-card figcaption{ margin-top:12px; font-family: var(--serif); font-style:italic; font-size:12px; color: var(--ink-muted); text-align:center; }
 
 /* ==========================================================================
@@ -812,13 +820,13 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
         <h2 data-reveal>Lo que dicen quienes ya trabajaron conmigo</h2>
       </div>
     </div>
-    <div class="testimonial-strip">
-      <figure class="testimonial-card"><div class="testimonial-shot"><svg class="g-icon"><use href="#i-quarter"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
-      <figure class="testimonial-card"><div class="testimonial-shot"><svg class="g-icon"><use href="#i-quarter"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
-      <figure class="testimonial-card"><div class="testimonial-shot"><svg class="g-icon"><use href="#i-quarter"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
-      <figure class="testimonial-card"><div class="testimonial-shot"><svg class="g-icon"><use href="#i-quarter"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
-      <figure class="testimonial-card"><div class="testimonial-shot"><svg class="g-icon"><use href="#i-quarter"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
-      <figure class="testimonial-card"><div class="testimonial-shot"><svg class="g-icon"><use href="#i-quarter"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
+    <div class="testimonial-strip" id="testimonial-strip">
+      <figure class="testimonial-card"><div class="testimonial-shot"><img class="testimonial-photo" src="testimonios/testimonio-1.png" alt="Captura de conversación de WhatsApp con una clienta" loading="lazy"><svg class="g-icon testimonial-fallback-icon"><use href="#i-quarter"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
+      <figure class="testimonial-card"><div class="testimonial-shot"><img class="testimonial-photo" src="testimonios/testimonio-2.png" alt="Captura de conversación de WhatsApp con una clienta" loading="lazy"><svg class="g-icon testimonial-fallback-icon"><use href="#i-quarter"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
+      <figure class="testimonial-card"><div class="testimonial-shot"><img class="testimonial-photo" src="testimonios/testimonio-3.png" alt="Captura de conversación de WhatsApp con una clienta" loading="lazy"><svg class="g-icon testimonial-fallback-icon"><use href="#i-quarter"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
+      <figure class="testimonial-card"><div class="testimonial-shot"><img class="testimonial-photo" src="testimonios/testimonio-4.png" alt="Captura de conversación de WhatsApp con una clienta" loading="lazy"><svg class="g-icon testimonial-fallback-icon"><use href="#i-quarter"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
+      <figure class="testimonial-card"><div class="testimonial-shot"><img class="testimonial-photo" src="testimonios/testimonio-5.png" alt="Captura de conversación de WhatsApp con una clienta" loading="lazy"><svg class="g-icon testimonial-fallback-icon"><use href="#i-quarter"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
+      <figure class="testimonial-card"><div class="testimonial-shot"><img class="testimonial-photo" src="testimonios/testimonio-6.png" alt="Captura de conversación de WhatsApp con una clienta" loading="lazy"><svg class="g-icon testimonial-fallback-icon"><use href="#i-quarter"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
     </div>
   </section>
 
@@ -978,6 +986,16 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
         fallback.className = 'brand-fallback';
         fallback.textContent = img.alt;
         img.replaceWith(fallback);
+      }, { once: true });
+    });
+  }
+
+  /* ---------- testimonial screenshots: keep the placeholder pattern until the PNG is uploaded ---------- */
+  const testimonialStrip = document.getElementById('testimonial-strip');
+  if (testimonialStrip) {
+    testimonialStrip.querySelectorAll('.testimonial-photo').forEach(img => {
+      img.addEventListener('error', () => {
+        img.closest('.testimonial-shot').classList.add('is-empty');
       }, { once: true });
     });
   }
