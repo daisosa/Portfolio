@@ -452,8 +452,8 @@ section{ position:relative; }
 .service-row:focus-visible{ outline: 2px solid var(--terracota); outline-offset: -2px; background: var(--cream-warm); }
 .service-index{ font-family: var(--serif); font-style:italic; font-size:18px; color: var(--ink-muted); }
 .service-title{ font-family: var(--serif); font-size: clamp(1.5rem,3vw,2.4rem); font-weight:400; }
-.service-arrow{ width:26px; height:26px; color: var(--terracota); transition: transform .5s var(--ease); flex:none; }
-.service-row:hover .service-arrow{ transform: rotate(45deg); }
+.service-arrow{ width:22px; height:22px; color: var(--terracota); transition: transform .5s var(--ease); flex:none; }
+.service-row:hover .service-arrow{ transform: translateX(-5px); }
 .service-detail{
   grid-column: 2 / span 1; max-width: 58ch; font-size:14px; line-height:1.6; opacity:0;
   display:grid; grid-template-rows: 0fr;
@@ -461,7 +461,7 @@ section{ position:relative; }
 }
 .service-detail-inner{ min-height:0; overflow:hidden; padding-top:14px; }
 .service-row.is-open .service-detail{ opacity:.85; grid-template-rows: 1fr; }
-.service-row.is-open .service-arrow{ transform: rotate(90deg); }
+.service-row.is-open .service-arrow{ transform: rotate(-90deg); }
 .service-extra{ margin-top: 14px; display:flex; gap: 10px; flex-wrap:wrap; }
 .service-extra span{ font-size:12px; color: var(--ink); background: var(--lavanda); padding: 6px 14px; border-radius: var(--radius-pill); }
 
@@ -580,7 +580,7 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
     <symbol id="i-leaf" viewBox="0 0 100 100"><path d="M50 6 C74 6 92 24 92 50 C68 50 50 32 50 6 Z M50 94 C26 94 8 76 8 50 C32 50 50 68 50 94 Z" fill="currentColor"/></symbol>
     <symbol id="i-corner" viewBox="0 0 40 40"><path d="M2 20 V2 H20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 19 L19 5 M9 5 H19 V15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="i-diamond" viewBox="0 0 100 100"><path d="M50 4 L96 50 L50 96 L4 50 Z" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
+    <symbol id="i-triangle" viewBox="0 0 100 100"><path d="M70 8 L20 50 L70 92 Z" fill="currentColor"/></symbol>
     <symbol id="i-quarter" viewBox="0 0 100 100"><path d="M4 96 A92 92 0 0 1 96 4" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
     <symbol id="i-play" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="2"/><path d="M42 34 L68 50 L42 66 Z" fill="currentColor"/></symbol>
     <symbol id="i-ring" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
@@ -855,7 +855,7 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
           <div class="service-extra"><span>Diagnóstico</span><span>Línea editorial</span><span>Calendario de contenidos</span></div>
         </div></div>
       </div>
-      <svg class="g-icon service-arrow"><use href="#i-diamond"/></svg>
+      <svg class="g-icon service-arrow"><use href="#i-triangle"/></svg>
     </div>
 
     <div class="service-row" data-service tabindex="0" role="button" aria-expanded="false">
@@ -867,7 +867,7 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
           <div class="service-extra"><span>Hooks</span><span>Estructura narrativa</span><span>Guion técnico</span></div>
         </div></div>
       </div>
-      <svg class="g-icon service-arrow"><use href="#i-diamond"/></svg>
+      <svg class="g-icon service-arrow"><use href="#i-triangle"/></svg>
     </div>
 
     <div class="service-row" data-service tabindex="0" role="button" aria-expanded="false">
@@ -879,7 +879,7 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
           <div class="service-extra"><span>Montaje</span><span>Color y sonido</span><span>Formatos por plataforma</span></div>
         </div></div>
       </div>
-      <svg class="g-icon service-arrow"><use href="#i-diamond"/></svg>
+      <svg class="g-icon service-arrow"><use href="#i-triangle"/></svg>
     </div>
 
     <div class="service-row" data-service tabindex="0" role="button" aria-expanded="false">
@@ -891,7 +891,7 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
           <div class="service-extra"><span>Análisis de métricas</span><span>Ajuste de estrategia</span><span>Seguimiento mensual</span></div>
         </div></div>
       </div>
-      <svg class="g-icon service-arrow"><use href="#i-diamond"/></svg>
+      <svg class="g-icon service-arrow"><use href="#i-triangle"/></svg>
     </div>
   </section>
 
