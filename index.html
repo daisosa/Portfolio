@@ -295,40 +295,38 @@ section{ position:relative; }
    PARA QUIÉN ES
    ========================================================================== */
 .audience{ padding-block: var(--section-y); }
-.audience-grid{ display:grid; grid-template-columns: 1fr 1px 1fr; gap: clamp(32px,6vw,80px); align-items:start; }
-.audience-grid .hairline.vertical{ width:1px; height:100%; }
+.audience-top{ display:grid; grid-template-columns: 1fr 1px 1fr; gap: clamp(32px,6vw,80px); align-items:start; }
+.audience-top .hairline.vertical{ width:1px; height:100%; }
 .audience-lead{ font-family: var(--serif); font-size: clamp(1.9rem,3.2vw,3rem); line-height:1.24; }
 
-/* hand-drawn underline that draws itself in once its [data-reveal] ancestor is on screen —
-   shared by the hero phrase's accent and the closing line's "lugar correcto" */
-.hand-underline{ position:relative; color: var(--terracota); font-style:italic; }
-.hand-underline svg{ position:absolute; left:0; bottom:-0.1em; width:100%; height:0.34em; overflow:visible; }
-.hand-underline svg path{
-  fill:none; stroke: var(--terracota); stroke-width:3; stroke-linecap:round;
-  stroke-dasharray:1; stroke-dashoffset:1; pathLength:1;
-  transition: stroke-dashoffset 1.1s var(--ease);
+/* straight underline that fades in on scroll — native text-decoration, so it never
+   breaks or drifts when the phrase wraps differently at another viewport width */
+.underline-key{
+  color: var(--terracota); font-style:italic;
+  text-decoration-line: underline; text-decoration-color: transparent;
+  text-decoration-thickness: 2px; text-underline-offset: 6px;
+  transition: text-decoration-color .8s var(--ease);
 }
-[data-reveal].is-in .hand-underline svg path{ stroke-dashoffset:0; transition-delay:.4s; }
+[data-reveal].is-in .underline-key{ text-decoration-color: var(--terracota); transition-delay:.4s; }
 
-.audience-list{ display:flex; flex-direction:column; }
-.audience-item[data-reveal]{ transform: translateX(-28px) rotate(var(--rot,0deg)); transition: opacity .8s var(--ease), transform .7s var(--spring); }
-.audience-item[data-reveal].is-in{ transform: translateX(0) rotate(0deg); }
-.audience-item:nth-of-type(1){ --rot:-.8deg; }
-.audience-item:nth-of-type(2){ --rot:.6deg; }
-.audience-item:nth-of-type(3){ --rot:-.5deg; }
-.audience-item{ display:grid; grid-template-columns: 34px 1fr; gap:18px; padding-block: clamp(20px,3vw,28px); border-top:1px solid var(--line-on-cream); }
-.audience-item:last-of-type{ border-bottom:1px solid var(--line-on-cream); }
-.audience-item .idx{ display:flex; align-items:flex-start; padding-top:6px; }
-.audience-item .idx .dot{ width:12px; height:12px; border-radius:50%; }
-.audience-item:nth-of-type(1) .idx .dot{ background: var(--lavanda); }
-.audience-item:nth-of-type(2) .idx .dot{ background: var(--durazno); }
-.audience-item:nth-of-type(3) .idx .dot{ background: var(--lavanda); }
-.audience-item[data-reveal].is-in .idx .dot{ animation: audience-breathe 3.6s ease-in-out infinite; }
-.audience-item:nth-of-type(2)[data-reveal].is-in .idx .dot{ animation-delay:.4s; }
-.audience-item:nth-of-type(3)[data-reveal].is-in .idx .dot{ animation-delay:.8s; }
-@keyframes audience-breathe{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.25); } }
+.audience-list{ display:flex; flex-direction:column; gap: clamp(18px,2.6vw,24px); }
+.audience-item[data-reveal]{ opacity:0; transform: translateY(18px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+.audience-item[data-reveal].is-in{ opacity:1; transform:translateY(0); }
+.audience-item:nth-of-type(1)[data-reveal].is-in{ transition-delay:.1s; }
+.audience-item:nth-of-type(2)[data-reveal].is-in{ transition-delay:.28s; }
+.audience-item:nth-of-type(3)[data-reveal].is-in{ transition-delay:.46s; }
+.audience-item{ display:flex; align-items:flex-start; gap:14px; }
+.audience-item .dot{ width:7px; height:7px; border-radius:50%; background: var(--terracota); margin-top:9px; flex:none; }
+.audience-item[data-reveal].is-in .dot{ animation: audience-breathe 3.6s ease-in-out infinite; }
+.audience-item:nth-of-type(2)[data-reveal].is-in .dot{ animation-delay:.4s; }
+.audience-item:nth-of-type(3)[data-reveal].is-in .dot{ animation-delay:.8s; }
+@keyframes audience-breathe{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.7); } }
 .audience-item p{ font-size: clamp(15px,1.6vw,18px); line-height:1.5; }
-.audience-outro{ margin-top: clamp(28px,4vw,40px); display:flex; align-items:center; gap:14px; font-family: var(--serif); font-size: clamp(1.3rem,2vw,1.7rem); font-style:italic; }
+
+.audience-outro{
+  margin-top: clamp(48px,7vw,72px); padding-top: clamp(28px,4vw,40px); border-top:1px solid var(--line-on-cream);
+  display:flex; align-items:center; gap:14px; font-family: var(--serif); font-size: clamp(1.3rem,2vw,1.7rem); font-style:italic;
+}
 .audience-outro svg{ width:24px; height:24px; color: var(--terracota); flex:none; }
 
 /* ==========================================================================
@@ -529,8 +527,8 @@ section{ position:relative; }
    RESPONSIVE
    ========================================================================== */
 @media (max-width: 1180px){
-  .audience-grid{ grid-template-columns:1fr; }
-  .audience-grid .hairline.vertical{ display:none; }
+  .audience-top{ grid-template-columns:1fr; }
+  .audience-top .hairline.vertical{ display:none; }
   .stats{ grid-template-columns: 1fr 1fr; }
   .stats .stat:nth-child(2){ border-left:0; padding-left:0; }
   .stats .stat:nth-child(3){ grid-column: span 2; border-left:0; padding-left:0; margin-top: 20px; }
@@ -562,7 +560,6 @@ section{ position:relative; }
   .pv-timeline{ grid-template-columns:1fr; row-gap: 36px; }
   .work-grid{ grid-template-columns: 1fr; }
   .hero-bottom{ align-items:flex-start; flex-direction:column; }
-  .audience-item{ grid-template-columns: 24px 1fr; }
 }
 </style>
 </head>
@@ -686,31 +683,20 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
        ========================================================================== -->
   <section class="audience settle-section" id="para-quien">
     <div class="container">
-      <div class="audience-grid">
+      <div class="audience-top">
         <div data-reveal>
-          <p class="audience-lead">Trabajo con marcas y creadores que quieren <span class="hand-underline">dejar de publicar por publicar.<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M2,14 C40,4 70,20 110,10 C150,2 180,18 220,9 C250,3 270,15 298,8"/></svg></span></p>
+          <p class="audience-lead">Trabajo con marcas y creadores que quieren <span class="underline-key">dejar de publicar por publicar.</span></p>
         </div>
         <div class="hairline vertical" aria-hidden="true"></div>
-        <div>
-          <ul class="audience-list">
-            <li class="audience-item" data-reveal>
-              <span class="idx"><span class="dot"></span></span>
-              <p>Buscás construir una identidad sin perder tu autenticidad.</p>
-            </li>
-            <li class="audience-item" data-reveal>
-              <span class="idx"><span class="dot"></span></span>
-              <p>Necesitás una comunicación más clara y consistente.</p>
-            </li>
-            <li class="audience-item" data-reveal>
-              <span class="idx"><span class="dot"></span></span>
-              <p>Querés convertir la atención en oportunidades.</p>
-            </li>
-          </ul>
-          <div class="audience-outro" data-reveal>
-            <svg class="g-icon"><use href="#i-ring"/></svg>
-            Estás en el <span class="hand-underline">lugar correcto<svg viewBox="0 0 150 20" preserveAspectRatio="none" aria-hidden="true"><path d="M2,14 C20,4 42,20 64,10 C86,2 108,18 148,8"/></svg></span>.
-          </div>
-        </div>
+        <ul class="audience-list">
+          <li class="audience-item" data-reveal><span class="dot"></span><p>Buscás construir una identidad sin perder tu autenticidad.</p></li>
+          <li class="audience-item" data-reveal><span class="dot"></span><p>Necesitás una comunicación más clara y consistente.</p></li>
+          <li class="audience-item" data-reveal><span class="dot"></span><p>Querés convertir la atención en oportunidades.</p></li>
+        </ul>
+      </div>
+      <div class="audience-outro" data-reveal>
+        <svg class="g-icon"><use href="#i-ring"/></svg>
+        Estás en el <span class="underline-key">lugar correcto</span>.
       </div>
     </div>
   </section>
