@@ -113,10 +113,6 @@ section{ position:relative; }
 .btn-editorial:hover svg{ transform: translateX(8px); }
 
 .g-icon{ color: currentColor; }
-@keyframes float-y{
-  0%,100%{ transform: translateY(0); }
-  50%{ transform: translateY(-10px); }
-}
 
 /* blob difuminado — firma atmosférica recurrente (hero + CTA final) */
 .blob{ position:absolute; border-radius:50%; filter:blur(56px); opacity:.65; pointer-events:none; z-index:0; }
@@ -238,10 +234,6 @@ section{ position:relative; }
   display:flex; justify-content:space-between; align-items:flex-end; gap: 24px; flex-wrap:wrap;
   padding-inline: var(--gutter); margin-top: clamp(40px,6vw,72px);
 }
-.hero-scroll-cue{
-  display:flex; align-items:center; gap:10px; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color: var(--ink-muted);
-}
-.hero-scroll-cue svg{ width:12px; height:18px; animation: float-y 2.2s ease-in-out infinite; }
 /* CTA táctil — pill lavanda, texto oscuro */
 .hero-cta, .finale-submit{
   border:none; border-radius: var(--radius-pill); background: var(--lavanda); color: var(--ink);
@@ -496,7 +488,6 @@ section{ position:relative; }
   border-radius: var(--radius-pill); box-shadow: 0 8px 18px -10px rgba(var(--shadow-rgb),.3);
 }
 .about-copy{ padding-right: clamp(200px,26vw,320px); max-width:100%; }
-.about-copy .kicker{ margin-bottom: 18px; display:block; }
 .about-copy p.drop{ font-family: var(--serif); font-size: clamp(1.4rem,2.4vw,2rem); line-height:1.42; }
 .about-copy p.drop::first-letter{ font-family: var(--script); font-weight:700; font-size: 2.1em; color: var(--terracota); line-height:.6; }
 .about-body{ margin-top: clamp(24px,3vw,32px); font-size: 16px; line-height:1.7; color: var(--ink-muted); max-width: 62ch; }
@@ -639,7 +630,6 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
       </div>
 
       <div class="hero-bottom">
-        <span class="hero-scroll-cue"><svg class="g-icon"><use href="#i-arrow"/></svg>Desplazate</span>
         <a href="#contacto" class="btn-editorial hero-cta">Escribime y analicemos cómo potenciar tu contenido<svg><use href="#i-play"/></svg></a>
       </div>
     </div>
@@ -916,7 +906,6 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
     <div class="container">
       <div class="about-grid">
         <div class="about-copy" data-reveal>
-          <span class="kicker">Quién escribe esto</span>
           <p class="drop">Soy Dai. Hace más de cuatro años acompaño a marcas y creadores a transformar ideas en contenido para redes sociales.</p>
           <p class="about-body">Estudié la Licenciatura en Ciencias de la Comunicación en UBA. Hice cursos de Community Management en la UBA, Edición y ADS en la UTN. Trabajo en marketing digital desde 2022, con agencias y marcas de forma freelance. Pienso, escribo y edito contenido para redes sociales.</p>
         </div>
@@ -967,9 +956,7 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
       <footer class="finale-footer">
         <a href="#top" class="logo-mark"><svg class="g-icon"><use href="#i-leaf"/></svg>Dai Sosa</a>
         <div class="footer-links">
-          <a href="mailto:hola@daisosa.com">hola@daisosa.com</a>
-          <a href="#" target="_blank" rel="noopener">Instagram</a>
-          <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:sosadaiana.05@gmail.com">sosadaiana.05@gmail.com</a>
         </div>
         <div class="footer-fine">
           <span>© <span id="year"></span> Dai Sosa — Estrategia y contenido</span>
@@ -1102,7 +1089,10 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
       pvTicking = false;
       const rect = pvSection.getBoundingClientRect();
       const vh = window.innerHeight;
-      const progress = Math.min(Math.max((vh * 0.75 - rect.top) / (rect.height * 1.1), 0), 1);
+      // anchored to the section's own top position (not its height) so the last
+      // step's activation lines up with it still being comfortably on screen,
+      // instead of drifting late once the section is nearly scrolled past
+      const progress = Math.min(Math.max((vh * 0.8 - rect.top) / (vh * 0.5), 0), 1);
       pvFill.style.transform = `scaleX(${progress})`;
       const activeIdx = progress > 0 ? Math.min(pvSteps.length - 1, Math.floor(progress * pvSteps.length)) : -1;
       pvSteps.forEach((step, i) => {
