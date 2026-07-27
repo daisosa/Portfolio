@@ -220,7 +220,7 @@ section{ position:relative; }
 }
 .hero-index{ font-family: var(--serif); font-style:italic; font-size:14px; text-align:right; color: var(--ink-muted); }
 
-.hero-main{ padding-inline: var(--gutter); margin-top: clamp(40px,7vw,80px); max-width: 1100px; }
+.hero-main{ padding-inline: var(--gutter); margin-top: clamp(40px,7vw,80px); max-width: 1100px; will-change: transform, opacity; }
 .hero-title{
   font-family: var(--serif); font-weight:400;
   font-size: clamp(2.4rem, 2.6rem + 4vw, 6rem);
@@ -1029,6 +1029,25 @@ FORM: dirección pinneada por el usuario tras exploración iterativa en artifact
   };
   document.addEventListener('scroll', updateProgress, { passive: true });
   updateProgress();
+
+  /* ---------- hero parallax: title drifts down and fades as the hero scrolls out ---------- */
+  const heroSection = document.getElementById('hero');
+  const heroMain = document.querySelector('.hero-main');
+  if (heroSection && heroMain && !reduceMotion) {
+    let heroTicking = false;
+    const applyHeroParallax = () => {
+      heroTicking = false;
+      const rect = heroSection.getBoundingClientRect();
+      const progress = Math.min(Math.max(-rect.top / rect.height, 0), 1);
+      heroMain.style.transform = `translateY(${progress * 70}px)`;
+      heroMain.style.opacity = String(1 - progress * 0.85);
+    };
+    const onHeroScroll = () => {
+      if (!heroTicking) { heroTicking = true; requestAnimationFrame(applyHeroParallax); }
+    };
+    window.addEventListener('scroll', onHeroScroll, { passive: true });
+    applyHeroParallax();
+  }
 
   /* ---------- custom cursor ---------- */
   const cursor = document.querySelector('.cursor-dot');
