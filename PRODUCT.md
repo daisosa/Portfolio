@@ -8,49 +8,102 @@ web
 
 ## Users
 
-Marcas y negocios que necesitan estrategia y creación de contenido. No hay un segmento único: van desde marcas de consumo medianas/grandes ya establecidas hasta emprendimientos en crecimiento y marcas personales/creadoras de contenido. [Confirmado por el usuario: "todos".]
+Marcas y negocios (consumo masivo, emprendimientos y marcas personales) que buscan estrategia y creación de contenido para destacar en un mercado saturado.
+
+## Mode
+
+Experience.
+
+El sitio prioriza una experiencia visual memorable por encima de una interfaz convencional. El trabajo y el contenido deben guiar la navegación mediante movimiento, ritmo y una presentación editorial, sin comprometer la usabilidad.
+
+## Brand Voice
+
+Estratégica, creativa y dinámica.
+
+El tono debe ser profesional, cercano y difícil de ignorar ("un-ignorable"). Debe transmitir que el contenido es un sistema con propósito, no una colección de publicaciones aisladas.
 
 ## Product Purpose
 
-Portfolio freelance de Daiana "Dai" Sosa para conseguir clientes de estrategia y creación de contenido. El mensaje central: crear contenido nunca fue tan fácil de producir técnicamente, pero nunca fue tan difícil destacar — y el trabajo de Dai es resolver esa segunda parte.
+Portfolio freelance de Daiana "Dai" Sosa para conseguir clientes de estrategia y creación de contenido.
+
+El mensaje central es que crear contenido nunca fue tan fácil desde lo técnico, pero nunca fue tan difícil destacar. El trabajo de Dai consiste en resolver esa segunda parte mediante diagnóstico, pensamiento estratégico, línea editorial y optimización.
 
 ## Positioning
 
-El contenido se trata como un sistema con propósito (diagnóstico + línea editorial + producción), no como piezas o decisiones de publicación aisladas. Cuatro líneas de servicio ofrecidas: estrategia de contenido, guiones, edición, y acompañamiento creativo continuo.
+El contenido se trata como un sistema con propósito (diagnóstico + línea editorial + producción), no como piezas o decisiones de publicación aisladas.
+
+Cuatro líneas de servicio ofrecidas:
+
+- Estrategia de contenido.
+- Guiones.
+- Edición.
+- Acompañamiento creativo continuo.
 
 ## Operating Context
 
-- Freelance solista, sin equipo fijo. Modalidad principal: por proyecto. [Confirmado por el usuario.]
-- Una de las cuatro líneas de servicio ("Acompañamiento creativo") es seguimiento mensual continuo — coexiste con la modalidad principal por proyecto, no la reemplaza.
+- Freelance solista, sin equipo fijo. Modalidad principal: por proyecto.
+- Una de las cuatro líneas de servicio ("Acompañamiento creativo") es seguimiento mensual continuo; coexiste con la modalidad principal por proyecto.
 - Proceso de trabajo declarado en el sitio: Diagnosticar → Pensar → Escribir → Optimizar.
 - Ubicada en Buenos Aires, Argentina.
-- Vías de contacto: formulario en el sitio, email. [Versión B del sitio no incluye links de Instagram/LinkedIn en el footer — pendiente si se quieren agregar.]
+- Vías de contacto: formulario del sitio y email.
+- La versión B del sitio no incluye enlaces de Instagram o LinkedIn en el footer (pendiente de definir).
 
 ## Capabilities and Constraints
 
-- Sitio estático de una sola página (`index.html`, HTML/CSS/JS vanilla), sin build ni framework, sin backend.
-- El formulario de contacto valida en el cliente y, al enviarse, abre el cliente de email del visitante con los datos precargados (`mailto:`) — no hay backend ni envío directo desde el navegador.
-- Sin CMS: cualquier actualización de contenido (proyectos, testimonios, logos) requiere editar el HTML directamente.
+- Sitio estático de una sola página (`index.html`) desarrollado únicamente con HTML, CSS y JavaScript vanilla.
+- Sin backend ni framework.
+- Sin sistema de build.
+- El formulario valida en el cliente y abre el cliente de correo mediante `mailto:`; no existe envío directo desde el navegador.
+- Sin CMS: cualquier modificación de contenido requiere editar el HTML.
 
 ## Brand Commitments
 
 - Nombre: "Dai Sosa" (Daiana Sosa).
-- Ya existe un sistema visual completo (paleta, tipografía, componentes) implementado en `index.html`. No está documentado aparte todavía — usar `$impeccable document` si se quiere registrar en DESIGN.md independientemente de una reconstrucción.
+- Ya existe un sistema visual completo (paleta, tipografía y componentes) implementado en `index.html`. Si se desea documentarlo formalmente, utilizar `DESIGN.md`.
 
 ## Evidence on Hand
 
-- Clientes reales confirmados por el usuario para la sección "Con quién trabajé": Hongos Porto, Café Martínez, Brahma, Roche, Oregon Hotel, Tun. Pendiente: el usuario quiere reemplazar los nombres en texto por los logos reales de cada empresa (assets de imagen todavía no provistos).
-- Los 6 casos de "Selección de proyectos" y los 6 testimonios siguen siendo placeholder ("Nombre del proyecto / Cliente — a definir", "Captura de testimonio — placeholder"). No fabricar contenido para estos: están pendientes de reemplazo con casos y prueba social reales.
-- El footer de la Versión B no incluye links de Instagram/LinkedIn (a diferencia de una versión anterior del sitio) — si se quieren agregar, faltan las URLs reales.
-- Email de contacto usado en el sitio: mambocreativook@gmail.com.
+- Clientes confirmados para la sección "Con quién trabajé":
+  - Hongos Porto
+  - Café Martínez
+  - Brahma
+  - Roche
+  - Oregon Hotel
+  - Tun
+- Los nombres serán reemplazados por sus logos cuando estén disponibles los assets.
+- Los seis casos de estudio y los seis testimonios actuales son placeholders y deben reemplazarse únicamente por material real.
+- El footer de la versión B todavía no incluye Instagram ni LinkedIn por falta de las URLs.
+- Email de contacto: `mambocreativook@gmail.com`.
 
 ## Product Principles
 
-- El contenido es un sistema, no piezas aisladas: cada línea de servicio parte de diagnóstico y línea editorial.
-- La prueba social debe ser siempre real — nunca inventar clientes, testimonios o métricas nuevas.
-- Es freelance solista: el posicionamiento y las capacidades declaradas no deben implicar un equipo que no existe.
-- El sitio debe seguir funcionando como hosting 100% estático; cualquier feature nueva (ej. formulario funcional) debe asumir esa restricción hasta que se decida lo contrario.
+- El contenido es un sistema, no piezas aisladas.
+- Toda propuesta parte de diagnóstico, estrategia y línea editorial.
+- La prueba social siempre debe ser real; nunca inventar clientes, testimonios, métricas o resultados.
+- El posicionamiento debe reflejar que Dai trabaja como freelancer independiente, nunca como una agencia.
+- El sitio debe seguir funcionando como un hosting 100 % estático.
+
+## Design Principles
+
+- La experiencia debe sentirse editorial, viva y dinámica.
+- El trabajo de Dai debe ser el protagonista de la interfaz.
+- Priorizar narrativa visual, ritmo, movimiento y jerarquía antes que componentes genéricos.
+- Buscar una estética memorable sin sacrificar claridad ni velocidad de navegación.
+
+## Anti-References
+
+Evitar:
+
+- Estética "AI Beige" o interfaces genéricas.
+- Componentes excesivamente estándar con bordes redondeados y sombras planas por defecto.
+- Diseños que parezcan dashboards, templates o landing pages intercambiables.
+- Páginas excesivamente estáticas, clínicas o similares a un documento de texto.
 
 ## Accessibility & Inclusion
 
-Sin requerimiento específico establecido más allá de las buenas prácticas ya aplicadas (contraste WCAG AA, formulario con labels, landmarks semánticos).
+No existen requerimientos específicos adicionales más allá de las buenas prácticas ya implementadas:
+
+- Contraste WCAG AA.
+- Formularios correctamente etiquetados.
+- Landmarks semánticos.
+- Navegación clara y accesible.
