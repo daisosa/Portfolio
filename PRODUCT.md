@@ -24,12 +24,12 @@ El contenido se trata como un sistema con propósito (diagnóstico + línea edit
 - Una de las cuatro líneas de servicio ("Acompañamiento creativo") es seguimiento mensual continuo — coexiste con la modalidad principal por proyecto, no la reemplaza.
 - Proceso de trabajo declarado en el sitio: Diagnosticar → Pensar → Escribir → Optimizar.
 - Ubicada en Buenos Aires, Argentina.
-- Vías de contacto: formulario en el sitio, email, Instagram, LinkedIn.
+- Vías de contacto: formulario en el sitio, email. [Versión B del sitio no incluye links de Instagram/LinkedIn en el footer — pendiente si se quieren agregar.]
 
 ## Capabilities and Constraints
 
 - Sitio estático de una sola página (`index.html`, HTML/CSS/JS vanilla), sin build ni framework, sin backend.
-- El formulario de contacto valida en el cliente pero no envía datos a ningún servidor todavía (placeholder de éxito solamente).
+- El formulario de contacto valida en el cliente y, al enviarse, abre el cliente de email del visitante con los datos precargados (`mailto:`) — no hay backend ni envío directo desde el navegador.
 - Sin CMS: cualquier actualización de contenido (proyectos, testimonios, logos) requiere editar el HTML directamente.
 
 ## Brand Commitments
@@ -41,8 +41,8 @@ El contenido se trata como un sistema con propósito (diagnóstico + línea edit
 
 - Clientes reales confirmados por el usuario para la sección "Con quién trabajé": Hongos Porto, Café Martínez, Brahma, Roche, Oregon Hotel, Tun. Pendiente: el usuario quiere reemplazar los nombres en texto por los logos reales de cada empresa (assets de imagen todavía no provistos).
 - Los 6 casos de "Selección de proyectos" y los 6 testimonios siguen siendo placeholder ("Nombre del proyecto / Cliente — a definir", "Captura de testimonio — placeholder"). No fabricar contenido para estos: están pendientes de reemplazo con casos y prueba social reales.
-- Los links de Instagram y LinkedIn en el footer son placeholders (`href="#"`) — URLs reales todavía no provistas.
-- Email de contacto usado en el sitio: hola@daisosa.com (confirmar si es la dirección real).
+- El footer de la Versión B no incluye links de Instagram/LinkedIn (a diferencia de una versión anterior del sitio) — si se quieren agregar, faltan las URLs reales.
+- Email de contacto usado en el sitio: mambocreativook@gmail.com.
 
 ## Product Principles
 
