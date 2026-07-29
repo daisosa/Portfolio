@@ -109,7 +109,7 @@ Base crema en dos profundidades, terracota como color de marca (texto y superfic
 
 ## Layout
 
-Contenedor centrado `max-width: 1240px`, padding lateral fluido (`--gutter`, `clamp(20px,4vw,56px)`). Grid de proyectos `repeat(auto-fit, minmax(260px,1fr))` con rotación alterna ±1deg. Header en flujo normal (no fijo/sticky) — decisión explícita de esta versión, a diferencia del header fijo con blur del sistema anterior. Responsive en dos quiebres principales (860px para el menú mobile, 1000px para el grid de "Para quién es", 600px para stats/grillas de una columna).
+Contenedor centrado `max-width: 1240px`, padding lateral fluido (`--gutter`, `clamp(20px,4vw,56px)`). Grid de proyectos, proceso y stats con columnas fijas (`repeat(3,1fr)` / `repeat(4,1fr)`, no `auto-fit`) para garantizar filas simétricas en cada quiebre en vez de dejar que el ancho disponible decida cuántas columnas entran; rotación alterna ±1deg en las tarjetas de proyecto. Header en flujo normal (no fijo/sticky) — decisión explícita de esta versión, a diferencia del header fijo con blur del sistema anterior. Responsive en tres quiebres principales (860px para el menú mobile y para pasar a 2 columnas en proyectos/proceso, 1000px para el grid de "Para quién es", 600px para stats/grillas de una columna).
 
 ## Elevation & Depth
 
