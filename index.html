@@ -137,8 +137,8 @@ section{ position:relative; }
 .marquee-track{ display:flex; width:max-content; align-items:center; gap:56px; animation: marqueeScroll 30s linear infinite; }
 .marquee:hover .marquee-track{ animation-play-state: paused; }
 @keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
-.brand-logo{ display:flex; align-items:center; justify-content:center; height:44px; width:140px; flex:none; }
-.brand-logo img{ max-height:100%; max-width:100%; width:auto; height:auto; object-fit:contain; filter:grayscale(1); opacity:.55; transition: filter .3s var(--ease), opacity .3s var(--ease); }
+.brand-logo{ display:flex; align-items:center; justify-content:center; height:56px; width:150px; flex:none; background: var(--cream-card); border-radius:10px; padding:8px 16px; }
+.brand-logo img{ max-height:100%; max-width:100%; width:auto; height:auto; object-fit:contain; filter:grayscale(1); opacity:.6; transition: filter .3s var(--ease), opacity .3s var(--ease); }
 .brand-logo:hover img{ filter:grayscale(0); opacity:1; }
 
 .stats{ display:grid; grid-template-columns: repeat(3,1fr); gap:24px; padding: clamp(40px,6vw,56px) var(--gutter) 0; }
@@ -209,6 +209,7 @@ section{ position:relative; }
   content:''; position:absolute; inset:0; border-radius:12px; border:2px solid var(--mustard); animation: playPulse 1.4s ease-out infinite;
 }
 @keyframes playPulse{ 0%{ box-shadow:0 0 0 0 rgba(232,179,61,.5); } 100%{ box-shadow:0 0 0 14px rgba(232,179,61,0); } }
+.work-slot-iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; z-index:2; }
 .carousel-item .work-slot > span{ position:absolute; bottom:12px; left:12px; right:12px; text-align:center; font-family: var(--serif); font-style:italic; font-size:12px; color: var(--cream); opacity:.75; }
 .carousel-item-meta{ display:flex; flex-direction:column; align-items:center; gap:4px; margin-top:14px; text-align:center; }
 .carousel-item-meta strong{ font-family: var(--serif); font-weight:400; font-size:19px; }
@@ -274,8 +275,9 @@ section{ position:relative; }
   background: radial-gradient(circle at 35% 30%, var(--mustard), var(--terracota) 70%);
   box-shadow: 0 3px 5px rgba(43,27,18,.35); transform: translateX(-50%);
 }
-.testimonial-shot{ flex:1; border-radius:10px; background: var(--cream-card); display:flex; align-items:center; justify-content:center; }
+.testimonial-shot{ flex:1; border-radius:10px; background: var(--cream-card); display:flex; align-items:center; justify-content:center; overflow:hidden; }
 .testimonial-shot svg{ width:26px; height:26px; color: var(--ink-muted); opacity:.55; }
+.testimonial-shot img{ width:100%; height:100%; object-fit:contain; }
 .testimonial-card figcaption{ font-family: var(--serif); font-style:italic; font-size:12px; color: var(--ink-muted); text-align:center; }
 
 /* ==========================================================================
@@ -417,20 +419,36 @@ section{ position:relative; }
     <h2>Marcas que confiaron en mi trabajo</h2>
     <div class="marquee">
       <div class="marquee-track" aria-hidden="true">
-        <span class="brand-logo"><img src="assets/logos/hongos-porto.svg" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/cafe-martinez.svg" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/brahma.svg" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/roche.svg" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/oregon-hotel.svg" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/tun.svg" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/hongos-porto.svg" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/cafe-martinez.svg" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/brahma.svg" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/roche.svg" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/oregon-hotel.svg" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/tun.svg" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-URV.jpg" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-airo.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-arakina.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-brahma.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-bulldog.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-cafe-martinez.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-cozy.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-henry.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-incamed.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-oregon.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-otaku.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-porto.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-timeleft.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-tumm.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-URV.jpg" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-airo.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-arakina.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-brahma.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-bulldog.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-cafe-martinez.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-cozy.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-henry.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-incamed.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-oregon.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-otaku.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-porto.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-timeleft.png" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/logo-tumm.png" alt="" loading="lazy"></span>
       </div>
-      <span class="visually-hidden">Marcas: Hongos Porto, Café Martínez, Brahma, Roche, Oregon Hotel, Tun.</span>
+      <span class="visually-hidden">Marcas: URV, Airo, Arakina, Brahma, Bulldog, Cozy, Café Martínez, Henry, Incamed, Oregon, Otaku, Porto, Timeleft, Tumm.</span>
     </div>
     <div class="stats" id="stats-counter-block">
       <div class="stat-card" data-reveal>
@@ -480,17 +498,18 @@ section{ position:relative; }
   <section class="work" id="trabajo">
     <p class="work-note">Todavía no subí piezas reales acá: cada uno de estos lugares —en Mis ediciones y en Mis guiones— está reservado para un proyecto apenas lo cargue.</p>
 
+    <!-- Para activar un video: pegá el link de YouTube o Vimeo (no listado) en el atributo data-video de cada <li class="carousel-item">, ej: data-video="https://youtu.be/XXXXXXXXXXX" -->
     <div class="carousel-group" data-reveal>
       <h3 class="carousel-group-title">Mis ediciones</h3>
       <div class="carousel" data-carousel>
         <button class="carousel-arrow carousel-arrow--prev" type="button" data-carousel-prev aria-label="Edición anterior"><span aria-hidden="true">‹</span></button>
         <ul class="carousel-track" data-carousel-track>
-          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver edición 1 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 01</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver edición 2 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 02</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver edición 3 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 03</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver edición 4 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 04</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver edición 5 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 05</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver edición 6 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 06</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver edición 1 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 01</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver edición 2 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 02</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver edición 3 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 03</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver edición 4 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 04</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver edición 5 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 05</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver edición 6 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 06</strong><span>Por confirmar</span></span></button></li>
         </ul>
         <button class="carousel-arrow carousel-arrow--next" type="button" data-carousel-next aria-label="Edición siguiente"><span aria-hidden="true">›</span></button>
       </div>
@@ -501,12 +520,12 @@ section{ position:relative; }
       <div class="carousel" data-carousel>
         <button class="carousel-arrow carousel-arrow--prev" type="button" data-carousel-prev aria-label="Guion anterior"><span aria-hidden="true">‹</span></button>
         <ul class="carousel-track" data-carousel-track>
-          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver guion 1 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 01</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver guion 2 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 02</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver guion 3 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 03</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver guion 4 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 04</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver guion 5 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 05</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver guion 6 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 06</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver guion 1 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 01</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver guion 2 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 02</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver guion 3 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 03</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver guion 4 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 04</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver guion 5 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 05</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver guion 6 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 06</strong><span>Por confirmar</span></span></button></li>
         </ul>
         <button class="carousel-arrow carousel-arrow--next" type="button" data-carousel-next aria-label="Guion siguiente"><span aria-hidden="true">›</span></button>
       </div>
@@ -530,12 +549,12 @@ section{ position:relative; }
   <section class="testimonials" id="testimonios">
     <h2>Lo que dicen mis clientes</h2>
     <div class="testimonial-strip">
-      <figure class="testimonial-card tape" data-reveal><div class="testimonial-shot"><svg aria-hidden="true"><use href="#i-quote"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
-      <figure class="testimonial-card pin" data-reveal><div class="testimonial-shot"><svg aria-hidden="true"><use href="#i-quote"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
-      <figure class="testimonial-card tape dusty" data-reveal><div class="testimonial-shot"><svg aria-hidden="true"><use href="#i-quote"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
-      <figure class="testimonial-card pin" data-reveal><div class="testimonial-shot"><svg aria-hidden="true"><use href="#i-quote"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
-      <figure class="testimonial-card tape" data-reveal><div class="testimonial-shot"><svg aria-hidden="true"><use href="#i-quote"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
-      <figure class="testimonial-card pin" data-reveal><div class="testimonial-shot"><svg aria-hidden="true"><use href="#i-quote"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
+      <figure class="testimonial-card tape" data-reveal><div class="testimonial-shot"><img src="assets/testimonios/01.jpeg" alt="Captura de testimonio de cliente" loading="lazy"></div><figcaption>Testimonio de cliente</figcaption></figure>
+      <figure class="testimonial-card pin" data-reveal><div class="testimonial-shot"><img src="assets/testimonios/02.jpeg" alt="Captura de testimonio de cliente" loading="lazy"></div><figcaption>Testimonio de cliente</figcaption></figure>
+      <figure class="testimonial-card tape dusty" data-reveal><div class="testimonial-shot"><img src="assets/testimonios/03.jpeg" alt="Captura de testimonio de cliente" loading="lazy"></div><figcaption>Testimonio de cliente</figcaption></figure>
+      <figure class="testimonial-card pin" data-reveal><div class="testimonial-shot"><img src="assets/testimonios/04.jpeg" alt="Captura de testimonio de cliente" loading="lazy"></div><figcaption>Testimonio de cliente</figcaption></figure>
+      <figure class="testimonial-card tape" data-reveal><div class="testimonial-shot"><img src="assets/testimonios/05.jpeg" alt="Captura de testimonio de cliente" loading="lazy"></div><figcaption>Testimonio de cliente</figcaption></figure>
+      <figure class="testimonial-card pin" data-reveal><div class="testimonial-shot"><img src="assets/testimonios/06.jpeg" alt="Captura de testimonio de cliente" loading="lazy"></div><figcaption>Testimonio de cliente</figcaption></figure>
     </div>
   </section>
 
@@ -914,6 +933,29 @@ section{ position:relative; }
     return { items, n, scrollToItem, findActive };
   };
 
+  /* ---------- convierte un link de YouTube/Vimeo pegado a mano en la URL de embed correspondiente ---------- */
+  const toEmbedUrl = (raw) => {
+    if (!raw) return null;
+    let url;
+    try { url = new URL(raw.trim()); } catch (err) { return null; }
+    const host = url.hostname.replace(/^www\./, '');
+    if (host === 'youtu.be') {
+      const id = url.pathname.slice(1);
+      return id ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0` : null;
+    }
+    if (host === 'youtube.com' || host === 'm.youtube.com') {
+      let id = url.searchParams.get('v');
+      if (!id && url.pathname.startsWith('/shorts/')) id = url.pathname.split('/')[2];
+      if (!id && url.pathname.startsWith('/embed/')) id = url.pathname.split('/')[2];
+      return id ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0` : null;
+    }
+    if (host === 'vimeo.com') {
+      const id = url.pathname.split('/').filter(Boolean).pop();
+      return id ? `https://player.vimeo.com/video/${id}?autoplay=1` : null;
+    }
+    return null;
+  };
+
   /* ---------- carrusel de trabajos — Mis ediciones / Mis guiones, un video protagonista al centro, loop infinito ---------- */
   document.querySelectorAll('[data-carousel]').forEach(carousel => {
     const track = carousel.querySelector('[data-carousel-track]');
@@ -921,8 +963,18 @@ section{ position:relative; }
     const nextBtn = carousel.querySelector('[data-carousel-next]');
     if (!track) return;
 
+    const stopPlayback = (item) => {
+      item.classList.remove('is-playing');
+      const iframe = item.querySelector('.work-slot-iframe');
+      if (iframe) iframe.remove();
+    };
+
     const scroller = makeInfiniteTrack(track, (active) => {
-      scroller.items.forEach(i => i.classList.toggle('is-active', i === active));
+      scroller.items.forEach(i => {
+        const wasActive = i.classList.contains('is-active');
+        i.classList.toggle('is-active', i === active);
+        if (wasActive && i !== active) stopPlayback(i);
+      });
     });
     if (!scroller) return;
 
@@ -938,11 +990,24 @@ section{ position:relative; }
       const btn = item.querySelector('.carousel-item-btn');
       if (!btn) return;
       btn.addEventListener('click', () => {
-        if (item.classList.contains('is-active')) {
-          scroller.items.forEach(i => { if (i !== item) i.classList.remove('is-playing'); });
-          item.classList.toggle('is-playing');
-        } else {
+        if (!item.classList.contains('is-active')) {
           scroller.scrollToItem(item);
+          return;
+        }
+        const slot = item.querySelector('.work-slot');
+        const embedUrl = toEmbedUrl(item.dataset.video);
+        if (embedUrl && slot && !slot.querySelector('.work-slot-iframe')) {
+          const iframe = document.createElement('iframe');
+          iframe.className = 'work-slot-iframe';
+          iframe.src = embedUrl;
+          const label = item.querySelector('.carousel-item-meta strong');
+          iframe.title = label ? label.textContent : 'Video';
+          iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen');
+          iframe.loading = 'lazy';
+          slot.appendChild(iframe);
+        } else if (!embedUrl) {
+          scroller.items.forEach(i => { if (i !== item) stopPlayback(i); });
+          item.classList.toggle('is-playing');
         }
       });
     });

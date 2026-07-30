@@ -63,15 +63,23 @@ Cuatro líneas de servicio ofrecidas:
 
 ## Evidence on Hand
 
-- Clientes confirmados para la sección "Con quién trabajé":
-  - Hongos Porto
-  - Café Martínez
+- Clientes confirmados para la sección "Marcas que confiaron en mi trabajo" (logos reales en `assets/logos/`):
+  - URV
+  - Airo
+  - Arakina
   - Brahma
-  - Roche
-  - Oregon Hotel
-  - Tun
-- Los nombres serán reemplazados por sus logos cuando estén disponibles los assets.
-- Los seis casos de estudio y los seis testimonios actuales son placeholders y deben reemplazarse únicamente por material real.
+  - Bulldog
+  - Café Martínez
+  - Cozy
+  - Henry
+  - Incamed
+  - Oregon
+  - Otaku
+  - Porto
+  - Timeleft
+  - Tumm
+- Testimonios: 6 capturas reales de clientes en `assets/testimonios/01.jpeg`–`06.jpeg`.
+- Los 12 casos de estudio (Mis ediciones / Mis guiones) siguen siendo placeholders de video; se resuelven pegando un link de YouTube/Vimeo no listado en el atributo `data-video` de cada `<li class="carousel-item">` — no se suben archivos de video al repo (límite de tamaño de GitHub).
 - El footer de la versión B todavía no incluye Instagram ni LinkedIn por falta de las URLs.
 - Email de contacto: `mambocreativook@gmail.com`.
 
