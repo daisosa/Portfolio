@@ -157,9 +157,9 @@ section{ position:relative; }
 .audience-intro{ max-width:820px; margin: clamp(40px,6vw,56px) auto 0; text-align:center; }
 .audience-lead{ font-family: var(--serif); font-size: clamp(1.7rem,3.4vw,2.6rem); line-height:1.35; }
 .audience-lead em{ font-style:italic; color: var(--terracota); border-bottom:3px solid var(--mustard); }
-.audience-si{ font-family: var(--serif); font-size: clamp(1.3rem,2.2vw,1.7rem); margin: clamp(40px,6vw,56px) 0 0; }
-.audience-si::after{ content:''; display:block; width:40px; height:3px; background: var(--mustard); border-radius:2px; margin: 22px auto 0; }
-.audience-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:24px; max-width:1100px; margin: clamp(56px,8vw,88px) auto 0; }
+.audience-si{ font-family: var(--serif); font-weight:400; font-size: clamp(2.2rem,4.4vw,3.4rem); margin: clamp(56px,8vw,88px) 0 0; }
+.audience-si::before{ content:''; display:block; width:48px; height:3px; background: var(--mustard); border-radius:2px; margin: 0 auto clamp(24px,3.5vw,32px); }
+.audience-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:24px; max-width:1100px; margin: clamp(28px,4vw,40px) auto 0; }
 .audience-card{ background: var(--terracota); color: var(--cream); border-radius:18px; padding:32px 26px; }
 .audience-card:nth-child(1){ --tilt: -1deg; }
 .audience-card:nth-child(3){ --tilt: 1deg; }
@@ -176,14 +176,12 @@ section{ position:relative; }
    CASOS DE ESTUDIO
    ========================================================================== */
 .work{ padding: clamp(56px,8vw,88px) var(--gutter); }
-.work-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; max-width:1240px; margin:0 auto 48px; }
-.work-head h2{ font-family: var(--serif); font-weight:400; font-size: clamp(2rem,4vw,3.4rem); text-decoration-line:underline; }
-.work-note{ max-width:32ch; font-size:13.5px; color: var(--ink-muted); line-height:1.5; }
+.work-note{ max-width:46ch; font-size:13.5px; color: var(--ink-muted); line-height:1.5; text-align:center; margin: 0 auto clamp(40px,6vw,56px); }
 
 /* carrusel de trabajos — un video protagonista al centro, el anterior/siguiente se asoman atenuados a los costados */
 .carousel-group{ max-width:1240px; margin:0 auto; }
-.carousel-group + .carousel-group{ margin-top: clamp(56px,7vw,80px); }
-.carousel-group-title{ font-family: var(--serif); font-style:italic; font-weight:400; font-size: clamp(1.5rem,2.6vw,2rem); text-align:center; margin:0 0 clamp(24px,3vw,32px); }
+.carousel-group + .carousel-group{ margin-top: clamp(64px,8vw,96px); }
+.carousel-group-title{ font-family: var(--serif); font-style:italic; font-weight:400; font-size: clamp(2.4rem,5vw,4rem); text-align:center; margin:0 0 clamp(32px,4vw,44px); }
 .carousel{ position:relative; }
 .carousel-track{
   display:flex; align-items:center; gap: clamp(16px,2.4vw,28px); overflow-x:auto; scroll-snap-type:x mandatory;
@@ -234,10 +232,8 @@ section{ position:relative; }
 .process-num{ width:34px; height:34px; border-radius:50%; background: var(--terracota); color: var(--cream); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; }
 .process-step h3{ font-family: var(--serif); font-weight:400; font-size:24px; margin:16px 0 0; }
 .process-step p{ margin-top:10px; font-size:14px; line-height:1.6; color: var(--ink-muted); min-height:3.2em; }
-.process-step:nth-child(1){ transition-delay: 0s; }
-.process-step:nth-child(2){ transition-delay: .35s; }
-.process-step:nth-child(3){ transition-delay: .7s; }
-.process-step:nth-child(4){ transition-delay: 1.05s; }
+.process-step{ opacity:0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.process-step.is-in{ opacity:1; transform: translateY(0); }
 .type-caret{ display:inline-block; width:2px; height:1em; vertical-align:-.15em; margin-left:2px; background: var(--terracota); animation: caretBlink .9s step-end infinite; }
 @keyframes caretBlink{ 50%{ opacity:0; } }
 
@@ -268,12 +264,6 @@ section{ position:relative; }
 }
 .testimonial-card[data-reveal].is-in{ transform: translateY(0) scale(1) rotate(var(--tilt)); }
 .testimonial-card[data-reveal]:hover{ transform: translateY(-6px) scale(1) rotate(0deg); }
-.testimonial-card[data-reveal]:nth-child(1){ transition-delay: 0s; }
-.testimonial-card[data-reveal]:nth-child(2){ transition-delay: .08s; }
-.testimonial-card[data-reveal]:nth-child(3){ transition-delay: .16s; }
-.testimonial-card[data-reveal]:nth-child(4){ transition-delay: .24s; }
-.testimonial-card[data-reveal]:nth-child(5){ transition-delay: .32s; }
-.testimonial-card[data-reveal]:nth-child(6){ transition-delay: .4s; }
 .testimonial-card.tape::before{
   content:''; position:absolute; top:-14px; left:50%; width:64px; height:22px;
   background: rgba(232,179,61,.6); transform: translateX(-50%) rotate(-3deg); box-shadow: 0 2px 4px rgba(43,27,18,.2);
@@ -488,10 +478,7 @@ section{ position:relative; }
 
   <!-- CASOS DE ESTUDIO -->
   <section class="work" id="trabajo">
-    <div class="work-head">
-      <h2>Algunos de mis trabajos</h2>
-      <p class="work-note">Todavía no subí piezas reales acá: cada uno de estos lugares —en Mis ediciones y en Mis guiones— está reservado para un proyecto apenas lo cargue.</p>
-    </div>
+    <p class="work-note">Todavía no subí piezas reales acá: cada uno de estos lugares —en Mis ediciones y en Mis guiones— está reservado para un proyecto apenas lo cargue.</p>
 
     <div class="carousel-group" data-reveal>
       <h3 class="carousel-group-title">Mis ediciones</h3>
@@ -532,10 +519,10 @@ section{ position:relative; }
   <section class="process" id="proceso">
     <h2>De la idea a la publicación</h2>
     <div class="process-grid">
-      <div class="process-step" data-reveal><span class="process-num">01</span><h3>Diagnosticar</h3><p>Entender y analizar los objetivos.</p></div>
-      <div class="process-step" data-reveal><span class="process-num">02</span><h3>Pensar</h3><p>Desarrollar ideas y estrategias con intención.</p></div>
-      <div class="process-step" data-reveal><span class="process-num">03</span><h3>Escribir</h3><p>Bajar esas ideas en un guion claro, dinámico y alineado con la voz de tu marca.</p></div>
-      <div class="process-step" data-reveal><span class="process-num">04</span><h3>Optimizar</h3><p>Definir qué vamos a medir para evaluar cómo seguir mejorando.</p></div>
+      <div class="process-step"><span class="process-num">01</span><h3>Diagnosticar</h3><p>Entender y analizar los objetivos.</p></div>
+      <div class="process-step"><span class="process-num">02</span><h3>Pensar</h3><p>Desarrollar ideas y estrategias con intención.</p></div>
+      <div class="process-step"><span class="process-num">03</span><h3>Escribir</h3><p>Bajar esas ideas en un guion claro, dinámico y alineado con la voz de tu marca.</p></div>
+      <div class="process-step"><span class="process-num">04</span><h3>Optimizar</h3><p>Definir qué vamos a medir para evaluar cómo seguir mejorando.</p></div>
     </div>
   </section>
 
@@ -717,11 +704,11 @@ section{ position:relative; }
     revealEls.forEach(el => el.classList.add('is-in'));
   }
 
-  /* ---------- pasos del proceso — aparecen uno por uno y el texto se tipea, como si se fuera escribiendo ---------- */
+  /* ---------- pasos del proceso — cadena estrictamente secuencial: el paso 2 espera a que termine de tipear el 1, y así ---------- */
+  const processGrid = document.querySelector('.process-grid');
   const processSteps = document.querySelectorAll('.process-step');
-  if (processSteps.length && 'IntersectionObserver' in window) {
-    const stepDelays = [0, 350, 700, 1050];
-    const typeText = (el, text, speed) => {
+  if (processGrid && processSteps.length && 'IntersectionObserver' in window) {
+    const typeText = (el, text, speed, onDone) => {
       el.textContent = '';
       const caret = document.createElement('span');
       caret.className = 'type-caret';
@@ -735,26 +722,44 @@ section{ position:relative; }
           setTimeout(tick, speed);
         } else {
           caret.remove();
+          if (onDone) onDone();
         }
       };
       tick();
     };
-    processSteps.forEach((step, i) => {
-      const p = step.querySelector('p');
-      const original = p ? p.textContent : '';
-      const stepIO = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-          if (reduceMotion || !p) {
-            if (p) p.textContent = original;
-          } else {
-            setTimeout(() => typeText(p, original, 16), (stepDelays[i] || 0) + 550);
-          }
-          stepIO.disconnect();
-        });
-      }, { threshold: 0.4 });
-      stepIO.observe(step);
-    });
+
+    const runSequence = () => {
+      let i = 0;
+      const revealNext = () => {
+        if (i >= processSteps.length) return;
+        const step = processSteps[i];
+        const p = step.querySelector('p');
+        const original = p ? p.textContent : '';
+        step.classList.add('is-in');
+        if (reduceMotion || !p) {
+          if (p) p.textContent = original;
+          i += 1;
+          setTimeout(revealNext, 200);
+          return;
+        }
+        setTimeout(() => {
+          typeText(p, original, 16, () => {
+            i += 1;
+            setTimeout(revealNext, 260);
+          });
+        }, 550);
+      };
+      revealNext();
+    };
+
+    const processIO = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        runSequence();
+        processIO.disconnect();
+      });
+    }, { threshold: 0.3 });
+    processIO.observe(processGrid);
   }
 
   /* ---------- flechas de "estás en el lugar correcto" convergen al entrar ---------- */
@@ -842,64 +847,105 @@ section{ position:relative; }
     });
   }
 
-  /* ---------- carrusel de trabajos — Mis ediciones / Mis guiones, un video protagonista al centro ---------- */
-  document.querySelectorAll('[data-carousel]').forEach(carousel => {
-    const track = carousel.querySelector('[data-carousel-track]');
-    const items = Array.from(carousel.querySelectorAll('[data-carousel-item]'));
-    const prevBtn = carousel.querySelector('[data-carousel-prev]');
-    const nextBtn = carousel.querySelector('[data-carousel-next]');
-    if (!track || !items.length) return;
+  /* ---------- scroller de loop infinito — clona el set antes/después y reubica en silencio al cruzar el borde clonado ---------- */
+  const makeInfiniteTrack = (track, onActiveChange) => {
+    const originals = Array.from(track.children);
+    const n = originals.length;
+    if (!n) return null;
 
-    const setActive = () => {
+    const cloneSet = () => originals.map(el => {
+      const clone = el.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      clone.classList.add('is-in');
+      clone.querySelectorAll('button, a, input, textarea, select, [tabindex]').forEach(node => node.setAttribute('tabindex', '-1'));
+      return clone;
+    });
+    const fragBefore = document.createDocumentFragment();
+    cloneSet().forEach(el => fragBefore.appendChild(el));
+    track.insertBefore(fragBefore, track.firstChild);
+    const fragAfter = document.createDocumentFragment();
+    cloneSet().forEach(el => fragAfter.appendChild(el));
+    track.appendChild(fragAfter);
+
+    const items = Array.from(track.children);
+
+    const centerOffset = (item) => {
+      const trackRect = track.getBoundingClientRect();
+      const itemRect = item.getBoundingClientRect();
+      return (itemRect.left + itemRect.width / 2) - (trackRect.left + trackRect.width / 2);
+    };
+    const scrollToItem = (item, behavior) => {
+      track.scrollBy({ left: centerOffset(item), behavior: behavior || (reduceMotion ? 'auto' : 'smooth') });
+    };
+    const findActive = () => {
       const trackRect = track.getBoundingClientRect();
       const center = trackRect.left + trackRect.width / 2;
-      let closest = items[0];
+      let closest = items[n];
       let closestDist = Infinity;
       items.forEach(item => {
         const r = item.getBoundingClientRect();
         const dist = Math.abs((r.left + r.width / 2) - center);
         if (dist < closestDist) { closestDist = dist; closest = item; }
       });
-      items.forEach(item => item.classList.toggle('is-active', item === closest));
+      return closest;
     };
 
-    const scrollToItem = (item) => {
-      const trackRect = track.getBoundingClientRect();
-      const itemRect = item.getBoundingClientRect();
-      const delta = (itemRect.left + itemRect.width / 2) - (trackRect.left + trackRect.width / 2);
-      track.scrollBy({ left: delta, behavior: reduceMotion ? 'auto' : 'smooth' });
-    };
-
+    let resetTimer = null;
     let ticking = false;
+    const normalize = () => {
+      const idx = items.indexOf(findActive());
+      if (idx < n) scrollToItem(items[idx + n], 'auto');
+      else if (idx >= 2 * n) scrollToItem(items[idx - n], 'auto');
+    };
     track.addEventListener('scroll', () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => { setActive(); ticking = false; });
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => { if (onActiveChange) onActiveChange(findActive()); ticking = false; });
+      }
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(normalize, 160);
     }, { passive: true });
 
+    requestAnimationFrame(() => {
+      scrollToItem(items[n], 'auto');
+      if (onActiveChange) onActiveChange(findActive());
+    });
+
+    return { items, n, scrollToItem, findActive };
+  };
+
+  /* ---------- carrusel de trabajos — Mis ediciones / Mis guiones, un video protagonista al centro, loop infinito ---------- */
+  document.querySelectorAll('[data-carousel]').forEach(carousel => {
+    const track = carousel.querySelector('[data-carousel-track]');
+    const prevBtn = carousel.querySelector('[data-carousel-prev]');
+    const nextBtn = carousel.querySelector('[data-carousel-next]');
+    if (!track) return;
+
+    const scroller = makeInfiniteTrack(track, (active) => {
+      scroller.items.forEach(i => i.classList.toggle('is-active', i === active));
+    });
+    if (!scroller) return;
+
     const step = (dir) => {
-      const activeIndex = items.findIndex(i => i.classList.contains('is-active'));
-      const next = items[Math.min(items.length - 1, Math.max(0, activeIndex + dir))];
-      if (next) scrollToItem(next);
+      const idx = scroller.items.indexOf(scroller.findActive());
+      const next = scroller.items[idx + dir];
+      if (next) scroller.scrollToItem(next);
     };
     if (prevBtn) prevBtn.addEventListener('click', () => step(-1));
     if (nextBtn) nextBtn.addEventListener('click', () => step(1));
 
-    items.forEach(item => {
+    scroller.items.forEach(item => {
       const btn = item.querySelector('.carousel-item-btn');
       if (!btn) return;
       btn.addEventListener('click', () => {
         if (item.classList.contains('is-active')) {
-          items.forEach(i => { if (i !== item) i.classList.remove('is-playing'); });
+          scroller.items.forEach(i => { if (i !== item) i.classList.remove('is-playing'); });
           item.classList.toggle('is-playing');
         } else {
-          scrollToItem(item);
+          scroller.scrollToItem(item);
         }
       });
     });
-
-    setActive();
-    window.addEventListener('resize', setActive);
   });
 
   /* ---------- franja decorativa — deriva sutil al scrollear, la firma visual cobra vida ---------- */
@@ -921,14 +967,22 @@ section{ position:relative; }
     updateStripes();
   }
 
-  /* ---------- pista de testimonios — un empujón sutil al entrar para insinuar que se puede deslizar ---------- */
+  /* ---------- pista de testimonios — mismo loop infinito que el carrusel de trabajos ---------- */
   const testimonialStrip = document.querySelector('.testimonial-strip');
+  if (testimonialStrip) {
+    testimonialStrip.querySelectorAll('[data-reveal]').forEach((card, i) => {
+      card.style.transitionDelay = `${i * 0.08}s`;
+    });
+    makeInfiniteTrack(testimonialStrip);
+  }
+
+  /* ---------- empujón sutil al entrar, para insinuar que se puede deslizar ---------- */
   if (testimonialStrip && !reduceMotion && 'IntersectionObserver' in window) {
     const stripIO = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
-        testimonialStrip.scrollTo({ left: 44, behavior: 'smooth' });
-        setTimeout(() => testimonialStrip.scrollTo({ left: 0, behavior: 'smooth' }), 550);
+        testimonialStrip.scrollBy({ left: 44, behavior: 'smooth' });
+        setTimeout(() => testimonialStrip.scrollBy({ left: -44, behavior: 'smooth' }), 550);
         stripIO.disconnect();
       });
     }, { threshold: 0.6 });
