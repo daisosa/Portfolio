@@ -87,9 +87,13 @@ Base crema en dos profundidades, terracota como color de marca (texto y superfic
 - **Ink** (`#2B1B12`) e **Ink Muted** (`#6B5140`): texto principal y secundario sobre crema.
 - **Cream on Terracota** (`#EFD9C4`): cuerpo de texto secundario sobre fondo terracota (más cálido que `--cream` puro, evita el blanco frío sobre un fondo saturado).
 
+### Surface
+- **Cork** (`#7A5236`): superficie del tablero de testimonios, la única sección con textura. Lleva texto `--cream` encima (~5.7:1). No se usa en ningún otro componente.
+
 ### Named Rules
 **La Regla de la Superficie Terracota.** A diferencia del sistema "Lavanda-durazno" (terracota solo como trazo/texto), acá terracota sí es color de fondo de sección completa (Para quién es, Sobre mí) — siempre con texto crema/mostaza encima, nunca terracota-sobre-terracota.
 **La Regla del Mustard sin Texto Claro.** Mostaza solo lleva texto `--ink` (oscuro) encima — nunca `--cream`, por contraste insuficiente.
+**La Regla del Corcho Aislado.** `--cork` y su textura de motas viven sólo en la sección de testimonios: es el corcho literal del tablero, no un color de marca. Ningún otro fondo del sitio lleva textura.
 
 ## Typography
 
@@ -115,6 +119,8 @@ Contenedor centrado `max-width: 1240px`, padding lateral fluido (`--gutter`, `cl
 
 Sin sombras — este sistema es plano y gráfico, la profundidad viene de la rotación sutil de las tarjetas y del contraste de color entre secciones (crema / cream-card / terracota), no de capas de sombra. Diferencia clave frente al sistema Polaroid anterior, que dependía de sombras tibias apiladas.
 
+**Única excepción: el tablero de corcho.** Las fotos de testimonio sí proyectan sombra (`0 12px 24px`, con offset y blur reales) y el tablero lleva viñeta interior. No es decoración: es el efecto físico que sostiene la metáfora de fotos clavadas a un corcho. Fuera de esa sección la regla de "sin sombras" sigue vigente.
+
 ## Shapes
 
 Radio suave (`--radius-card`, 18px) en tarjetas y placeholders; radio menor (10–12px) en los slots internos de imagen/video. Pill (100px) reservado a botones, chip de nav "Contacto" y tags de servicio. La franja decorativa (`.stripe`) es el único elemento geométrico "duro" del sistema — bandas rectas sin blur, contraste con el resto de superficies suaves.
@@ -128,9 +134,15 @@ Carácter general: **gráfico y de especias** — color sólido y plano en vez d
 - **Nav CTA:** mismo tratamiento de color en tamaño reducido (`padding:10px 20px`), sin translateY.
 
 ### Cards
-- **Trabajo (`.work-card`):** fondo `--cream-card`, radio 18px, slot interno 9:16 oscuro (gradiente `--ink`) con ícono de play — rotación alterna ±1deg, se endereza en hover.
-- **Testimonio (`.testimonial-card`):** fondo `--cream` (sobre sección `--cream-card`), mismo slot interno con ícono de comilla — rotación alterna ±1.4/1.6deg.
+- **Trabajo (`.carousel-item`):** fondo `--cream-card`, radio 18px, slot interno 9:16 oscuro (gradiente `--ink`) con ícono de play; el ítem centrado va a escala 1 y los laterales quedan a `.82` con blur y opacidad baja. Al clic, un iframe de YouTube/Vimeo (lazy) reemplaza el slot; se retira solo al salir del centro.
+- **Testimonio (`.testimonial-card`):** foto impresa sobre el corcho — fondo `--cream`, radio 6px, sin altura fija: cada captura conserva su relación de aspecto real. Rotación y desfase vertical propios por posición, cinta o chinche arriba, sombra sobre el corcho.
 - **Stat / Audience:** fondo `--cream-card` o `--terracota` según sección, rotación fija por posición (no alterna dinámica).
+
+### Subrayado de marcador (`em` en titulares)
+Trazo SVG de borde superior irregular aplicado como `background-image` con `box-decoration-break: clone`, no como pseudo-elemento absoluto: así el subrayado se repite en cada renglón cuando la frase corta en dos líneas. Se usa en el lead de "Para quién es", el titular de marcas y el lead de proceso.
+
+### Rotaciones de "mano suelta"
+Los elementos chicos y rígidos llevan una inclinación mínima y fija para que el sistema no se lea como una grilla perfecta: `<mark>` del hero (radio irregular + −0.9deg), tags de servicio (±0.9–1.6deg, se enderezan en hover de la fila), numerales de audiencia (−4deg) y de proceso (±3–4deg). Es un acento estructural, no una animación.
 
 ### Stripe decorativo (componente de sistema, no de UI)
 - `.stripe`: barra de 18px de alto, `repeating-linear-gradient` de 4 bandas de 24px. Dos variantes de orden de color (`--a` para hero/para-quién, `--b` para casos de estudio) — marca cada transición mayor de sección.

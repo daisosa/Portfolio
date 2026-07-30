@@ -30,6 +30,8 @@
   --terracota-deep: #6E2814; /* franja decorativa */
   --mustard:        #E8B33D; /* acento secundario — highlight, chips, numerales */
   --dusty:          #AFCBDD; /* franja decorativa únicamente */
+  --cork:           #7A5236; /* superficie del tablero de testimonios — única sección con fondo de corcho */
+  --cork-shadow:    rgba(52,32,18,.28); /* sombra de las fotos sobre el corcho y viñeta del tablero */
   --line-on-cream: rgba(43,27,18,.16);
 
   --serif: 'Instrument Serif', Georgia, serif;
@@ -73,6 +75,17 @@ button, input, textarea{ font-family: inherit; color: inherit; }
 .container{ max-width: 1240px; margin-inline:auto; padding-inline: var(--gutter); }
 section{ position:relative; }
 
+/* Subrayado de marcador — trazo SVG de borde superior irregular. Va como background con
+   box-decoration-break:clone para que se repita en CADA renglón cuando el texto corta en dos
+   líneas; un ::after posicionado en absoluto sólo pintaría un fragmento suelto. */
+.process-lead em, .audience-lead em, .brands-title-main em{
+  font-style:italic; color: var(--terracota);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'%3E%3Cpath d='M0,5 C20,1.5 42,8 62,4 C82,0.8 100,7 120,3 L120,12 L0,12 Z' fill='%23E8B33D' fill-opacity='.62'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-size:100% .22em; background-position:0 96%;
+  padding: 0 .06em .04em;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+
 /* reveal utilities (JS toggles .is-in) — --tilt lets cards keep their resting rotation through the reveal instead of the rotate() colliding with translateY() */
 [data-reveal]{ --tilt: 0deg; opacity:0; transform: translateY(24px) rotate(var(--tilt)); transition: opacity .8s var(--ease), transform .8s var(--ease); }
 [data-reveal].is-in{ opacity:1; transform: translateY(0) rotate(var(--tilt)); }
@@ -114,7 +127,11 @@ section{ position:relative; }
   font-family: var(--serif); font-weight:400; font-size: clamp(2.4rem,6vw,5.2rem); line-height:1.06;
   max-width: 960px; margin-inline:auto;
 }
-.hero-title mark{ background: var(--mustard); color: inherit; padding:0 10px; border-radius:6px; }
+/* trazo de marcador: bordes irregulares y una pizca de rotación en vez del rectángulo perfecto */
+.hero-title mark{
+  background: var(--mustard); color: inherit; padding:0 12px; display:inline-block;
+  border-radius: 16px 7px 18px 9px / 9px 16px 7px 14px; transform: rotate(-.9deg);
+}
 .hero-title em{ font-style:italic; color: var(--terracota); position:relative; }
 .hero-title em::after{ content:''; position:absolute; left:0; right:0; bottom:-2px; height:3px; background:var(--terracota); transform-origin:left center; }
 .hero-sub{ margin: 44px auto 0; max-width:44ch; font-size: clamp(15px,1.6vw,18px); line-height:1.7; color: var(--ink-muted); }
@@ -129,7 +146,9 @@ section{ position:relative; }
    MARCAS + STATS
    ========================================================================== */
 .brands{ padding: clamp(40px,6vw,64px) 0 clamp(16px,3vw,32px); }
-.brands h2{ text-align:center; font-family: var(--serif); font-weight:400; font-size: clamp(1.6rem,3vw,2.2rem); margin: 0 0 28px; }
+.brands h2{ text-align:center; margin: 0 0 32px; font-weight:400; display:flex; flex-direction:column; align-items:center; gap:10px; }
+.brands-title-main{ font-family: var(--serif); font-size: clamp(1.7rem,3.2vw,2.5rem); line-height:1.15; }
+.brands-title-sub{ font-family: var(--sans); font-size: clamp(13px,1.35vw,14.5px); font-weight:500; letter-spacing:.02em; color: var(--ink-muted); max-width:34ch; line-height:1.5; }
 .marquee{
   border-top:1px solid var(--line-on-cream); border-bottom:1px solid var(--line-on-cream); padding:20px 0; overflow:hidden;
   mask-image: linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
@@ -156,7 +175,6 @@ section{ position:relative; }
 .diamond-row{ border-top:1px solid var(--line-on-cream); border-bottom:1px solid var(--line-on-cream); padding:14px 0; display:flex; justify-content:center; gap:28px; color: var(--terracota); opacity:.45; font-size:13px; }
 .audience-intro{ max-width:820px; margin: clamp(40px,6vw,56px) auto 0; text-align:center; }
 .audience-lead{ font-family: var(--serif); font-size: clamp(1.7rem,3.4vw,2.6rem); line-height:1.35; }
-.audience-lead em{ font-style:italic; color: var(--terracota); border-bottom:3px solid var(--mustard); }
 .audience-si{ font-family: var(--serif); font-weight:400; font-size: clamp(2.2rem,4.4vw,3.4rem); margin: clamp(56px,8vw,88px) 0 0; }
 .audience-si::before{ content:''; display:block; width:48px; height:3px; background: var(--mustard); border-radius:2px; margin: 0 auto clamp(24px,3.5vw,32px); }
 .audience-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:24px; max-width:1100px; margin: clamp(28px,4vw,40px) auto 0; }
@@ -166,7 +184,7 @@ section{ position:relative; }
 .audience-card:nth-child(1){ transition-delay: 0s; }
 .audience-card:nth-child(2){ transition-delay: .12s; }
 .audience-card:nth-child(3){ transition-delay: .24s; }
-.audience-num{ width:34px; height:34px; border-radius:50%; background: var(--mustard); color: var(--ink); display:flex; align-items:center; justify-content:center; font-family: var(--serif); font-style:italic; font-size:15px; }
+.audience-num{ width:34px; height:34px; border-radius:50%; background: var(--mustard); color: var(--ink); display:flex; align-items:center; justify-content:center; font-family: var(--serif); font-style:italic; font-size:15px; transform: rotate(-4deg); }
 .audience-card p{ margin:18px 0 0; font-size:15.5px; line-height:1.55; }
 .audience-outro{ display:flex; flex-direction:column; align-items:center; margin-top: clamp(48px,7vw,64px); }
 .audience-outro p{ text-align:center; font-family: var(--serif); font-style:italic; font-size: clamp(1.6rem,3vw,2.2rem); color: var(--terracota); margin:0; display:flex; align-items:center; gap:20px; }
@@ -176,7 +194,6 @@ section{ position:relative; }
    CASOS DE ESTUDIO
    ========================================================================== */
 .work{ padding: clamp(56px,8vw,88px) var(--gutter); }
-.work-note{ max-width:46ch; font-size:13.5px; color: var(--ink-muted); line-height:1.5; text-align:center; margin: 0 auto clamp(40px,6vw,56px); }
 
 /* carrusel de trabajos — un video protagonista al centro, el anterior/siguiente se asoman atenuados a los costados */
 .carousel-group{ max-width:1240px; margin:0 auto; }
@@ -210,10 +227,15 @@ section{ position:relative; }
 }
 @keyframes playPulse{ 0%{ box-shadow:0 0 0 0 rgba(232,179,61,.5); } 100%{ box-shadow:0 0 0 14px rgba(232,179,61,0); } }
 .work-slot-iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; z-index:2; }
-.carousel-item .work-slot > span{ position:absolute; bottom:12px; left:12px; right:12px; text-align:center; font-family: var(--serif); font-style:italic; font-size:12px; color: var(--cream); opacity:.75; }
+.carousel-item .work-slot > span{
+  position:absolute; bottom:14px; left:12px; right:12px; text-align:center;
+  font-family: var(--serif); font-style:italic; font-size:13px; color: var(--cream);
+  opacity:0; transition: opacity .4s var(--ease);
+}
+.carousel-item.is-active .work-slot > span{ opacity:.8; }
+.carousel-item.is-playing .work-slot > span{ opacity:0; }
 .carousel-item-meta{ display:flex; flex-direction:column; align-items:center; gap:4px; margin-top:14px; text-align:center; }
 .carousel-item-meta strong{ font-family: var(--serif); font-weight:400; font-size:19px; }
-.carousel-item-meta span{ font-size:12px; color: var(--ink-muted); }
 .carousel-arrow{
   position:absolute; top:50%; margin-top:-24px; z-index:2; width:48px; height:48px; border-radius:50%;
   border:1px solid var(--line-on-cream); background: var(--cream); color: var(--terracota);
@@ -228,9 +250,22 @@ section{ position:relative; }
    PROCESO
    ========================================================================== */
 .process{ padding: clamp(56px,8vw,88px) var(--gutter); max-width:1240px; margin:0 auto; }
-.process h2{ font-family: var(--serif); font-weight:400; font-size: clamp(2rem,4vw,3.4rem); margin-bottom: clamp(40px,6vw,64px); }
+.process-lead{
+  font-family: var(--serif); font-weight:400; font-size: clamp(1.9rem,4vw,3.4rem); line-height:1.3;
+  max-width:30ch; margin:0;
+}
+/* cada frase es su propio bloque: el corte de línea cae entre oraciones, no dentro de una */
+.process-lead span{ display:block; }
+.process-lead span + span{ margin-top:.34em; }
+.process-kicker{
+  font-family: var(--serif); font-style:italic; font-size: clamp(1.1rem,1.9vw,1.45rem); color: var(--terracota);
+  margin: clamp(28px,4vw,40px) 0 clamp(36px,5vw,56px); display:flex; align-items:center; gap:16px;
+}
+.process-kicker::after{ content:''; flex:1; height:1px; background: var(--line-on-cream); }
 .process-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:32px; }
 .process-num{ width:34px; height:34px; border-radius:50%; background: var(--terracota); color: var(--cream); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; }
+.process-step:nth-child(odd) .process-num{ transform: rotate(-4deg); }
+.process-step:nth-child(even) .process-num{ transform: rotate(3deg); }
 .process-step h3{ font-family: var(--serif); font-weight:400; font-size:24px; margin:16px 0 0; }
 .process-step p{ margin-top:10px; font-size:14px; line-height:1.6; color: var(--ink-muted); min-height:3.2em; }
 .process-step{ opacity:0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
@@ -241,44 +276,64 @@ section{ position:relative; }
 /* ==========================================================================
    TESTIMONIOS
    ========================================================================== */
-/* corcho — fondo con textura de tablero, cintas y chinches sosteniendo cada testimonio */
+/* TABLERO DE CORCHO — las capturas cuelgan como fotos impresas, cada una con su tamaño real */
 .testimonials{
-  position:relative; padding: clamp(56px,8vw,88px) 0;
-  background:
-    radial-gradient(circle at 15% 25%, rgba(43,27,18,.06), transparent 42%),
-    radial-gradient(circle at 85% 70%, rgba(43,27,18,.06), transparent 42%),
-    repeating-radial-gradient(circle at center, rgba(43,27,18,.05) 0 2px, transparent 2px 16px),
-    var(--cream-card);
+  position:relative; padding: clamp(56px,8vw,88px) 0 clamp(44px,5.5vw,72px);
+  background-color: var(--cork);
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,236,208,.07) 0 1.6px, transparent 1.6px),
+    radial-gradient(circle at 68% 62%, rgba(52,32,18,.11) 0 2px, transparent 2px),
+    radial-gradient(circle at 44% 84%, rgba(255,236,208,.05) 0 1.4px, transparent 1.4px),
+    radial-gradient(circle at 85% 16%, rgba(52,32,18,.08) 0 1.7px, transparent 1.7px),
+    radial-gradient(circle at 8% 70%, rgba(52,32,18,.07) 0 1.3px, transparent 1.3px);
+  background-size: 29px 23px, 41px 37px, 19px 26px, 53px 47px, 34px 31px;
 }
-.testimonials h2{ font-family: var(--serif); font-weight:400; font-size: clamp(1.9rem,3.6vw,3rem); padding: 0 var(--gutter); margin-bottom:32px; text-align:center; }
-.testimonial-strip{ display:flex; gap:26px; overflow-x:auto; padding: 32px var(--gutter) 20px; scroll-snap-type:x proximity; scrollbar-width:none; }
-.testimonial-strip::-webkit-scrollbar{ display:none; }
+/* viñeta interior — hunde el tablero en la página en vez de dejarlo como una banda plana */
+.testimonials::before{
+  content:''; position:absolute; inset:0; pointer-events:none;
+  box-shadow: inset 0 16px 32px var(--cork-shadow), inset 0 -16px 32px var(--cork-shadow);
+}
+.testimonials h2{
+  font-family: var(--serif); font-weight:400; font-size: clamp(1.9rem,3.6vw,3rem);
+  padding: 0 var(--gutter); margin-bottom: clamp(40px,5vw,56px); text-align:center; color: var(--cream);
+  position:relative;
+}
+.testimonial-board{
+  display:grid; grid-template-columns: repeat(3,1fr); gap: clamp(22px,3.2vw,44px);
+  align-items:start; max-width:1080px; margin:0 auto; padding-inline: var(--gutter); position:relative;
+}
 .testimonial-card{
-  --tilt: -1.4deg;
-  scroll-snap-align:center; flex:none; width:260px; aspect-ratio:3/4; margin:0; background: var(--cream);
-  border-radius:16px; padding:14px 14px 18px; display:flex; flex-direction:column; gap:10px; position:relative;
+  --tilt: -1.4deg; --drop: 0px;
+  margin: var(--drop) 0 0; background: var(--cream); border-radius:6px; padding:9px 9px 11px;
+  position:relative; box-shadow: 0 12px 24px var(--cork-shadow);
 }
-.testimonial-card:nth-child(even){ --tilt: 1.6deg; }
+/* alturas y ángulos desparejos: fila 1 lleva las capturas grandes, fila 2 las tiras finas */
+.testimonial-card:nth-child(1){ --tilt:-1.8deg; --drop: 10px; }
+.testimonial-card:nth-child(2){ --tilt: 1.5deg; --drop: 52px; }
+.testimonial-card:nth-child(3){ --tilt:-1.1deg; --drop: 0px; }
+.testimonial-card:nth-child(4){ --tilt: 1.9deg; --drop: 34px; }
+.testimonial-card:nth-child(5){ --tilt:-2.2deg; --drop: 6px; }
+.testimonial-card:nth-child(6){ --tilt: 1.3deg; --drop: 46px; }
 .testimonial-card[data-reveal]{
-  transition: opacity .6s var(--ease), transform .6s var(--ease);
-  transform: translateY(34px) scale(.82) rotate(var(--tilt));
+  transition: opacity .6s var(--ease), transform .6s var(--ease), box-shadow .3s var(--ease);
+  transform: translateY(30px) scale(.9) rotate(var(--tilt));
 }
 .testimonial-card[data-reveal].is-in{ transform: translateY(0) scale(1) rotate(var(--tilt)); }
-.testimonial-card[data-reveal]:hover{ transform: translateY(-6px) scale(1) rotate(0deg); }
+.testimonial-card[data-reveal]:hover{
+  transform: translateY(-6px) scale(1.02) rotate(0deg); box-shadow: 0 20px 34px var(--cork-shadow);
+}
 .testimonial-card.tape::before{
-  content:''; position:absolute; top:-14px; left:50%; width:64px; height:22px;
-  background: rgba(232,179,61,.6); transform: translateX(-50%) rotate(-3deg); box-shadow: 0 2px 4px rgba(43,27,18,.2);
+  content:''; position:absolute; top:-12px; left:50%; width:68px; height:22px;
+  background: rgba(232,179,61,.62); transform: translateX(-50%) rotate(-3deg); box-shadow: 0 2px 5px rgba(43,27,18,.28);
 }
-.testimonial-card.tape.dusty::before{ background: rgba(175,203,221,.65); transform: translateX(-50%) rotate(3deg); }
+.testimonial-card.tape.dusty::before{ background: rgba(175,203,221,.66); transform: translateX(-50%) rotate(3deg); }
 .testimonial-card.pin::before{
-  content:''; position:absolute; top:-9px; left:50%; width:16px; height:16px; border-radius:50%;
-  background: radial-gradient(circle at 35% 30%, var(--mustard), var(--terracota) 70%);
-  box-shadow: 0 3px 5px rgba(43,27,18,.35); transform: translateX(-50%);
+  content:''; position:absolute; top:-9px; left:50%; width:17px; height:17px; border-radius:50%; z-index:2;
+  background: radial-gradient(circle at 35% 30%, var(--mustard), var(--terracota) 72%);
+  box-shadow: 0 4px 7px rgba(43,27,18,.45); transform: translateX(-50%);
 }
-.testimonial-shot{ flex:1; border-radius:10px; background: var(--cream-card); display:flex; align-items:center; justify-content:center; overflow:hidden; }
-.testimonial-shot svg{ width:26px; height:26px; color: var(--ink-muted); opacity:.55; }
-.testimonial-shot img{ width:100%; height:100%; object-fit:contain; }
-.testimonial-card figcaption{ font-family: var(--serif); font-style:italic; font-size:12px; color: var(--ink-muted); text-align:center; }
+.testimonial-shot{ display:block; border-radius:3px; overflow:hidden; background: var(--cream-card); }
+.testimonial-shot img{ display:block; width:100%; height:auto; }
 
 /* ==========================================================================
    SERVICIOS
@@ -298,21 +353,32 @@ section{ position:relative; }
 .service-row.is-open .service-detail{ grid-template-rows:1fr; opacity:1; }
 .service-detail-inner{ overflow:hidden; min-height:0; }
 .service-detail-inner p{ margin:16px 0 0; font-size:14px; line-height:1.6; color: var(--ink-muted); max-width:58ch; }
-.service-tags{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
-.service-tags span{ font-size:12px; background: var(--mustard); color: var(--ink); padding:6px 14px; border-radius: var(--radius-pill); }
+.service-tags{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+.service-tags span{
+  font-size:12px; background: var(--mustard); color: var(--ink); padding:6px 14px;
+  border-radius: var(--radius-pill); transition: transform .35s var(--ease);
+}
+.service-tags span:nth-child(1){ transform: rotate(-1.6deg); }
+.service-tags span:nth-child(2){ transform: rotate(1.3deg); }
+.service-tags span:nth-child(3){ transform: rotate(-.9deg); }
+.service-row:hover .service-tags span{ transform: rotate(0); }
 
 /* ==========================================================================
    SOBRE MÍ
    ========================================================================== */
 .about{ background: var(--terracota); color: var(--cream); padding: clamp(56px,8vw,88px) var(--gutter); }
-.about-grid{ display:grid; grid-template-columns: 1fr 260px; gap: clamp(32px,5vw,56px); max-width:1240px; margin:0 auto; align-items:center; }
+.about-grid{ display:grid; grid-template-columns: 1fr 300px; gap: clamp(32px,5vw,64px); max-width:1240px; margin:0 auto; align-items:center; }
 .about-photo[data-reveal]{ transition-delay: .15s; }
 .about-lead{ font-family: var(--serif); font-size: clamp(1.5rem,2.6vw,2.1rem); line-height:1.4; }
 .about-lead .drop{ font-style:italic; font-size:1.6em; color: var(--mustard); line-height:.6; }
-.about-body{ margin-top:24px; font-size:15.5px; line-height:1.7; color: var(--cream-onterracota); max-width:62ch; }
-.about-photo{ width:260px; height:320px; border-radius:18px; position:relative; overflow:hidden; background: rgba(244,236,224,.14); display:flex; align-items:center; justify-content:center; }
-.about-photo svg{ width:64px; height:64px; color: var(--cream); opacity:.5; }
-.about-photo span{ position:absolute; bottom:12px; left:12px; right:12px; text-align:center; font-family: var(--serif); font-style:italic; font-size:12px; color: var(--cream); opacity:.75; }
+.about-body{ margin-top:24px; font-size:15.5px; line-height:1.7; color: var(--cream-onterracota); max-width:70ch; }
+.about-body .handle{ color: var(--mustard); font-weight:600; }
+.about-photo{
+  --tilt: -1.2deg; /* el reveal compone la rotación con el translateY, no la pisa */
+  width:300px; height:380px; border-radius:18px; position:relative; overflow:hidden;
+  background: rgba(244,236,224,.14);
+}
+.about-photo img{ width:100%; height:100%; object-fit:cover; object-position: center 22%; }
 
 /* ==========================================================================
    CONTACTO / FOOTER
@@ -360,14 +426,17 @@ section{ position:relative; }
   .nav-cta{ order:5; }
   .nav-toggle{ display:block; z-index:101; }
   .carousel-arrow{ width:40px; height:40px; margin-top:-20px; font-size:18px; }
+  .testimonial-board{ grid-template-columns: repeat(2,1fr); }
   .process-grid{ grid-template-columns: repeat(2,1fr); }
   .about-grid{ grid-template-columns:1fr; }
-  .about-photo{ width:100%; max-width:260px; }
+  .about-photo{ width:100%; max-width:300px; }
 }
 @media (max-width: 600px){
   .stats{ grid-template-columns:1fr; }
   .carousel-item{ width:min(78vw,260px); }
   .carousel-track{ padding: 12px clamp(6%,10vw,18%) 24px; }
+  .testimonial-board{ grid-template-columns:1fr; max-width:420px; }
+  .testimonial-card{ --drop: 0px; }
   .process-grid{ grid-template-columns:1fr; }
   .finale-footer{ grid-template-columns:1fr; justify-items:center; text-align:center; gap:12px; }
   .finale-footer a[href^="mailto"]{ justify-self:center; }
@@ -380,8 +449,6 @@ section{ position:relative; }
 <svg class="visually-hidden" aria-hidden="true">
   <defs>
     <symbol id="i-play" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="2"/><path d="M42 34 L68 50 L42 66 Z" fill="currentColor"/></symbol>
-    <symbol id="i-quote" viewBox="0 0 100 100"><path d="M20 30 Q20 20 32 20 V32 Q26 32 26 40 V50 H20 Z M55 30 Q55 20 67 20 V32 Q61 32 61 40 V50 H55 Z" fill="currentColor"/></symbol>
-    <symbol id="i-portrait" viewBox="0 0 100 100"><circle cx="50" cy="38" r="18" fill="none" stroke="currentColor" stroke-width="3"/><path d="M18 88 C18 62 34 52 50 52 C66 52 82 62 82 88" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
   </defs>
 </svg>
 
@@ -416,7 +483,10 @@ section{ position:relative; }
 
   <!-- MARCAS + STATS -->
   <section class="brands" id="marcas">
-    <h2>Marcas que confiaron en mi trabajo</h2>
+    <h2>
+      <span class="brands-title-main">Marcas con las que <em>colaboré</em></span>
+      <span class="brands-title-sub">A través de agencias y equipos creativos</span>
+    </h2>
     <div class="marquee">
       <div class="marquee-track" aria-hidden="true">
         <span class="brand-logo"><img src="assets/logos/logo-URV.jpg" alt="" loading="lazy"></span>
@@ -496,20 +566,18 @@ section{ position:relative; }
 
   <!-- CASOS DE ESTUDIO -->
   <section class="work" id="trabajo">
-    <p class="work-note">Todavía no subí piezas reales acá: cada uno de estos lugares —en Mis ediciones y en Mis guiones— está reservado para un proyecto apenas lo cargue.</p>
-
-    <!-- Para activar un video: pegá el link de YouTube o Vimeo (no listado) en el atributo data-video de cada <li class="carousel-item">, ej: data-video="https://youtu.be/XXXXXXXXXXX" -->
+    <!-- Para cambiar un video: reemplazá el link de YouTube/Vimeo en el atributo data-video de cada <li class="carousel-item"> -->
     <div class="carousel-group" data-reveal>
       <h3 class="carousel-group-title">Mis ediciones</h3>
       <div class="carousel" data-carousel>
         <button class="carousel-arrow carousel-arrow--prev" type="button" data-carousel-prev aria-label="Edición anterior"><span aria-hidden="true">‹</span></button>
         <ul class="carousel-track" data-carousel-track>
-          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver edición 1 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 01</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver edición 2 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 02</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver edición 3 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 03</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver edición 4 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 04</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver edición 5 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 05</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver edición 6 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 06</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/Cy4bH30SsLg"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 01"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 01</strong></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/9g_8ryy5PKY"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 02"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 02</strong></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/497zn7uONJQ"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 03"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 03</strong></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/WlAQTY7j2o4"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 04"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 04</strong></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/lA9q9CTZcNg"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 05"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 05</strong></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/xa1P5MHByLE"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 06"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 06</strong></span></button></li>
         </ul>
         <button class="carousel-arrow carousel-arrow--next" type="button" data-carousel-next aria-label="Edición siguiente"><span aria-hidden="true">›</span></button>
       </div>
@@ -520,12 +588,12 @@ section{ position:relative; }
       <div class="carousel" data-carousel>
         <button class="carousel-arrow carousel-arrow--prev" type="button" data-carousel-prev aria-label="Guion anterior"><span aria-hidden="true">‹</span></button>
         <ul class="carousel-track" data-carousel-track>
-          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver guion 1 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 01</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver guion 2 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 02</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver guion 3 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 03</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver guion 4 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 04</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver guion 5 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 05</strong><span>Por confirmar</span></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video=""><button class="carousel-item-btn" type="button" aria-label="Ver guion 6 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 06</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/E-KJv6aDp6g"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 01"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 01</strong></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/NQNJuGQyh-U"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 02"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 02</strong></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/61HvevUmr8g"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 03"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 03</strong></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/3GYmMsOhSWU"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 04"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 04</strong></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/3IHv3ou4Ioc"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 05"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 05</strong></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/lgXaxunsFDo"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 06"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 06</strong></span></button></li>
         </ul>
         <button class="carousel-arrow carousel-arrow--next" type="button" data-carousel-next aria-label="Guion siguiente"><span aria-hidden="true">›</span></button>
       </div>
@@ -536,7 +604,11 @@ section{ position:relative; }
 
   <!-- PROCESO -->
   <section class="process" id="proceso">
-    <h2>De la idea a la publicación</h2>
+    <h2 class="process-lead">
+      <span>Los videos que generan resultados <em>no se improvisan.</em></span>
+      <span>Se construyen sobre <em>una estrategia clara.</em></span>
+    </h2>
+    <p class="process-kicker">De la idea a la publicación</p>
     <div class="process-grid">
       <div class="process-step"><span class="process-num">01</span><h3>Diagnosticar</h3><p>Entender y analizar los objetivos.</p></div>
       <div class="process-step"><span class="process-num">02</span><h3>Pensar</h3><p>Desarrollar ideas y estrategias con intención.</p></div>
@@ -548,13 +620,13 @@ section{ position:relative; }
   <!-- TESTIMONIOS -->
   <section class="testimonials" id="testimonios">
     <h2>Lo que dicen mis clientes</h2>
-    <div class="testimonial-strip">
-      <figure class="testimonial-card tape" data-reveal><div class="testimonial-shot"><img src="assets/testimonios/01.jpeg" alt="Captura de testimonio de cliente" loading="lazy"></div><figcaption>Testimonio de cliente</figcaption></figure>
-      <figure class="testimonial-card pin" data-reveal><div class="testimonial-shot"><img src="assets/testimonios/02.jpeg" alt="Captura de testimonio de cliente" loading="lazy"></div><figcaption>Testimonio de cliente</figcaption></figure>
-      <figure class="testimonial-card tape dusty" data-reveal><div class="testimonial-shot"><img src="assets/testimonios/03.jpeg" alt="Captura de testimonio de cliente" loading="lazy"></div><figcaption>Testimonio de cliente</figcaption></figure>
-      <figure class="testimonial-card pin" data-reveal><div class="testimonial-shot"><img src="assets/testimonios/04.jpeg" alt="Captura de testimonio de cliente" loading="lazy"></div><figcaption>Testimonio de cliente</figcaption></figure>
-      <figure class="testimonial-card tape" data-reveal><div class="testimonial-shot"><img src="assets/testimonios/05.jpeg" alt="Captura de testimonio de cliente" loading="lazy"></div><figcaption>Testimonio de cliente</figcaption></figure>
-      <figure class="testimonial-card pin" data-reveal><div class="testimonial-shot"><img src="assets/testimonios/06.jpeg" alt="Captura de testimonio de cliente" loading="lazy"></div><figcaption>Testimonio de cliente</figcaption></figure>
+    <div class="testimonial-board">
+      <figure class="testimonial-card pin" data-reveal><span class="testimonial-shot"><img src="assets/testimonios/05.jpeg" alt="Mensaje de un cliente sobre el trabajo de Dai" loading="lazy"></span></figure>
+      <figure class="testimonial-card tape" data-reveal><span class="testimonial-shot"><img src="assets/testimonios/01.jpeg" alt="Mensaje de un cliente sobre el trabajo de Dai" loading="lazy"></span></figure>
+      <figure class="testimonial-card tape dusty" data-reveal><span class="testimonial-shot"><img src="assets/testimonios/03.jpeg" alt="Mensaje de un cliente sobre el trabajo de Dai" loading="lazy"></span></figure>
+      <figure class="testimonial-card tape" data-reveal><span class="testimonial-shot"><img src="assets/testimonios/02.jpeg" alt="Mensaje de un cliente sobre el trabajo de Dai" loading="lazy"></span></figure>
+      <figure class="testimonial-card pin" data-reveal><span class="testimonial-shot"><img src="assets/testimonios/04.jpeg" alt="Mensaje de un cliente sobre el trabajo de Dai" loading="lazy"></span></figure>
+      <figure class="testimonial-card tape dusty" data-reveal><span class="testimonial-shot"><img src="assets/testimonios/06.jpeg" alt="Mensaje de un cliente sobre el trabajo de Dai" loading="lazy"></span></figure>
     </div>
   </section>
 
@@ -616,9 +688,9 @@ section{ position:relative; }
     <div class="about-grid">
       <div data-reveal>
         <p class="about-lead"><span class="drop">S</span>oy Dai. Hace más de cuatro años acompaño a marcas y creadores a transformar ideas en contenido para redes sociales.</p>
-        <p class="about-body">Estudié la Licenciatura en Ciencias de la Comunicación en UBA. Hice cursos de Community Management en la UBA, Edición y ADS en la UTN. Trabajo en marketing digital desde 2022, con agencias y marcas de forma freelance. Pienso, escribo y edito contenido para redes sociales.</p>
+        <p class="about-body">Estudié la Licenciatura en Ciencias de la Comunicación en UBA. Hice cursos de Community Management en la UBA, Edición y ADS en la UTN. Desde 2022 trabajo en marketing digital, colaborando con agencias como <span class="handle">@somoscringe</span>, influencers como <span class="handle">@cocorayado</span> y <span class="handle">@luleoke</span>, además de emprendedores y marcas de forma freelance.</p>
       </div>
-      <div class="about-photo" data-reveal><svg><use href="#i-portrait"/></svg><span>Retrato, placeholder</span></div>
+      <div class="about-photo" data-reveal><img src="assets/foto/dai.jpeg" alt="Retrato de Dai Sosa" loading="lazy"></div>
     </div>
   </section>
 
@@ -1032,26 +1104,12 @@ section{ position:relative; }
     updateStripes();
   }
 
-  /* ---------- pista de testimonios — mismo loop infinito que el carrusel de trabajos ---------- */
-  const testimonialStrip = document.querySelector('.testimonial-strip');
-  if (testimonialStrip) {
-    testimonialStrip.querySelectorAll('[data-reveal]').forEach((card, i) => {
-      card.style.transitionDelay = `${i * 0.08}s`;
+  /* ---------- tablero de testimonios — cada foto se "clava" con un pequeño desfase ---------- */
+  const testimonialBoard = document.querySelector('.testimonial-board');
+  if (testimonialBoard) {
+    testimonialBoard.querySelectorAll('[data-reveal]').forEach((card, i) => {
+      card.style.transitionDelay = `${i * 0.09}s`;
     });
-    makeInfiniteTrack(testimonialStrip);
-  }
-
-  /* ---------- empujón sutil al entrar, para insinuar que se puede deslizar ---------- */
-  if (testimonialStrip && !reduceMotion && 'IntersectionObserver' in window) {
-    const stripIO = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        testimonialStrip.scrollBy({ left: 44, behavior: 'smooth' });
-        setTimeout(() => testimonialStrip.scrollBy({ left: -44, behavior: 'smooth' }), 550);
-        stripIO.disconnect();
-      });
-    }, { threshold: 0.6 });
-    stripIO.observe(testimonialStrip);
   }
 
   /* ---------- contact form — abre el cliente de email con los datos cargados ---------- */
