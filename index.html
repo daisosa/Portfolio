@@ -220,30 +220,39 @@ section{ position:relative; }
   background: linear-gradient(160deg, color-mix(in oklch, var(--ink) 85%, white 15%), var(--ink) 60%);
   display:flex; align-items:center; justify-content:center;
 }
-.carousel-item .work-slot svg{ width:32px; height:32px; color: var(--cream); opacity:.6; transition: transform .3s var(--ease); }
-.carousel-item.is-active .work-slot svg{ transform: scale(1.12); }
-.carousel-item.is-playing .work-slot::after{
-  content:''; position:absolute; inset:0; border-radius:12px; border:2px solid var(--mustard); animation: playPulse 1.4s ease-out infinite;
+/* Miniatura del Short. Se ve siempre, así ninguna tarjeta queda como un rectángulo negro:
+   el iframe se monta encima sólo en la tarjeta centrada. */
+.work-poster{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+/* pointer-events:none evita que el player reciba hover — de ahí viene el cartel con el título
+   y el canal. El zoom recorta apenas los bordes donde YouTube apoya sus marcas de agua. */
+.work-slot-iframe{
+  position:absolute; top:50%; left:50%; width:100%; height:100%; border:0; z-index:2;
+  transform: translate(-50%,-50%) scale(var(--video-zoom, 1.06));
+  pointer-events:none;
 }
-@keyframes playPulse{ 0%{ box-shadow:0 0 0 0 rgba(232,179,61,.5); } 100%{ box-shadow:0 0 0 14px rgba(232,179,61,0); } }
-.work-slot-iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; z-index:2; }
-.carousel-item .work-slot > span{
-  position:absolute; bottom:14px; left:12px; right:12px; text-align:center;
-  font-family: var(--serif); font-style:italic; font-size:13px; color: var(--cream);
-  opacity:0; transition: opacity .4s var(--ease);
+/* control de sonido: el autoplay del navegador obliga a arrancar en mudo */
+.sound-badge{
+  position:absolute; z-index:3; left:10px; bottom:10px; width:30px; height:30px; border-radius:50%;
+  background: rgba(43,27,18,.55); backdrop-filter: blur(6px); display:flex; align-items:center; justify-content:center;
+  opacity:0; transition: opacity .4s var(--ease), background .3s var(--ease);
 }
-.carousel-item.is-active .work-slot > span{ opacity:.8; }
-.carousel-item.is-playing .work-slot > span{ opacity:0; }
-.carousel-item-meta{ display:flex; flex-direction:column; align-items:center; gap:4px; margin-top:14px; text-align:center; }
-.carousel-item-meta strong{ font-family: var(--serif); font-weight:400; font-size:19px; }
+.carousel-item.is-active .sound-badge{ opacity:1; }
+.carousel-item.is-active .carousel-item-btn:hover .sound-badge{ background: rgba(43,27,18,.78); }
+.sound-badge svg{ width:16px; height:16px; color: var(--cream); }
+.sound-badge .wave{ opacity:0; transition: opacity .25s var(--ease); }
+.sound-badge .slash{ opacity:1; transition: opacity .25s var(--ease); }
+.carousel-item.is-unmuted .sound-badge .wave{ opacity:1; }
+.carousel-item.is-unmuted .sound-badge .slash{ opacity:0; }
 /* salida de emergencia: si el navegador o el hosting rechaza el embed, el video sigue siendo alcanzable.
    visibility:hidden (y no opacity sola) lo saca del orden de tabulación mientras no está centrado. */
+/* reemplaza al viejo rótulo "Edición 01": la única etiqueta bajo la tarjeta es el enlace real */
 .carousel-item-link{
-  display:block; text-align:center; margin-top:9px; font-size:12px; color: var(--ink-muted);
-  text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px;
+  display:block; text-align:center; margin-top:12px; font-size:12.5px; font-weight:600;
+  letter-spacing:.01em; color: var(--ink-muted);
+  text-decoration:underline; text-underline-offset:4px; text-decoration-thickness:1px;
   visibility:hidden; opacity:0; transition: opacity .4s var(--ease), color .3s var(--ease);
 }
-.carousel-item.is-active .carousel-item-link{ visibility:visible; opacity:.8; }
+.carousel-item.is-active .carousel-item-link{ visibility:visible; opacity:.85; }
 .carousel-item-link:hover{ color: var(--terracota); opacity:1; }
 .carousel-arrow{
   position:absolute; top:50%; margin-top:-24px; z-index:2; width:48px; height:48px; border-radius:50%;
@@ -460,7 +469,7 @@ section{ position:relative; }
 
 <svg class="visually-hidden" aria-hidden="true">
   <defs>
-    <symbol id="i-play" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="2"/><path d="M42 34 L68 50 L42 66 Z" fill="currentColor"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path class="wave" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path class="slash" d="M3 3l18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
   </defs>
 </svg>
 
@@ -584,12 +593,12 @@ section{ position:relative; }
       <div class="carousel" data-carousel>
         <button class="carousel-arrow carousel-arrow--prev" type="button" data-carousel-prev aria-label="Edición anterior"><span aria-hidden="true">‹</span></button>
         <ul class="carousel-track" data-carousel-track>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/Cy4bH30SsLg"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 01"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 01</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/Cy4bH30SsLg" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/9g_8ryy5PKY"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 02"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 02</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/9g_8ryy5PKY" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/497zn7uONJQ"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 03"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 03</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/497zn7uONJQ" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/WlAQTY7j2o4"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 04"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 04</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/WlAQTY7j2o4" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/lA9q9CTZcNg"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 05"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 05</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/lA9q9CTZcNg" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/xa1P5MHByLE"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 06"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 06</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/xa1P5MHByLE" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/Cy4bH30SsLg" data-id="Cy4bH30SsLg"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/Cy4bH30SsLg/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/Cy4bH30SsLg/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/Cy4bH30SsLg" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/9g_8ryy5PKY" data-id="9g_8ryy5PKY"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/9g_8ryy5PKY/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/9g_8ryy5PKY/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/9g_8ryy5PKY" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/497zn7uONJQ" data-id="497zn7uONJQ"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/497zn7uONJQ/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/497zn7uONJQ/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/497zn7uONJQ" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/WlAQTY7j2o4" data-id="WlAQTY7j2o4"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/WlAQTY7j2o4/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/WlAQTY7j2o4/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/WlAQTY7j2o4" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/lA9q9CTZcNg" data-id="lA9q9CTZcNg"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/lA9q9CTZcNg/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/lA9q9CTZcNg/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/lA9q9CTZcNg" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/xa1P5MHByLE" data-id="xa1P5MHByLE"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/xa1P5MHByLE/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/xa1P5MHByLE/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/xa1P5MHByLE" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
         </ul>
         <button class="carousel-arrow carousel-arrow--next" type="button" data-carousel-next aria-label="Edición siguiente"><span aria-hidden="true">›</span></button>
       </div>
@@ -600,12 +609,12 @@ section{ position:relative; }
       <div class="carousel" data-carousel>
         <button class="carousel-arrow carousel-arrow--prev" type="button" data-carousel-prev aria-label="Guion anterior"><span aria-hidden="true">‹</span></button>
         <ul class="carousel-track" data-carousel-track>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/E-KJv6aDp6g"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 01"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 01</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/E-KJv6aDp6g" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/NQNJuGQyh-U"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 02"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 02</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/NQNJuGQyh-U" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/61HvevUmr8g"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 03"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 03</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/61HvevUmr8g" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/3GYmMsOhSWU"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 04"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 04</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/3GYmMsOhSWU" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/3IHv3ou4Ioc"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 05"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 05</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/3IHv3ou4Ioc" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/lgXaxunsFDo"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 06"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 06</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/lgXaxunsFDo" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/E-KJv6aDp6g" data-id="E-KJv6aDp6g"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/E-KJv6aDp6g/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/E-KJv6aDp6g/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/E-KJv6aDp6g" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/NQNJuGQyh-U" data-id="NQNJuGQyh-U"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/NQNJuGQyh-U/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/NQNJuGQyh-U/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/NQNJuGQyh-U" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/61HvevUmr8g" data-id="61HvevUmr8g"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/61HvevUmr8g/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/61HvevUmr8g/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/61HvevUmr8g" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/3GYmMsOhSWU" data-id="3GYmMsOhSWU"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/3GYmMsOhSWU/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/3GYmMsOhSWU/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/3GYmMsOhSWU" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/3IHv3ou4Ioc" data-id="3IHv3ou4Ioc"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/3IHv3ou4Ioc/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/3IHv3ou4Ioc/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/3IHv3ou4Ioc" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/lgXaxunsFDo" data-id="lgXaxunsFDo"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/lgXaxunsFDo/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/lgXaxunsFDo/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/lgXaxunsFDo" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
         </ul>
         <button class="carousel-arrow carousel-arrow--next" type="button" data-carousel-next aria-label="Guion siguiente"><span aria-hidden="true">›</span></button>
       </div>
@@ -1025,50 +1034,76 @@ section{ position:relative; }
     return { items, n, scrollToItem, findActive };
   };
 
-  /* ---------- convierte un link de YouTube/Vimeo pegado a mano en la URL de embed correspondiente ---------- */
-  const toEmbedUrl = (raw) => {
-    if (!raw) return null;
-    let url;
-    try { url = new URL(raw.trim()); } catch (err) { return null; }
-    const host = url.hostname.replace(/^www\./, '');
-    if (host === 'youtu.be') {
-      const id = url.pathname.slice(1);
-      return id ? `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&playsinline=1` : null;
-    }
-    if (host === 'youtube.com' || host === 'm.youtube.com') {
-      let id = url.searchParams.get('v');
-      if (!id && url.pathname.startsWith('/shorts/')) id = url.pathname.split('/')[2];
-      if (!id && url.pathname.startsWith('/embed/')) id = url.pathname.split('/')[2];
-      return id ? `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&playsinline=1` : null;
-    }
-    if (host === 'vimeo.com') {
-      const id = url.pathname.split('/').filter(Boolean).pop();
-      return id ? `https://player.vimeo.com/video/${id}?autoplay=1` : null;
-    }
-    return null;
-  };
+  /* ---------- miniaturas: los Shorts traen "oardefault" en vertical, pero no siempre existe.
+     Si tampoco carga el respaldo, se oculta la imagen: mejor el fondo oscuro del slot que el
+     ícono de imagen rota del navegador. ---------- */
+  document.querySelectorAll('.work-poster[data-fallback]').forEach(img => {
+    let tried = false;
+    img.addEventListener('error', () => {
+      if (!tried) { tried = true; img.src = img.dataset.fallback; }
+      else { img.style.display = 'none'; }
+    });
+  });
 
-  /* ---------- carrusel de trabajos — Mis ediciones / Mis guiones, un video protagonista al centro, loop infinito ---------- */
+  /* ---------- carrusel de trabajos — el video centrado se previsualiza solo, en mudo y en loop ----------
+     Sólo vive un iframe por carrusel: montarlos todos serían 12 reproductores de YouTube en una
+     misma página. Las demás tarjetas muestran la miniatura, así ninguna queda en negro.          */
   document.querySelectorAll('[data-carousel]').forEach(carousel => {
     const track = carousel.querySelector('[data-carousel-track]');
     const prevBtn = carousel.querySelector('[data-carousel-prev]');
     const nextBtn = carousel.querySelector('[data-carousel-next]');
     if (!track) return;
 
-    const stopPlayback = (item) => {
-      item.classList.remove('is-playing');
+    let inView = false;
+
+    const previewUrl = (id) => 'https://www.youtube.com/embed/' + id +
+      '?autoplay=1&mute=1&loop=1&playlist=' + id +
+      '&controls=0&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&fs=0&enablejsapi=1';
+
+    const mount = (item) => {
+      if (!item || reduceMotion || !inView) return;
+      const slot = item.querySelector('.work-slot');
+      const id = item.dataset.id;
+      if (!slot || !id || slot.querySelector('.work-slot-iframe')) return;
+      const iframe = document.createElement('iframe');
+      iframe.className = 'work-slot-iframe';
+      iframe.src = previewUrl(id);
+      iframe.title = 'Muestra de video';
+      iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
+      iframe.setAttribute('tabindex', '-1');
+      slot.appendChild(iframe);
+    };
+
+    const unmount = (item) => {
+      if (!item) return;
       const iframe = item.querySelector('.work-slot-iframe');
       if (iframe) iframe.remove();
+      item.classList.remove('is-unmuted');
     };
 
     const scroller = makeInfiniteTrack(track, (active) => {
       scroller.items.forEach(i => {
         const wasActive = i.classList.contains('is-active');
         i.classList.toggle('is-active', i === active);
-        if (wasActive && i !== active) stopPlayback(i);
+        if (wasActive && i !== active) unmount(i);
       });
+      mount(active);
     });
     if (!scroller) return;
+
+    // el reproductor sólo se carga mientras el carrusel está a la vista
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          inView = entry.isIntersecting;
+          if (inView) mount(scroller.findActive());
+          else scroller.items.forEach(unmount);
+        });
+      }, { threshold: 0.3 }).observe(carousel);
+    } else {
+      inView = true;
+      mount(scroller.findActive());
+    }
 
     const step = (dir) => {
       const idx = scroller.items.indexOf(scroller.findActive());
@@ -1082,27 +1117,28 @@ section{ position:relative; }
       const btn = item.querySelector('.carousel-item-btn');
       if (!btn) return;
       btn.addEventListener('click', () => {
-        if (!item.classList.contains('is-active')) {
-          scroller.scrollToItem(item);
-          return;
-        }
-        const slot = item.querySelector('.work-slot');
-        const embedUrl = toEmbedUrl(item.dataset.video);
-        if (embedUrl && slot && !slot.querySelector('.work-slot-iframe')) {
-          const iframe = document.createElement('iframe');
-          iframe.className = 'work-slot-iframe';
-          iframe.src = embedUrl;
-          const label = item.querySelector('.carousel-item-meta strong');
-          iframe.title = label ? label.textContent : 'Video';
-          iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen');
-          iframe.loading = 'lazy';
-          slot.appendChild(iframe);
-        } else if (!embedUrl) {
-          scroller.items.forEach(i => { if (i !== item) stopPlayback(i); });
-          item.classList.toggle('is-playing');
-        }
+        if (!item.classList.contains('is-active')) { scroller.scrollToItem(item); return; }
+        // en la tarjeta centrada el clic alterna el sonido; el autoplay obliga a arrancar en mudo
+        const iframe = item.querySelector('.work-slot-iframe');
+        if (!iframe || !iframe.contentWindow) return;
+        const unmuted = item.classList.toggle('is-unmuted');
+        iframe.contentWindow.postMessage(JSON.stringify({
+          event: 'command', func: unmuted ? 'unMute' : 'mute', args: []
+        }), '*');
       });
     });
+
+    const syncLabels = () => {
+      scroller.items.forEach(i => {
+        const btn = i.querySelector('.carousel-item-btn');
+        if (!btn) return;
+        btn.setAttribute('aria-label', i.classList.contains('is-active')
+          ? 'Activar o silenciar el sonido del video'
+          : 'Centrar este video');
+      });
+    };
+    syncLabels();
+    track.addEventListener('scroll', syncLabels, { passive: true });
   });
 
   /* ---------- franja decorativa — deriva sutil al scrollear, la firma visual cobra vida ---------- */
