@@ -73,9 +73,9 @@ button, input, textarea{ font-family: inherit; color: inherit; }
 .container{ max-width: 1240px; margin-inline:auto; padding-inline: var(--gutter); }
 section{ position:relative; }
 
-/* reveal utilities (JS toggles .is-in) */
-[data-reveal]{ opacity:0; transform: translateY(24px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
-[data-reveal].is-in{ opacity:1; transform: translateY(0); }
+/* reveal utilities (JS toggles .is-in) — --tilt lets cards keep their resting rotation through the reveal instead of the rotate() colliding with translateY() */
+[data-reveal]{ --tilt: 0deg; opacity:0; transform: translateY(24px) rotate(var(--tilt)); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+[data-reveal].is-in{ opacity:1; transform: translateY(0) rotate(var(--tilt)); }
 
 /* franja decorativa — firma recurrente entre secciones */
 .stripe{ height:18px; }
@@ -94,10 +94,11 @@ section{ position:relative; }
 }
 .logo-mark{ font-family: var(--serif); font-style:italic; font-size:24px; }
 .site-nav{ display:flex; align-items:center; flex-wrap:wrap; gap: clamp(10px,2.4vw,32px); font-size:13px; font-weight:600; }
-.site-nav a{ position:relative; padding-bottom:3px; }
-.site-nav a::after{ content:''; position:absolute; left:0; right:100%; bottom:0; height:1px; background: var(--terracota); transition: right .4s var(--ease); }
-.site-nav a:hover::after{ right:0; }
-.nav-cta{ background: var(--terracota); color: var(--cream); padding:10px 20px; border-radius: var(--radius-pill); transition: background .3s var(--ease); }
+.site-nav a{ position:relative; }
+.site-nav a:not(.nav-cta){ padding-bottom:3px; }
+.site-nav a:not(.nav-cta)::after{ content:''; position:absolute; left:0; right:100%; bottom:0; height:1px; background: var(--terracota); transition: right .4s var(--ease); }
+.site-nav a:not(.nav-cta):hover::after{ right:0; }
+.nav-cta{ background: var(--terracota); color: var(--cream); padding:10px 20px; border-radius: var(--radius-pill); transition: background .3s var(--ease), transform .3s var(--ease); }
 .nav-cta:hover{ background: var(--terracota-deep); }
 .nav-toggle{ display:none; background:none; border:0; cursor:pointer; width:44px; height:44px; position:relative; }
 .nav-toggle span{ position:absolute; left:50%; width:26px; height:1.5px; background: var(--ink); transform: translateX(-50%); transition: transform .3s var(--ease), opacity .3s; border-radius:2px; }
@@ -127,23 +128,26 @@ section{ position:relative; }
 /* ==========================================================================
    MARCAS + STATS
    ========================================================================== */
-.brands{ padding: clamp(40px,6vw,64px) 0 clamp(56px,8vw,88px); }
+.brands{ padding: clamp(40px,6vw,64px) 0 clamp(16px,3vw,32px); }
 .brands h2{ text-align:center; font-family: var(--serif); font-weight:400; font-size: clamp(1.6rem,3vw,2.2rem); margin: 0 0 28px; }
 .marquee{
   border-top:1px solid var(--line-on-cream); border-bottom:1px solid var(--line-on-cream); padding:20px 0; overflow:hidden;
   mask-image: linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
 }
-.marquee-track{ display:flex; width:max-content; gap:56px; animation: marqueeScroll 30s linear infinite; }
+.marquee-track{ display:flex; width:max-content; align-items:center; gap:56px; animation: marqueeScroll 30s linear infinite; }
+.marquee:hover .marquee-track{ animation-play-state: paused; }
 @keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
-.marquee-track span{ font-family: var(--serif); font-style:italic; font-size:22px; color: var(--ink-muted); white-space:nowrap; }
+.brand-logo{ display:flex; align-items:center; justify-content:center; height:44px; width:140px; flex:none; }
+.brand-logo img{ max-height:100%; max-width:100%; width:auto; height:auto; object-fit:contain; filter:grayscale(1); opacity:.55; transition: filter .3s var(--ease), opacity .3s var(--ease); }
+.brand-logo:hover img{ filter:grayscale(0); opacity:1; }
 
 .stats{ display:grid; grid-template-columns: repeat(3,1fr); gap:24px; padding: clamp(40px,6vw,56px) var(--gutter) 0; }
-.stat-card{ background: var(--cream-card); border-radius:20px; padding:32px 28px; }
-.stat-card:nth-child(1){ transform: rotate(-1deg); }
-.stat-card:nth-child(3){ transform: rotate(1deg); }
+.stat-card{ background: var(--cream-card); border-radius:20px; padding:32px 28px; text-align:center; display:flex; flex-direction:column; align-items:center; }
+.stat-card:nth-child(1){ --tilt: -1deg; }
+.stat-card:nth-child(3){ --tilt: 1deg; }
 .stat-figure{ font-family: var(--serif); font-size: clamp(3rem,6vw,4.5rem); line-height:.9; }
 .stat-card:nth-child(1) .stat-figure{ color: var(--terracota); }
-.stat-card p{ margin-top:12px; font-size:14px; color: var(--ink-muted); max-width:22ch; }
+.stat-card p{ margin: 12px auto 0; font-size:14px; color: var(--ink-muted); max-width:22ch; }
 
 /* ==========================================================================
    PARA QUIÉN ES
@@ -153,11 +157,15 @@ section{ position:relative; }
 .audience-intro{ max-width:820px; margin: clamp(40px,6vw,56px) auto 0; text-align:center; }
 .audience-lead{ font-family: var(--serif); font-size: clamp(1.7rem,3.4vw,2.6rem); line-height:1.35; }
 .audience-lead em{ font-style:italic; color: var(--terracota); border-bottom:3px solid var(--mustard); }
-.audience-si{ font-family: var(--serif); font-size: clamp(1.3rem,2.2vw,1.7rem); margin:20px 0 0; }
-.audience-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:24px; max-width:1100px; margin: clamp(40px,6vw,56px) auto 0; }
+.audience-si{ font-family: var(--serif); font-size: clamp(1.3rem,2.2vw,1.7rem); margin: clamp(40px,6vw,56px) 0 0; }
+.audience-si::after{ content:''; display:block; width:40px; height:3px; background: var(--mustard); border-radius:2px; margin: 22px auto 0; }
+.audience-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:24px; max-width:1100px; margin: clamp(56px,8vw,88px) auto 0; }
 .audience-card{ background: var(--terracota); color: var(--cream); border-radius:18px; padding:32px 26px; }
-.audience-card:nth-child(1){ transform: rotate(-1deg); }
-.audience-card:nth-child(3){ transform: rotate(1deg); }
+.audience-card:nth-child(1){ --tilt: -1deg; }
+.audience-card:nth-child(3){ --tilt: 1deg; }
+.audience-card:nth-child(1){ transition-delay: 0s; }
+.audience-card:nth-child(2){ transition-delay: .12s; }
+.audience-card:nth-child(3){ transition-delay: .24s; }
 .audience-num{ width:34px; height:34px; border-radius:50%; background: var(--mustard); color: var(--ink); display:flex; align-items:center; justify-content:center; font-family: var(--serif); font-style:italic; font-size:15px; }
 .audience-card p{ margin:18px 0 0; font-size:15.5px; line-height:1.55; }
 .audience-outro{ display:flex; flex-direction:column; align-items:center; margin-top: clamp(48px,7vw,64px); }
@@ -168,26 +176,54 @@ section{ position:relative; }
    CASOS DE ESTUDIO
    ========================================================================== */
 .work{ padding: clamp(56px,8vw,88px) var(--gutter); }
-.work-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; max-width:1240px; margin:0 auto 40px; }
+.work-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; max-width:1240px; margin:0 auto 48px; }
 .work-head h2{ font-family: var(--serif); font-weight:400; font-size: clamp(2rem,4vw,3.4rem); text-decoration-line:underline; }
 .work-note{ max-width:32ch; font-size:13.5px; color: var(--ink-muted); line-height:1.5; }
-.work-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:28px; max-width:1240px; margin:0 auto; }
-.work-card{ background: var(--cream-card); border-radius:18px; padding:14px 14px 18px; transition: transform .4s var(--ease); }
-.work-card:nth-child(odd){ transform: rotate(-1deg); }
-.work-card:nth-child(even){ transform: rotate(1deg); }
-.work-card:hover{ transform: rotate(0) translateY(-5px); }
-.work-slot{
-  width:100%; height:340px; border-radius:12px; position:relative; overflow:hidden;
+
+/* carrusel de trabajos — un video protagonista al centro, el anterior/siguiente se asoman atenuados a los costados */
+.carousel-group{ max-width:1240px; margin:0 auto; }
+.carousel-group + .carousel-group{ margin-top: clamp(56px,7vw,80px); }
+.carousel-group-title{ font-family: var(--serif); font-style:italic; font-weight:400; font-size: clamp(1.5rem,2.6vw,2rem); text-align:center; margin:0 0 clamp(24px,3vw,32px); }
+.carousel{ position:relative; }
+.carousel-track{
+  display:flex; align-items:center; gap: clamp(16px,2.4vw,28px); overflow-x:auto; scroll-snap-type:x mandatory;
+  padding: 12px clamp(10%,22vw,32%) 28px; margin:0; scrollbar-width:none;
+}
+.carousel-track::-webkit-scrollbar{ display:none; }
+.carousel-item{
+  flex:none; width:min(58vw,300px); scroll-snap-align:center;
+  opacity:.4; filter:blur(1px); transform: scale(.82); transition: opacity .5s var(--ease), transform .5s var(--ease), filter .5s var(--ease);
+}
+.carousel-item.is-active{ opacity:1; filter:blur(0); transform: scale(1); }
+.carousel-item-btn{
+  all:unset; display:block; width:100%; background: var(--cream-card); border-radius:18px;
+  padding:14px 14px 18px; cursor:pointer;
+}
+.carousel-item-btn:focus-visible{ outline:2px solid var(--terracota); outline-offset:4px; border-radius:18px; }
+.carousel-item .work-slot{
+  width:100%; aspect-ratio:9/16; border-radius:12px; position:relative; overflow:hidden;
   background: linear-gradient(160deg, color-mix(in oklch, var(--ink) 85%, white 15%), var(--ink) 60%);
   display:flex; align-items:center; justify-content:center;
 }
-.work-slot svg{ width:34px; height:34px; color: var(--cream); opacity:.6; }
-.work-slot span{ position:absolute; bottom:12px; left:12px; right:12px; text-align:center; font-family: var(--serif); font-style:italic; font-size:12px; color: var(--cream); opacity:.75; }
-.work-meta{ display:flex; justify-content:space-between; align-items:flex-start; margin-top:14px; }
-.work-meta h3{ font-family: var(--serif); font-weight:400; font-size:19px; }
-.work-meta .client{ margin:4px 0 0; font-size:12px; color: var(--ink-muted); }
-.work-metrics{ text-align:right; font-size:11px; color: var(--ink-muted); }
-.work-metrics span{ display:block; }
+.carousel-item .work-slot svg{ width:32px; height:32px; color: var(--cream); opacity:.6; transition: transform .3s var(--ease); }
+.carousel-item.is-active .work-slot svg{ transform: scale(1.12); }
+.carousel-item.is-playing .work-slot::after{
+  content:''; position:absolute; inset:0; border-radius:12px; border:2px solid var(--mustard); animation: playPulse 1.4s ease-out infinite;
+}
+@keyframes playPulse{ 0%{ box-shadow:0 0 0 0 rgba(232,179,61,.5); } 100%{ box-shadow:0 0 0 14px rgba(232,179,61,0); } }
+.carousel-item .work-slot > span{ position:absolute; bottom:12px; left:12px; right:12px; text-align:center; font-family: var(--serif); font-style:italic; font-size:12px; color: var(--cream); opacity:.75; }
+.carousel-item-meta{ display:flex; flex-direction:column; align-items:center; gap:4px; margin-top:14px; text-align:center; }
+.carousel-item-meta strong{ font-family: var(--serif); font-weight:400; font-size:19px; }
+.carousel-item-meta span{ font-size:12px; color: var(--ink-muted); }
+.carousel-arrow{
+  position:absolute; top:50%; margin-top:-24px; z-index:2; width:48px; height:48px; border-radius:50%;
+  border:1px solid var(--line-on-cream); background: var(--cream); color: var(--terracota);
+  font-size:22px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
+}
+.carousel-arrow:hover{ background: var(--terracota); color: var(--cream); border-color: var(--terracota); transform: translateY(-2px); }
+.carousel-arrow--prev{ left: clamp(0px,2vw,12px); }
+.carousel-arrow--next{ right: clamp(0px,2vw,12px); }
 
 /* ==========================================================================
    PROCESO
@@ -197,21 +233,57 @@ section{ position:relative; }
 .process-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:32px; }
 .process-num{ width:34px; height:34px; border-radius:50%; background: var(--terracota); color: var(--cream); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; }
 .process-step h3{ font-family: var(--serif); font-weight:400; font-size:24px; margin:16px 0 0; }
-.process-step p{ margin-top:10px; font-size:14px; line-height:1.6; color: var(--ink-muted); }
+.process-step p{ margin-top:10px; font-size:14px; line-height:1.6; color: var(--ink-muted); min-height:3.2em; }
+.process-step:nth-child(1){ transition-delay: 0s; }
+.process-step:nth-child(2){ transition-delay: .35s; }
+.process-step:nth-child(3){ transition-delay: .7s; }
+.process-step:nth-child(4){ transition-delay: 1.05s; }
+.type-caret{ display:inline-block; width:2px; height:1em; vertical-align:-.15em; margin-left:2px; background: var(--terracota); animation: caretBlink .9s step-end infinite; }
+@keyframes caretBlink{ 50%{ opacity:0; } }
 
 /* ==========================================================================
    TESTIMONIOS
    ========================================================================== */
-.testimonials{ background: var(--cream-card); padding: clamp(56px,8vw,88px) 0; }
+/* corcho — fondo con textura de tablero, cintas y chinches sosteniendo cada testimonio */
+.testimonials{
+  position:relative; padding: clamp(56px,8vw,88px) 0;
+  background:
+    radial-gradient(circle at 15% 25%, rgba(43,27,18,.06), transparent 42%),
+    radial-gradient(circle at 85% 70%, rgba(43,27,18,.06), transparent 42%),
+    repeating-radial-gradient(circle at center, rgba(43,27,18,.05) 0 2px, transparent 2px 16px),
+    var(--cream-card);
+}
 .testimonials h2{ font-family: var(--serif); font-weight:400; font-size: clamp(1.9rem,3.6vw,3rem); padding: 0 var(--gutter); margin-bottom:32px; text-align:center; }
-.testimonial-strip{ display:flex; gap:26px; overflow-x:auto; padding:4px var(--gutter) 16px; scroll-snap-type:x proximity; scrollbar-width:none; }
+.testimonial-strip{ display:flex; gap:26px; overflow-x:auto; padding: 32px var(--gutter) 20px; scroll-snap-type:x proximity; scrollbar-width:none; }
 .testimonial-strip::-webkit-scrollbar{ display:none; }
 .testimonial-card{
+  --tilt: -1.4deg;
   scroll-snap-align:center; flex:none; width:260px; aspect-ratio:3/4; margin:0; background: var(--cream);
-  border-radius:16px; padding:14px 14px 18px; display:flex; flex-direction:column; gap:10px;
+  border-radius:16px; padding:14px 14px 18px; display:flex; flex-direction:column; gap:10px; position:relative;
 }
-.testimonial-card:nth-child(odd){ transform: rotate(-1.4deg); }
-.testimonial-card:nth-child(even){ transform: rotate(1.6deg); }
+.testimonial-card:nth-child(even){ --tilt: 1.6deg; }
+.testimonial-card[data-reveal]{
+  transition: opacity .6s var(--ease), transform .6s var(--ease);
+  transform: translateY(34px) scale(.82) rotate(var(--tilt));
+}
+.testimonial-card[data-reveal].is-in{ transform: translateY(0) scale(1) rotate(var(--tilt)); }
+.testimonial-card[data-reveal]:hover{ transform: translateY(-6px) scale(1) rotate(0deg); }
+.testimonial-card[data-reveal]:nth-child(1){ transition-delay: 0s; }
+.testimonial-card[data-reveal]:nth-child(2){ transition-delay: .08s; }
+.testimonial-card[data-reveal]:nth-child(3){ transition-delay: .16s; }
+.testimonial-card[data-reveal]:nth-child(4){ transition-delay: .24s; }
+.testimonial-card[data-reveal]:nth-child(5){ transition-delay: .32s; }
+.testimonial-card[data-reveal]:nth-child(6){ transition-delay: .4s; }
+.testimonial-card.tape::before{
+  content:''; position:absolute; top:-14px; left:50%; width:64px; height:22px;
+  background: rgba(232,179,61,.6); transform: translateX(-50%) rotate(-3deg); box-shadow: 0 2px 4px rgba(43,27,18,.2);
+}
+.testimonial-card.tape.dusty::before{ background: rgba(175,203,221,.65); transform: translateX(-50%) rotate(3deg); }
+.testimonial-card.pin::before{
+  content:''; position:absolute; top:-9px; left:50%; width:16px; height:16px; border-radius:50%;
+  background: radial-gradient(circle at 35% 30%, var(--mustard), var(--terracota) 70%);
+  box-shadow: 0 3px 5px rgba(43,27,18,.35); transform: translateX(-50%);
+}
 .testimonial-shot{ flex:1; border-radius:10px; background: var(--cream-card); display:flex; align-items:center; justify-content:center; }
 .testimonial-shot svg{ width:26px; height:26px; color: var(--ink-muted); opacity:.55; }
 .testimonial-card figcaption{ font-family: var(--serif); font-style:italic; font-size:12px; color: var(--ink-muted); text-align:center; }
@@ -221,8 +293,9 @@ section{ position:relative; }
    ========================================================================== */
 .services{ padding: clamp(56px,8vw,88px) var(--gutter); max-width:1240px; margin:0 auto; }
 .services h2{ font-family: var(--serif); font-weight:400; font-size: clamp(2rem,4vw,3.4rem); margin-bottom: clamp(32px,5vw,48px); }
-.service-row{ border-top:1px solid var(--line-on-cream); padding:28px 0; cursor:pointer; }
+.service-row{ border-top:1px solid var(--line-on-cream); padding:28px 0; cursor:pointer; transition: transform .3s var(--ease); }
 .services > .service-row:last-of-type{ border-bottom:1px solid var(--line-on-cream); }
+.service-row:hover{ transform: translateY(-4px); }
 .service-row:focus-visible{ outline:2px solid var(--terracota); outline-offset:-2px; }
 .service-head{ display:grid; grid-template-columns:50px 1fr auto; align-items:center; gap:24px; }
 .service-index{ font-family: var(--serif); font-style:italic; font-size:16px; color: var(--ink-muted); }
@@ -241,6 +314,7 @@ section{ position:relative; }
    ========================================================================== */
 .about{ background: var(--terracota); color: var(--cream); padding: clamp(56px,8vw,88px) var(--gutter); }
 .about-grid{ display:grid; grid-template-columns: 1fr 260px; gap: clamp(32px,5vw,56px); max-width:1240px; margin:0 auto; align-items:center; }
+.about-photo[data-reveal]{ transition-delay: .15s; }
 .about-lead{ font-family: var(--serif); font-size: clamp(1.5rem,2.6vw,2.1rem); line-height:1.4; }
 .about-lead .drop{ font-style:italic; font-size:1.6em; color: var(--mustard); line-height:.6; }
 .about-body{ margin-top:24px; font-size:15.5px; line-height:1.7; color: var(--cream-onterracota); max-width:62ch; }
@@ -293,14 +367,15 @@ section{ position:relative; }
   .site-nav a{ font-size:22px; font-family: var(--serif); font-style:italic; }
   .nav-cta{ order:5; }
   .nav-toggle{ display:block; z-index:101; }
-  .work-grid{ grid-template-columns: repeat(2,1fr); }
+  .carousel-arrow{ width:40px; height:40px; margin-top:-20px; font-size:18px; }
   .process-grid{ grid-template-columns: repeat(2,1fr); }
   .about-grid{ grid-template-columns:1fr; }
   .about-photo{ width:100%; max-width:260px; }
 }
 @media (max-width: 600px){
   .stats{ grid-template-columns:1fr; }
-  .work-grid{ grid-template-columns:1fr; }
+  .carousel-item{ width:min(78vw,260px); }
+  .carousel-track{ padding: 12px clamp(6%,10vw,18%) 24px; }
   .process-grid{ grid-template-columns:1fr; }
   .finale-footer{ grid-template-columns:1fr; justify-items:center; text-align:center; gap:12px; }
   .finale-footer a[href^="mailto"]{ justify-self:center; }
@@ -342,7 +417,7 @@ section{ position:relative; }
       Nunca fue tan difícil <em>destacar.</em>
     </h1>
     <p class="hero-sub">Tu marca tiene segundos para captar atención.<br>Lo que comuniques en ese tiempo marca la diferencia.</p>
-    <a href="#contacto" class="hero-cta">Escribime y analicemos cómo potenciar tu contenido<span aria-hidden="true">→</span></a>
+    <a href="https://wa.me/5491135046576?text=Hola%20Dai%2C%20quiero%20potenciar%20mi%20contenido" class="hero-cta" target="_blank" rel="noopener">Escribime y analicemos cómo potenciar tu contenido<span aria-hidden="true">→</span></a>
   </section>
 
   <div class="stripe stripe--a" aria-hidden="true"></div>
@@ -352,8 +427,18 @@ section{ position:relative; }
     <h2>Marcas que confiaron en mi trabajo</h2>
     <div class="marquee">
       <div class="marquee-track" aria-hidden="true">
-        <span>Hongos Porto</span><span>Café Martínez</span><span>Brahma</span><span>Roche</span><span>Oregon Hotel</span><span>Tun</span>
-        <span>Hongos Porto</span><span>Café Martínez</span><span>Brahma</span><span>Roche</span><span>Oregon Hotel</span><span>Tun</span>
+        <span class="brand-logo"><img src="assets/logos/hongos-porto.svg" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/cafe-martinez.svg" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/brahma.svg" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/roche.svg" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/oregon-hotel.svg" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/tun.svg" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/hongos-porto.svg" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/cafe-martinez.svg" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/brahma.svg" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/roche.svg" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/oregon-hotel.svg" alt="" loading="lazy"></span>
+        <span class="brand-logo"><img src="assets/logos/tun.svg" alt="" loading="lazy"></span>
       </div>
       <span class="visually-hidden">Marcas: Hongos Porto, Café Martínez, Brahma, Roche, Oregon Hotel, Tun.</span>
     </div>
@@ -405,33 +490,39 @@ section{ position:relative; }
   <section class="work" id="trabajo">
     <div class="work-head">
       <h2>Algunos de mis trabajos</h2>
-      <p class="work-note">Todavía no subí piezas reales acá: cada uno de estos 6 lugares está reservado para un proyecto — guion, dirección, edición y métricas incluidos — apenas lo cargue.</p>
+      <p class="work-note">Todavía no subí piezas reales acá: cada uno de estos lugares —en Mis ediciones y en Mis guiones— está reservado para un proyecto apenas lo cargue.</p>
     </div>
-    <div class="work-grid">
-      <article class="work-card" data-reveal>
-        <div class="work-slot"><svg><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></div>
-        <div class="work-meta"><div><h3>Proyecto 01</h3><p class="client">Por confirmar</p></div><div class="work-metrics"><span>Vistas —</span><span>Interacción —</span></div></div>
-      </article>
-      <article class="work-card" data-reveal>
-        <div class="work-slot"><svg><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></div>
-        <div class="work-meta"><div><h3>Proyecto 02</h3><p class="client">Por confirmar</p></div><div class="work-metrics"><span>Vistas —</span><span>Interacción —</span></div></div>
-      </article>
-      <article class="work-card" data-reveal>
-        <div class="work-slot"><svg><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></div>
-        <div class="work-meta"><div><h3>Proyecto 03</h3><p class="client">Por confirmar</p></div><div class="work-metrics"><span>Vistas —</span><span>Interacción —</span></div></div>
-      </article>
-      <article class="work-card" data-reveal>
-        <div class="work-slot"><svg><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></div>
-        <div class="work-meta"><div><h3>Proyecto 04</h3><p class="client">Por confirmar</p></div><div class="work-metrics"><span>Vistas —</span><span>Interacción —</span></div></div>
-      </article>
-      <article class="work-card" data-reveal>
-        <div class="work-slot"><svg><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></div>
-        <div class="work-meta"><div><h3>Proyecto 05</h3><p class="client">Por confirmar</p></div><div class="work-metrics"><span>Vistas —</span><span>Interacción —</span></div></div>
-      </article>
-      <article class="work-card" data-reveal>
-        <div class="work-slot"><svg><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></div>
-        <div class="work-meta"><div><h3>Proyecto 06</h3><p class="client">Por confirmar</p></div><div class="work-metrics"><span>Vistas —</span><span>Interacción —</span></div></div>
-      </article>
+
+    <div class="carousel-group" data-reveal>
+      <h3 class="carousel-group-title">Mis ediciones</h3>
+      <div class="carousel" data-carousel>
+        <button class="carousel-arrow carousel-arrow--prev" type="button" data-carousel-prev aria-label="Edición anterior"><span aria-hidden="true">‹</span></button>
+        <ul class="carousel-track" data-carousel-track>
+          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver edición 1 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 01</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver edición 2 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 02</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver edición 3 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 03</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver edición 4 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 04</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver edición 5 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 05</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver edición 6 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Edición 06</strong><span>Por confirmar</span></span></button></li>
+        </ul>
+        <button class="carousel-arrow carousel-arrow--next" type="button" data-carousel-next aria-label="Edición siguiente"><span aria-hidden="true">›</span></button>
+      </div>
+    </div>
+
+    <div class="carousel-group" data-reveal>
+      <h3 class="carousel-group-title">Mis guiones</h3>
+      <div class="carousel" data-carousel>
+        <button class="carousel-arrow carousel-arrow--prev" type="button" data-carousel-prev aria-label="Guion anterior"><span aria-hidden="true">‹</span></button>
+        <ul class="carousel-track" data-carousel-track>
+          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver guion 1 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 01</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver guion 2 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 02</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver guion 3 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 03</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver guion 4 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 04</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver guion 5 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 05</strong><span>Por confirmar</span></span></button></li>
+          <li class="carousel-item" data-carousel-item><button class="carousel-item-btn" type="button" aria-label="Ver guion 6 — placeholder"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Placeholder de video · 9:16</span></span><span class="carousel-item-meta"><strong>Guion 06</strong><span>Por confirmar</span></span></button></li>
+        </ul>
+        <button class="carousel-arrow carousel-arrow--next" type="button" data-carousel-next aria-label="Guion siguiente"><span aria-hidden="true">›</span></button>
+      </div>
     </div>
   </section>
 
@@ -452,12 +543,12 @@ section{ position:relative; }
   <section class="testimonials" id="testimonios">
     <h2>Lo que dicen mis clientes</h2>
     <div class="testimonial-strip">
-      <figure class="testimonial-card"><div class="testimonial-shot"><svg><use href="#i-quote"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
-      <figure class="testimonial-card"><div class="testimonial-shot"><svg><use href="#i-quote"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
-      <figure class="testimonial-card"><div class="testimonial-shot"><svg><use href="#i-quote"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
-      <figure class="testimonial-card"><div class="testimonial-shot"><svg><use href="#i-quote"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
-      <figure class="testimonial-card"><div class="testimonial-shot"><svg><use href="#i-quote"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
-      <figure class="testimonial-card"><div class="testimonial-shot"><svg><use href="#i-quote"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
+      <figure class="testimonial-card tape" data-reveal><div class="testimonial-shot"><svg aria-hidden="true"><use href="#i-quote"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
+      <figure class="testimonial-card pin" data-reveal><div class="testimonial-shot"><svg aria-hidden="true"><use href="#i-quote"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
+      <figure class="testimonial-card tape dusty" data-reveal><div class="testimonial-shot"><svg aria-hidden="true"><use href="#i-quote"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
+      <figure class="testimonial-card pin" data-reveal><div class="testimonial-shot"><svg aria-hidden="true"><use href="#i-quote"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
+      <figure class="testimonial-card tape" data-reveal><div class="testimonial-shot"><svg aria-hidden="true"><use href="#i-quote"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
+      <figure class="testimonial-card pin" data-reveal><div class="testimonial-shot"><svg aria-hidden="true"><use href="#i-quote"/></svg></div><figcaption>Captura de testimonio — placeholder</figcaption></figure>
     </div>
   </section>
 
@@ -517,19 +608,19 @@ section{ position:relative; }
   <!-- SOBRE MÍ -->
   <section class="about" id="sobre-mi">
     <div class="about-grid">
-      <div>
+      <div data-reveal>
         <p class="about-lead"><span class="drop">S</span>oy Dai. Hace más de cuatro años acompaño a marcas y creadores a transformar ideas en contenido para redes sociales.</p>
         <p class="about-body">Estudié la Licenciatura en Ciencias de la Comunicación en UBA. Hice cursos de Community Management en la UBA, Edición y ADS en la UTN. Trabajo en marketing digital desde 2022, con agencias y marcas de forma freelance. Pienso, escribo y edito contenido para redes sociales.</p>
       </div>
-      <div class="about-photo"><svg><use href="#i-portrait"/></svg><span>Retrato, placeholder</span></div>
+      <div class="about-photo" data-reveal><svg><use href="#i-portrait"/></svg><span>Retrato, placeholder</span></div>
     </div>
   </section>
 
   <!-- CONTACTO / FOOTER -->
   <section class="finale" id="contacto">
-    <h2>Contame tus objetivos y encontremos juntos <em>la forma de avanzar.</em></h2>
+    <h2 data-reveal>Contame tus objetivos y encontremos juntos <em>la forma de avanzar.</em></h2>
 
-    <form class="finale-form" id="contact-form" novalidate>
+    <form class="finale-form" id="contact-form" novalidate data-reveal>
       <div class="field"><label for="f-nombre">Nombre</label><input id="f-nombre" name="nombre" type="text" required autocomplete="name"></div>
       <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" required autocomplete="email"></div>
       <div class="field"><label for="f-marca">Marca / proyecto</label><input id="f-marca" name="marca" type="text" autocomplete="organization"></div>
@@ -626,6 +717,46 @@ section{ position:relative; }
     revealEls.forEach(el => el.classList.add('is-in'));
   }
 
+  /* ---------- pasos del proceso — aparecen uno por uno y el texto se tipea, como si se fuera escribiendo ---------- */
+  const processSteps = document.querySelectorAll('.process-step');
+  if (processSteps.length && 'IntersectionObserver' in window) {
+    const stepDelays = [0, 350, 700, 1050];
+    const typeText = (el, text, speed) => {
+      el.textContent = '';
+      const caret = document.createElement('span');
+      caret.className = 'type-caret';
+      el.appendChild(caret);
+      let i = 0;
+      const tick = () => {
+        if (i <= text.length) {
+          el.textContent = text.slice(0, i);
+          el.appendChild(caret);
+          i += 1;
+          setTimeout(tick, speed);
+        } else {
+          caret.remove();
+        }
+      };
+      tick();
+    };
+    processSteps.forEach((step, i) => {
+      const p = step.querySelector('p');
+      const original = p ? p.textContent : '';
+      const stepIO = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          if (reduceMotion || !p) {
+            if (p) p.textContent = original;
+          } else {
+            setTimeout(() => typeText(p, original, 16), (stepDelays[i] || 0) + 550);
+          }
+          stepIO.disconnect();
+        });
+      }, { threshold: 0.4 });
+      stepIO.observe(step);
+    });
+  }
+
   /* ---------- flechas de "estás en el lugar correcto" convergen al entrar ---------- */
   const outroArrows = document.querySelectorAll('.audience-outro p > span');
   if (!reduceMotion && outroArrows.length === 2 && 'IntersectionObserver' in window) {
@@ -690,9 +821,9 @@ section{ position:relative; }
     });
   });
 
-  /* ---------- botones magnéticos — el CTA del hero y el submit del form siguen levemente al cursor ---------- */
+  /* ---------- botones magnéticos — los CTA de contacto siguen levemente al cursor ---------- */
   if (isFinePointer && !reduceMotion) {
-    document.querySelectorAll('.hero-cta, .finale-submit').forEach(btn => {
+    document.querySelectorAll('.hero-cta, .finale-submit, .nav-cta').forEach(btn => {
       let raf = null;
       const lift = btn.classList.contains('hero-cta') ? -3 : 0;
       btn.addEventListener('mousemove', (e) => {
@@ -711,27 +842,65 @@ section{ position:relative; }
     });
   }
 
-  /* ---------- tarjetas de trabajo — leve tilt 3D siguiendo el cursor, como si el video reaccionara ---------- */
-  if (isFinePointer && !reduceMotion) {
-    document.querySelectorAll('.work-card').forEach(card => {
-      let raf = null;
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const px = (e.clientX - rect.left) / rect.width;
-        const py = (e.clientY - rect.top) / rect.height;
-        const rotateY = (px - 0.5) * 12;
-        const rotateX = (0.5 - py) * 12;
-        if (raf) cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(() => {
-          card.style.transform = `perspective(800px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-6px)`;
-        });
+  /* ---------- carrusel de trabajos — Mis ediciones / Mis guiones, un video protagonista al centro ---------- */
+  document.querySelectorAll('[data-carousel]').forEach(carousel => {
+    const track = carousel.querySelector('[data-carousel-track]');
+    const items = Array.from(carousel.querySelectorAll('[data-carousel-item]'));
+    const prevBtn = carousel.querySelector('[data-carousel-prev]');
+    const nextBtn = carousel.querySelector('[data-carousel-next]');
+    if (!track || !items.length) return;
+
+    const setActive = () => {
+      const trackRect = track.getBoundingClientRect();
+      const center = trackRect.left + trackRect.width / 2;
+      let closest = items[0];
+      let closestDist = Infinity;
+      items.forEach(item => {
+        const r = item.getBoundingClientRect();
+        const dist = Math.abs((r.left + r.width / 2) - center);
+        if (dist < closestDist) { closestDist = dist; closest = item; }
       });
-      card.addEventListener('mouseleave', () => {
-        if (raf) cancelAnimationFrame(raf);
-        card.style.transform = '';
+      items.forEach(item => item.classList.toggle('is-active', item === closest));
+    };
+
+    const scrollToItem = (item) => {
+      const trackRect = track.getBoundingClientRect();
+      const itemRect = item.getBoundingClientRect();
+      const delta = (itemRect.left + itemRect.width / 2) - (trackRect.left + trackRect.width / 2);
+      track.scrollBy({ left: delta, behavior: reduceMotion ? 'auto' : 'smooth' });
+    };
+
+    let ticking = false;
+    track.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => { setActive(); ticking = false; });
+    }, { passive: true });
+
+    const step = (dir) => {
+      const activeIndex = items.findIndex(i => i.classList.contains('is-active'));
+      const next = items[Math.min(items.length - 1, Math.max(0, activeIndex + dir))];
+      if (next) scrollToItem(next);
+    };
+    if (prevBtn) prevBtn.addEventListener('click', () => step(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => step(1));
+
+    items.forEach(item => {
+      const btn = item.querySelector('.carousel-item-btn');
+      if (!btn) return;
+      btn.addEventListener('click', () => {
+        if (item.classList.contains('is-active')) {
+          items.forEach(i => { if (i !== item) i.classList.remove('is-playing'); });
+          item.classList.toggle('is-playing');
+        } else {
+          scrollToItem(item);
+        }
       });
     });
-  }
+
+    setActive();
+    window.addEventListener('resize', setActive);
+  });
 
   /* ---------- franja decorativa — deriva sutil al scrollear, la firma visual cobra vida ---------- */
   const stripes = document.querySelectorAll('.stripe');
