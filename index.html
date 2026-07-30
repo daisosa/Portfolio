@@ -1052,49 +1052,32 @@ section{ position:relative; }
   /* ---------- carrusel de trabajos — el video centrado se previsualiza solo, en mudo y en loop ----------
      Sólo vive un iframe por carrusel: montarlos todos serían 12 reproductores de YouTube en una
      misma página. Las demás tarjetas muestran la miniatura, así ninguna queda en negro.          */
-  /* El player avisa su estado por postMessage. La capa con título, canal, logo y controles no
-     se va al empezar a reproducir: sigue unos segundos más y recién ahí se esconde sola. Por eso
-     no alcanza con destapar el iframe al arrancar; hay que esperar a que esa capa desaparezca. */
+  /* El player avisa su estado por postMessage. Se lo escucha para destapar el iframe recién
+     cuando arranca a reproducir (estado 1) y no durante la carga, que es cuando YouTube muestra
+     título, canal, logo y controles. */
+  const waiting = new Set();
   const YT_ORIGIN = 'https://www.youtube.com';
-  const mounted = new Set();
-  const OVERLAY_MS = 3300; // lo que tarda YouTube en esconder su capa una vez que arrancó
-  const SEEK_LEAD = 700;   // el salto al inicio ocurre todavía invisible, para no delatarlo
 
-  const send = (item, func, args) => {
-    const f = item && item.querySelector('.work-slot-iframe');
-    if (!f || !f.contentWindow) return;
-    f.contentWindow.postMessage(JSON.stringify({ event: 'command', func: func, args: args || [] }), YT_ORIGIN);
+  const goLive = (item) => {
+    if (!item) return;
+    item.classList.add('is-live');
+    waiting.delete(item);
   };
-
-  const goLive = (item) => { if (item) item.classList.add('is-live'); };
 
   window.addEventListener('message', (e) => {
     if (e.origin !== YT_ORIGIN) return;
     let data;
     try { data = JSON.parse(e.data); } catch (err) { return; }
-    let item = null;
-    mounted.forEach(candidate => {
-      const f = candidate.querySelector('.work-slot-iframe');
-      if (f && f.contentWindow === e.source) item = candidate;
+    let matched = null;
+    waiting.forEach(item => {
+      const f = item.querySelector('.work-slot-iframe');
+      if (f && f.contentWindow === e.source) matched = item;
     });
-    if (!item) return;
-    item.dataset.heard = '1'; // hubo diálogo con el player: su silencio ya no sería ambiguo
-
+    if (!matched) return;
+    matched.dataset.heard = '1'; // hubo diálogo con el player: su silencio ya no sería ambiguo
     const info = data.info;
     const state = (info && typeof info === 'object') ? info.playerState : info;
-
-    if (state === 1 && !item.dataset.armed) {
-      item.dataset.armed = '1';
-      setTimeout(() => {
-        if (!mounted.has(item)) return;
-        // se vuelve al principio para no mostrar el video ya empezado
-        send(item, 'seekTo', [0, true]);
-        setTimeout(() => { if (mounted.has(item)) goLive(item); }, SEEK_LEAD);
-      }, OVERLAY_MS);
-    }
-    // el loop se rehace a mano: hacerlo con "playlist" es lo que agrega los botones de anterior
-    // y siguiente sobre el video
-    if (state === 0) { send(item, 'seekTo', [0, true]); send(item, 'playVideo'); }
+    if (state === 1) goLive(matched);
   });
 
   document.querySelectorAll('[data-carousel]').forEach(carousel => {
@@ -1106,7 +1089,7 @@ section{ position:relative; }
     let inView = false;
 
     const previewUrl = (id) => 'https://www.youtube.com/embed/' + id +
-      '?autoplay=1&mute=1' +
+      '?autoplay=1&mute=1&loop=1&playlist=' + id +
       '&controls=0&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&fs=0&enablejsapi=1';
 
     const mount = (item) => {
@@ -1122,20 +1105,19 @@ section{ position:relative; }
       iframe.setAttribute('tabindex', '-1');
 
       delete item.dataset.heard;
-      delete item.dataset.armed;
-      mounted.add(item);
+      waiting.add(item);
       iframe.addEventListener('load', () => {
         try {
           iframe.contentWindow.postMessage(
             JSON.stringify({ event: 'listening', id: id, channel: 'widget' }), YT_ORIGIN);
         } catch (err) { /* sin canal con el player: decide el respaldo de abajo */ }
       });
-      // Si no llegó ni un mensaje, el canal no está disponible y el silencio no significa que no
-      // se esté reproduciendo: se destapa igual, ya pasado el tiempo de la capa. Si sí hubo
-      // mensajes pero nunca el de "reproduciendo", de verdad no arrancó y queda la miniatura.
+      // Si en 5s no llegó ni un mensaje, el canal no está disponible y el silencio no significa
+      // que no se esté reproduciendo: se destapa igual. Si sí hubo mensajes pero nunca el de
+      // "reproduciendo", entonces de verdad no arrancó y conviene dejar la miniatura.
       setTimeout(() => {
-        if (mounted.has(item) && !item.dataset.heard) goLive(item);
-      }, OVERLAY_MS + 2000);
+        if (waiting.has(item) && !item.dataset.heard) goLive(item);
+      }, 5000);
 
       slot.appendChild(iframe);
     };
@@ -1145,9 +1127,8 @@ section{ position:relative; }
       const iframe = item.querySelector('.work-slot-iframe');
       if (iframe) iframe.remove();
       item.classList.remove('is-unmuted', 'is-live');
-      mounted.delete(item);
+      waiting.delete(item);
       delete item.dataset.heard;
-      delete item.dataset.armed;
     };
 
     const scroller = makeInfiniteTrack(track, (active) => {
@@ -1188,8 +1169,12 @@ section{ position:relative; }
       btn.addEventListener('click', () => {
         if (!item.classList.contains('is-active')) { scroller.scrollToItem(item); return; }
         // en la tarjeta centrada el clic alterna el sonido; el autoplay obliga a arrancar en mudo
-        if (!item.querySelector('.work-slot-iframe')) return;
-        send(item, item.classList.toggle('is-unmuted') ? 'unMute' : 'mute');
+        const iframe = item.querySelector('.work-slot-iframe');
+        if (!iframe || !iframe.contentWindow) return;
+        const unmuted = item.classList.toggle('is-unmuted');
+        iframe.contentWindow.postMessage(JSON.stringify({
+          event: 'command', func: unmuted ? 'unMute' : 'mute', args: []
+        }), YT_ORIGIN);
       });
     });
 
