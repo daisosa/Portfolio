@@ -236,6 +236,15 @@ section{ position:relative; }
 .carousel-item.is-playing .work-slot > span{ opacity:0; }
 .carousel-item-meta{ display:flex; flex-direction:column; align-items:center; gap:4px; margin-top:14px; text-align:center; }
 .carousel-item-meta strong{ font-family: var(--serif); font-weight:400; font-size:19px; }
+/* salida de emergencia: si el navegador o el hosting rechaza el embed, el video sigue siendo alcanzable.
+   visibility:hidden (y no opacity sola) lo saca del orden de tabulación mientras no está centrado. */
+.carousel-item-link{
+  display:block; text-align:center; margin-top:9px; font-size:12px; color: var(--ink-muted);
+  text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px;
+  visibility:hidden; opacity:0; transition: opacity .4s var(--ease), color .3s var(--ease);
+}
+.carousel-item.is-active .carousel-item-link{ visibility:visible; opacity:.8; }
+.carousel-item-link:hover{ color: var(--terracota); opacity:1; }
 .carousel-arrow{
   position:absolute; top:50%; margin-top:-24px; z-index:2; width:48px; height:48px; border-radius:50%;
   border:1px solid var(--line-on-cream); background: var(--cream); color: var(--terracota);
@@ -250,17 +259,20 @@ section{ position:relative; }
    PROCESO
    ========================================================================== */
 .process{ padding: clamp(56px,8vw,88px) var(--gutter); max-width:1240px; margin:0 auto; }
+/* el tamaño está calibrado para que cada oración entre completa en un renglón hasta ~700px;
+   por debajo de eso corta, que es lo esperable en mobile */
 .process-lead{
-  font-family: var(--serif); font-weight:400; font-size: clamp(1.9rem,4vw,3.4rem); line-height:1.3;
-  max-width:30ch; margin:0;
+  font-family: var(--serif); font-weight:400; font-size: clamp(1.3rem,2.9vw,2.6rem); line-height:1.34;
+  margin:0; text-align:center;
 }
-/* cada frase es su propio bloque: el corte de línea cae entre oraciones, no dentro de una */
 .process-lead span{ display:block; }
-.process-lead span + span{ margin-top:.34em; }
+.process-lead span + span{ margin-top:.3em; }
 .process-kicker{
-  font-family: var(--serif); font-style:italic; font-size: clamp(1.1rem,1.9vw,1.45rem); color: var(--terracota);
-  margin: clamp(28px,4vw,40px) 0 clamp(36px,5vw,56px); display:flex; align-items:center; gap:16px;
+  font-family: var(--serif); font-style:italic; font-size: clamp(1.4rem,2.6vw,2.1rem); color: var(--terracota);
+  margin: clamp(32px,4.5vw,48px) 0 clamp(40px,5.5vw,60px);
+  display:flex; align-items:center; gap: clamp(16px,2.5vw,28px); text-align:center;
 }
+.process-kicker::before,
 .process-kicker::after{ content:''; flex:1; height:1px; background: var(--line-on-cream); }
 .process-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:32px; }
 .process-num{ width:34px; height:34px; border-radius:50%; background: var(--terracota); color: var(--cream); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; }
@@ -572,12 +584,12 @@ section{ position:relative; }
       <div class="carousel" data-carousel>
         <button class="carousel-arrow carousel-arrow--prev" type="button" data-carousel-prev aria-label="Edición anterior"><span aria-hidden="true">‹</span></button>
         <ul class="carousel-track" data-carousel-track>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/Cy4bH30SsLg"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 01"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 01</strong></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/9g_8ryy5PKY"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 02"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 02</strong></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/497zn7uONJQ"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 03"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 03</strong></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/WlAQTY7j2o4"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 04"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 04</strong></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/lA9q9CTZcNg"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 05"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 05</strong></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/xa1P5MHByLE"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 06"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 06</strong></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/Cy4bH30SsLg"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 01"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 01</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/Cy4bH30SsLg" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/9g_8ryy5PKY"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 02"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 02</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/9g_8ryy5PKY" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/497zn7uONJQ"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 03"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 03</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/497zn7uONJQ" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/WlAQTY7j2o4"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 04"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 04</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/WlAQTY7j2o4" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/lA9q9CTZcNg"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 05"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 05</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/lA9q9CTZcNg" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/xa1P5MHByLE"><button class="carousel-item-btn" type="button" aria-label="Reproducir edición 06"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Edición 06</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/xa1P5MHByLE" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
         </ul>
         <button class="carousel-arrow carousel-arrow--next" type="button" data-carousel-next aria-label="Edición siguiente"><span aria-hidden="true">›</span></button>
       </div>
@@ -588,12 +600,12 @@ section{ position:relative; }
       <div class="carousel" data-carousel>
         <button class="carousel-arrow carousel-arrow--prev" type="button" data-carousel-prev aria-label="Guion anterior"><span aria-hidden="true">‹</span></button>
         <ul class="carousel-track" data-carousel-track>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/E-KJv6aDp6g"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 01"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 01</strong></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/NQNJuGQyh-U"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 02"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 02</strong></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/61HvevUmr8g"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 03"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 03</strong></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/3GYmMsOhSWU"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 04"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 04</strong></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/3IHv3ou4Ioc"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 05"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 05</strong></span></button></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/lgXaxunsFDo"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 06"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 06</strong></span></button></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/E-KJv6aDp6g"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 01"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 01</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/E-KJv6aDp6g" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/NQNJuGQyh-U"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 02"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 02</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/NQNJuGQyh-U" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/61HvevUmr8g"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 03"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 03</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/61HvevUmr8g" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/3GYmMsOhSWU"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 04"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 04</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/3GYmMsOhSWU" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/3IHv3ou4Ioc"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 05"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 05</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/3IHv3ou4Ioc" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/lgXaxunsFDo"><button class="carousel-item-btn" type="button" aria-label="Reproducir guion 06"><span class="work-slot"><svg aria-hidden="true"><use href="#i-play"/></svg><span>Reproducir</span></span><span class="carousel-item-meta"><strong>Guion 06</strong></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/lgXaxunsFDo" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
         </ul>
         <button class="carousel-arrow carousel-arrow--next" type="button" data-carousel-next aria-label="Guion siguiente"><span aria-hidden="true">›</span></button>
       </div>
@@ -819,25 +831,33 @@ section{ position:relative; }
       tick();
     };
 
+    // el texto original se guarda antes de tocar nada; el DOM es la fuente de la verdad una sola vez
+    const originals = Array.from(processSteps).map(step => {
+      const p = step.querySelector('p');
+      return p ? p.textContent : '';
+    });
+
     const runSequence = () => {
       let i = 0;
       const revealNext = () => {
         if (i >= processSteps.length) return;
-        const step = processSteps[i];
+        const index = i;
+        const step = processSteps[index];
         const p = step.querySelector('p');
-        const original = p ? p.textContent : '';
+        const advance = () => { i = index + 1; setTimeout(revealNext, 260); };
+
+        if (reduceMotion || !p) { step.classList.add('is-in'); advance(); return; }
+
+        // Se reserva la altura final ANTES de vaciar el párrafo: si no, el bloque crece a medida
+        // que se tipea y empuja el borde de la sección siguiente.
+        p.style.minHeight = p.offsetHeight + 'px';
+        // Vaciar ANTES de aplicar .is-in: de lo contrario el texto completo alcanza a verse
+        // durante el fade-in y recién después arranca el tipeado.
+        p.textContent = '';
         step.classList.add('is-in');
-        if (reduceMotion || !p) {
-          if (p) p.textContent = original;
-          i += 1;
-          setTimeout(revealNext, 200);
-          return;
-        }
+
         setTimeout(() => {
-          typeText(p, original, 16, () => {
-            i += 1;
-            setTimeout(revealNext, 260);
-          });
+          typeText(p, originals[index], 16, () => { p.style.minHeight = ''; advance(); });
         }, 550);
       };
       revealNext();
@@ -1013,13 +1033,13 @@ section{ position:relative; }
     const host = url.hostname.replace(/^www\./, '');
     if (host === 'youtu.be') {
       const id = url.pathname.slice(1);
-      return id ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0` : null;
+      return id ? `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&playsinline=1` : null;
     }
     if (host === 'youtube.com' || host === 'm.youtube.com') {
       let id = url.searchParams.get('v');
       if (!id && url.pathname.startsWith('/shorts/')) id = url.pathname.split('/')[2];
       if (!id && url.pathname.startsWith('/embed/')) id = url.pathname.split('/')[2];
-      return id ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0` : null;
+      return id ? `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&playsinline=1` : null;
     }
     if (host === 'vimeo.com') {
       const id = url.pathname.split('/').filter(Boolean).pop();
