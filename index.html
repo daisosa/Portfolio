@@ -268,6 +268,12 @@ section{ position:relative; }
 .carousel-arrow:hover{ background: var(--terracota); color: var(--cream); border-color: var(--terracota); transform: translateY(-2px); }
 .carousel-arrow--prev{ left: clamp(0px,2vw,12px); }
 .carousel-arrow--next{ right: clamp(0px,2vw,12px); }
+/* En pantallas táctiles el anclaje obligatorio pelea contra la inercia del dedo y contra el salto
+   que reacomoda el loop: el carril queda rebotando entre dos posiciones. "proximity" acomoda
+   igual, pero cede cuando algo más está moviendo el scroll. */
+@media (pointer: coarse){
+  .carousel-track{ scroll-snap-type: x proximity; }
+}
 
 /* ==========================================================================
    PROCESO
@@ -1133,13 +1139,22 @@ section{ position:relative; }
       delete item.dataset.heard;
     };
 
-    const scroller = makeInfiniteTrack(track, (active) => {
-      scroller.items.forEach(i => {
-        const wasActive = i.classList.contains('is-active');
-        i.classList.toggle('is-active', i === active);
-        if (wasActive && i !== active) unmount(i);
-      });
+    /* El reproductor no se toca mientras el carrusel se está moviendo. Antes se montaba en cada
+       tarjeta que pasaba por el centro: con un swipe con inercia que cruza cuatro tarjetas, eso
+       crea y destruye cuatro reproductores de YouTube en menos de un segundo. En una compu ni se
+       nota, pero un teléfono no llega a dibujar ninguno y lo que se ve es un parpadeo.
+       Ahora se espera a que el desplazamiento se detenga y recién ahí se carga el que quedó. */
+    let settleTimer = null;
+    const settle = () => {
+      const active = scroller.findActive();
+      scroller.items.forEach(i => { if (i !== active) unmount(i); });
       mount(active);
+    };
+
+    const scroller = makeInfiniteTrack(track, (active) => {
+      scroller.items.forEach(i => i.classList.toggle('is-active', i === active));
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(settle, 350);
     });
     if (!scroller) return;
 
@@ -1148,7 +1163,8 @@ section{ position:relative; }
       new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           inView = entry.isIntersecting;
-          if (inView) mount(scroller.findActive());
+          clearTimeout(settleTimer);
+          if (inView) settleTimer = setTimeout(settle, 350);
           else scroller.items.forEach(unmount);
         });
       }, { threshold: 0.3 }).observe(carousel);
