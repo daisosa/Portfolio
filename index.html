@@ -219,6 +219,10 @@ section{ position:relative; }
   width:100%; aspect-ratio:9/16; border-radius:12px; position:relative; overflow:hidden;
   background: linear-gradient(160deg, color-mix(in oklch, var(--ink) 85%, white 15%), var(--ink) 60%);
   display:flex; align-items:center; justify-content:center;
+  /* Recortar con esquinas redondeadas un iframe transformado deja a Safari decidiendo capa por
+     capa en cada cuadro. Fijarlo como capa 3D estable le saca esa decisión de encima. */
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden; backface-visibility: hidden;
 }
 /* Miniatura del Short. Se ve siempre, así ninguna tarjeta queda como un rectángulo negro:
    el iframe se monta encima sólo en la tarjeta centrada. */
@@ -229,7 +233,9 @@ section{ position:relative; }
    eso desaparece recién al reproducir. Hasta ese momento se ve la miniatura, que está debajo. */
 .work-slot-iframe{
   position:absolute; top:50%; left:50%; width:100%; height:100%; border:0; z-index:2;
-  transform: translate(-50%,-50%) scale(var(--video-zoom, 1.06));
+  /* translate3d y no translate: la versión 3D obliga a componer por GPU de forma estable */
+  transform: translate3d(-50%,-50%,0) scale(var(--video-zoom, 1.06));
+  -webkit-backface-visibility: hidden; backface-visibility: hidden;
   pointer-events:none;
   opacity:0; transition: opacity .45s var(--ease);
 }
@@ -273,6 +279,11 @@ section{ position:relative; }
    igual, pero cede cuando algo más está moviendo el scroll. */
 @media (pointer: coarse){
   .carousel-track{ scroll-snap-type: x proximity; }
+  /* Sin desenfoque en táctiles: animar un filter obliga a rasterizar de nuevo todo el subárbol en
+     cada cuadro, y ahí adentro hay un video reproduciéndose. La opacidad y la escala ya bastan
+     para restarle protagonismo a los costados, que en un teléfono casi no se ven. */
+  .carousel-item{ filter:none; transition: opacity .5s var(--ease), transform .5s var(--ease); }
+  .carousel-item.is-active{ filter:none; }
 }
 
 /* ==========================================================================
