@@ -2,7 +2,7 @@
 
 Sitio web de portfolio profesional para Daiana Sosa, freelance de estrategia y creación de contenido.
 
-Es un sitio estático de una sola página (`index.html`), sin dependencias ni build — HTML, CSS y JavaScript vanilla, listo para publicar en GitHub Pages, Netlify, Vercel o cualquier hosting estático. La tipografía (Archivo, un único `.woff2` variable) vive en `fonts/`.
+Es un sitio estático de una sola página (`index.html`), sin dependencias ni build — HTML, CSS y JavaScript vanilla, listo para publicar en GitHub Pages, Netlify, Vercel o cualquier hosting estático. Las tipografías (Archivo variable e Instrument Serif) viven como archivos `.woff2` en `fonts/`.
 
 ## Contenido del sitio
 

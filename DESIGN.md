@@ -2,32 +2,39 @@
 name: Dai Sosa — Portfolio
 description: Portfolio freelance de estrategia y creación de contenido, Buenos Aires, Argentina
 colors:
-  paper: "#F6F0E6"
-  surface: "#FCFAF5"
-  surface-2: "#EFE7DA"
-  ink: "#1C1613"
-  ink-2: "#6E655C"
-  accent: "#9C3B20"
-  accent-deep: "#6E2814"
-  dark: "#2A211A"
-  danger: "#A32D1C"
-  ok: "#2C6A4A"
+  cream: "#F4ECE0"
+  cream-card: "#EFE1C9"
+  surface: "#FBF6EE"
+  ink: "#241A13"
+  ink-2: "#6B5140"
+  terracota: "#9C3B20"
+  terracota-deep: "#6E2814"
+  mustard: "#E8B33D"
+  dusty: "#AFCBDD"
+  on-terracota: "#EFD9C4"
+  danger: "#C2452C"
+  ok: "#3E8A63"
 typography:
   display:
     fontFamily: "'Archivo', 'Helvetica Neue', Arial, sans-serif"
     fontSize: "clamp(2.05rem, 5.4vw, 4.1rem)"
     fontWeight: 800
-    lineHeight: 1.03
+    lineHeight: 1.04
     letterSpacing: "-0.035em"
     textTransform: "uppercase"
+  display-accent:
+    fontFamily: "'Instrument Serif', Georgia, serif"
+    fontStyle: "italic"
+    fontWeight: 400
+    textTransform: "none"
   headline:
     fontFamily: "'Archivo', 'Helvetica Neue', Arial, sans-serif"
-    fontSize: "clamp(1.65rem, 3.4vw, 2.5rem)"
+    fontSize: "clamp(1.7rem, 3.6vw, 2.7rem)"
     fontWeight: 700
-    letterSpacing: "-0.02em"
+    letterSpacing: "-0.025em"
   title:
     fontFamily: "'Archivo', 'Helvetica Neue', Arial, sans-serif"
-    fontSize: "clamp(16px, 1.7vw, 19px)"
+    fontSize: "clamp(16px, 1.7vw, 19.5px)"
     fontWeight: 600
   body:
     fontFamily: "'Archivo', 'Helvetica Neue', Arial, sans-serif"
@@ -38,31 +45,29 @@ typography:
     fontFamily: "'Archivo', 'Helvetica Neue', Arial, sans-serif"
     fontSize: "11.5px"
     fontWeight: 700
-    letterSpacing: "0.16em"
+    letterSpacing: "0.18em"
     textTransform: "uppercase"
 rounded:
-  card: "14px"
-  card-lg: "20px"
+  card: "16px"
+  card-lg: "22px"
   pill: "100px"
 spacing:
   gutter: "clamp(20px, 4vw, 56px)"
 components:
   button-primary:
-    backgroundColor: "{colors.accent}"
-    textColor: "{colors.paper}"
-    typography: "{typography.body}"
+    backgroundColor: "{colors.terracota}"
+    textColor: "{colors.cream}"
     rounded: "{rounded.pill}"
-    padding: "15px 26px"
+    padding: "16px 28px"
   button-primary-hover:
-    backgroundColor: "{colors.accent-deep}"
-  button-ghost:
-    backgroundColor: "transparent"
+    backgroundColor: "{colors.terracota-deep}"
+  chip:
+    backgroundColor: "{colors.mustard}"
     textColor: "{colors.ink}"
-    border: "1px solid rgba(28,22,19,.26)"
     rounded: "{rounded.pill}"
   card:
     backgroundColor: "{colors.surface}"
-    border: "1px solid rgba(28,22,19,.14)"
+    border: "1px solid rgba(36,26,19,.14)"
     rounded: "{rounded.card}"
 ---
 
@@ -70,191 +75,181 @@ components:
 
 ## Overview
 
-**Creative North Star: "Editorial neutro" (Versión C)**
+**Creative North Star: "Terracota editorial" (Versión D)**
 
-Un portfolio sobrio de tipografía grande. Papel cálido de base, tinta casi negra y **una sola
-familia tipográfica** (Archivo, 100–900): la jerarquía la sostienen el contraste de escala y peso,
-la grilla y el aire — no el color ni la decoración. Terracota queda reservado a lo accionable y a
-lo que hay que poder encontrar de un vistazo: CTA, enlaces, anillo de foco, cifras de las métricas
-y numeral del ítem de acordeón abierto.
+Un portfolio cálido y cinematográfico donde **el scroll está coreografiado**. Recupera la paleta
+completa del sistema original — crema, terracota, mostaza — y sus recursos gráficos de firma
+(franja a rayas, marquee de marcas, serif itálico de énfasis, numerales fantasma), pero montados
+sobre la estructura sobria y la jerarquía disciplinada de la versión neutra que la precedió.
 
-Reemplaza por completo a "Terracota-mostaza" (Instrument Serif itálica, mostaza, franjas de cuatro
-colores, tablero de corcho con chinches, rotaciones de "mano suelta", marquee de logos). Es un
-reemplazo de identidad completo, no una re-coloreada, y responde a un diagnóstico concreto: los
-recursos anteriores leían como decoración generada, no como decisiones. Lo que se fue y por qué:
+La tesis del sistema: **la riqueza visual viene del ritmo de superficies y del movimiento ligado al
+scroll, no de la decoración aplicada a los elementos**. Cada sección cambia de fondo, los titulares
+se revelan por máscara, los medios llevan parallax y una barra de progreso acompaña la lectura.
 
-- **Franja a rayas (`.stripe`)** — separador decorativo sin significado; ahora la transición entre
-  secciones es una línea de 1px y un cambio de ritmo vertical.
-- **Tablero de corcho, chinches y cintas** — skeuomorfismo que restaba profesionalismo. Los
-  testimonios pasan a tarjetas con el mensaje textual y la captura real plegada como prueba.
-- **Instrument Serif** — el serif itálico conviviendo con Archivo producía dos jerarquías en
-  paralelo. Sistema de una sola familia.
-- **Rotaciones ±1–4deg** en tarjetas, chips y numerales — ruido que hacía leer la grilla como rota.
-- **Marquee de logos** — movimiento permanente que competía con el contenido; ahora es una grilla
-  fija en escala de grises.
-- **Mostaza y dusty** — la paleta baja a un solo acento.
+**Lo que se recuperó del sistema original** (y por qué funciona acá): franja a rayas de cuatro
+colores entre secciones mayores, marquee infinito de logos, Instrument Serif itálica como acento,
+mostaza como acento secundario, terracota como superficie de sección completa, botones magnéticos.
+
+**Lo que no vuelve, por diagnóstico explícito:** tablero de corcho con chinches y cintas
+(skeuomorfismo que restaba profesionalismo), símbolos flotantes (`✦ ✦ ✦`, `++`, flechas
+convergentes), rotaciones al azar de tarjetas y chips, y el efecto de tipeado en el proceso. Los
+testimonios siguen siendo cita textual con la captura plegada como prueba, y el acordeón sigue
+unificado con indicador `+` / `−`.
 
 **Key Characteristics:**
-- Titular del hero en Archivo 800 en mayúsculas con tracking negativo (`-0.035em`): el contraste de
-  escala contra un cuerpo de 16px es el motor de la jerarquía.
-- Patrón único de cabecera de sección (`.sec-head`): eyebrow en mayúsculas + `h2` + lead. Las seis
-  secciones lo repiten sin excepción.
-- Grillas con separadores de 1px conseguidos por `gap` sobre fondo `--line` (logos, métricas,
-  proceso): tabla limpia sin bordes dobles.
-- Elevación suave y escasa: dos niveles de sombra, sólo en tarjetas interactivas y en el formulario.
-- Acordeón con indicador explícito `+` / `−` (dos trazos; el vertical se pliega al abrir).
+- **Ritmo de superficies:** crema → terracota → tinta → crema → crema-card → crema → terracota →
+  tinta. Ninguna sección contigua repite fondo; el cambio de superficie es la puntuación del sitio.
+- **La sección de trabajo es oscura ("sala de cine"):** los Shorts verticales sobre `--ink` con
+  sombra profunda. Es la única forma de que un video vertical se lea como pieza y no como recuadro.
+- **Serif de énfasis:** Instrument Serif itálica aparece sólo dentro de un titular, en la frase que
+  carga el significado — nunca un titular entero, nunca texto corrido.
+- **Coreografía de scroll** en un único orquestador rAF: barra de progreso, parallax de medios y
+  llenado de la línea de proceso salen del mismo listener.
 
 ## Colors
 
-Papel cálido en tres profundidades, tinta casi negra y un único acento.
-
 ### Primary
-- **Accent** (`#9C3B20`): CTA principal, enlaces, anillo de foco, cifras de métricas, viñetas de
-  lista, numeral del acordeón abierto, palabra de énfasis del hero. Sobre papel da ~6.4:1.
-- **Accent Deep** (`#6E2814`): hover de CTA y de enlaces — nunca superficie de texto largo.
+- **Terracota** (`#9C3B20`): color de marca. CTA, énfasis de titular, filete del acordeón abierto,
+  cifras de métricas, viñetas, y **superficie de sección completa** ("Para quién trabajo",
+  "Sobre mí") con texto crema encima (5.9:1).
+- **Terracota Deep** (`#6E2814`): hover de CTA y banda de la franja decorativa.
+
+### Secondary
+- **Mustard** (`#E8B33D`): acento secundario — chips de servicio, numerales de audiencia, títulos
+  de carrusel sobre tinta, filete del eyebrow y encabezados del footer.
+- **Dusty** (`#AFCBDD`): exclusivamente una banda de la franja decorativa.
 
 ### Neutral
-- **Paper** (`#F6F0E6`): fondo de página y de las celdas de métricas/proceso.
-- **Surface** (`#FCFAF5`): tarjetas, paneles del acordeón, formulario, celdas de logos.
-- **Surface-2** (`#EFE7DA`): superficies hundidas — slot de video antes de que cargue la miniatura.
-- **Ink** (`#1C1613`) e **Ink-2** (`#6E655C`): texto principal y secundario.
-- **Line** (`rgba(28,22,19,.14)`) y **Line-2** (`rgba(28,22,19,.26)`): bordes de tarjeta y de campo.
-
-### Surface
-- **Dark** (`#2A211A`): footer, la única banda oscura del sitio. Lleva `--on-dark` (`#F6F0E6`)
-  encima (~13:1) y `--on-dark-2` para texto secundario.
-
-### Feedback
-- **Danger** (`#A32D1C`): borde y mensaje de campo inválido.
-- **Ok** (`#2C6A4A`): confirmación del formulario y punto de "disponible para proyectos".
+- **Cream** (`#F4ECE0`): fondo de página.
+- **Cream Card** (`#EFE1C9`): superficie de sección alterna (Proceso) y tarjetas de métricas.
+- **Surface** (`#FBF6EE`): tarjetas elevadas sobre crema — acordeón, testimonios, formulario.
+- **Ink** (`#241A13`): texto principal, superficie de "Trabajo" y del footer.
+- **Ink-2** (`#6B5140`): texto secundario sobre crema.
+- **On Terracota** (`#EFD9C4`): texto secundario sobre terracota (5.0:1) — más cálido que el crema
+  puro, evita el blanco frío sobre un fondo saturado.
 
 ### Named Rules
-**La Regla del Acento Accionable.** Terracota marca lo que se puede tocar o lo que hay que leer
-primero (CTA, enlace, foco, cifra). No se usa como relleno de sección ni como color de párrafo: si
-algo es terracota y no es accionable, tiene que ser un dato, no una decoración.
-**La Regla de la Banda Única.** El footer es la única superficie oscura del sitio. No hay secciones
-de color pleno intercaladas — el ritmo lo da el espaciado, no el cambio de fondo.
+**La Regla del Mustard sin Texto Claro.** Mostaza sólo lleva texto `--ink` encima, nunca crema.
+**La Regla del Mustard Grande.** Mostaza sobre terracota da **3.58:1**: alcanza para texto grande
+(titulares ≥24px) pero **no** para labels ni cuerpo. En la banda terracota el eyebrow va en crema y
+la mostaza queda reservada a su filete decorativo. Sobre tinta, en cambio, mostaza da 8.9:1 y sí
+puede llevar texto chico.
+**La Regla de la Superficie Terracota.** Terracota es fondo de sección completa — siempre con texto
+crema, on-terracota o mostaza-grande encima, nunca terracota sobre terracota.
+**La Regla de la Alternancia.** Dos secciones contiguas nunca comparten fondo.
 
 ## Typography
 
-**Única familia:** Archivo variable (100–900), servida localmente en un solo `woff2`.
-
-**Character:** Grotesca neutra de caja alta. El carácter viene del contraste extremo de escala
-(display de hasta 4.1rem contra cuerpo de 16px), del tracking negativo en los titulares y del
-tracking muy abierto (`.16em`) en los eyebrows — no de un cambio de familia.
+**Dos familias, con roles que no se solapan:** Archivo variable (100–900) para absolutamente todo
+el texto; Instrument Serif itálica sólo como acento de énfasis.
 
 ### Hierarchy
-- **Display** (800, `clamp(2.05rem,5.4vw,4.1rem)`, `-0.035em`, mayúsculas): sólo el `h1` del hero.
-- **Headline** (700, `clamp(1.65rem,3.4vw,2.5rem)`, `-0.02em`): `h2` de cada sección.
-- **Title** (600–700, 16–19px): título de acordeón, paso de proceso, cita de testimonio.
-- **Body** (400, 15–16px, line-height 1.55–1.7): párrafos.
-- **Lead** (400, `clamp(15px,1.5vw,17px)`, color `--ink-2`): bajada de sección, máx. 56ch.
-- **Label / eyebrow** (700, 11.5–12px, `.14–.16em`, mayúsculas): eyebrow de sección, numerales de
-  proceso y audiencia, meta de testimonio.
+- **Display** (Archivo 800, `clamp(2.05rem,5.4vw,4.1rem)`, `-0.035em`, mayúsculas): sólo el `h1`.
+- **Display accent** (Instrument Serif itálica, minúscula, 1.06em): la frase de énfasis dentro del
+  `h1` — el cambio de caja y de familia es el que le da carácter al titular.
+- **Headline** (Archivo 700, `clamp(1.7rem,3.6vw,2.7rem)`, `-0.025em`): `h2` de sección, con su
+  `<em>` en serif itálica terracota (o mostaza sobre fondos oscuros).
+- **Carousel title** (Instrument Serif itálica, `clamp(1.3rem,2.4vw,1.9rem)`, mostaza): único caso
+  de titular íntegramente en serif, justificado porque es un rótulo de agrupación, no una jerarquía.
+- **Title** (Archivo 600, 16–19.5px): acordeón, pasos del proceso, citas.
+- **Body** (400, 15–16px, 1.55–1.7).
+- **Label / eyebrow** (700, 11.5px, `.18em`, mayúsculas) con un filete de 26px a la izquierda.
 
 ### Named Rules
-**La Regla de una Sola Familia.** Ninguna fuente adicional entra al sistema — ni serif, ni script,
-ni monoespaciada. Un peso o un tamaño distinto resuelve cualquier necesidad de énfasis.
-**La Regla de la Mayúscula Reservada.** Las mayúsculas son sólo para el `h1` y para labels de
-11–12px. Un `h2` en mayúsculas competiría con el hero.
+**La Regla del Serif Acotado.** El serif itálico aparece dentro de un titular o como rótulo de
+carrusel. Nunca en párrafos, labels, botones, nav ni campos de formulario.
 
 ## Layout
 
-Contenedor centrado `max-width: 1240px` con padding lateral fluido (`--gutter`). Todas las
-secciones comparten `padding: clamp(56px,7.5vw,104px) 0` y se separan con `border-top: 1px solid
-var(--line)` mediante `.section + .section`.
+Contenedor centrado `max-width: 1240px` con padding lateral fluido (`--gutter`). Secciones con
+`padding: clamp(64px,8vw,120px) 0` y variante de superficie por clase (`.section--card`,
+`.section--terracota`, `.section--dark`).
 
-Bandas a dos columnas donde la relación entre las dos mitades es real: hero (video | copy,
-`minmax(0,320px) minmax(0,1fr)`), trabajo (ediciones | guiones, `minmax(0,1fr)` × 2), servicios
-(cabecera | acordeón) y contacto (cabecera y vías directas | formulario). El resto es ancho
-completo.
+Bandas a dos columnas donde la relación entre mitades es real: hero (video | copy), trabajo
+(ediciones | guiones), servicios (cabecera | acordeón), contacto (vías directas | formulario),
+sobre mí (foto | texto).
 
 **Todas las columnas de grid usan `minmax(0,1fr)`, nunca `1fr`**: el carril del carrusel es más
 ancho que su columna y con el mínimo automático de grid estiraría la página entera.
 
-Quiebres: 1100px (logos a 5 columnas, servicios y contacto a una), 1000px (los dos carruseles se
-apilan), 900px (hero y sobre-mí a una columna), 860px (menú en cajón), 760px (todo a una columna).
+Quiebres: 1100px (servicios/contacto a una columna, proceso a dos), 1000px (carruseles apilados),
+900px (hero y sobre-mí a una), 860px (menú en cajón), 760px (todo a una).
+
+## Motion — la coreografía de scroll
+
+Todo lo de abajo se neutraliza bajo `prefers-reduced-motion: reduce` por el reset global.
+
+- **Barra de progreso** (`.scroll-progress`): 3px fijos arriba, degradado terracota→mostaza,
+  animada por `transform: scaleX()` — nunca por `width`, que forzaría layout en cada cuadro.
+- **Revelado de titular:** la línea sube desde detrás de una máscara (`overflow:hidden` en el `h2`
+  + `translateY(110%)` en un `<span>` interno). Por eso **todo `h2` lleva su texto envuelto en un
+  `<span>`**: sin ese span no hay qué animar.
+- **Revelado genérico** (`[data-reveal]`): sube 22px y aparece, con retardo escalonado según la
+  posición del elemento dentro de su propia fila (no acumulado en toda la página).
+- **Parallax** (`[data-parallax="-0.06"]`): el orquestador escribe `--py` y el CSS lo aplica como
+  `translate3d`. El valor es la distancia del centro del elemento al centro de la pantalla por la
+  velocidad; recorrido real de ~40px en 700px de scroll.
+- **Línea del proceso:** `--fill` va de 0 a 1 según el avance de la sección por la pantalla.
+- **Marquee de marcas:** animación CSS pura de 46s, en pausa al pasar el cursor.
+- **Botones magnéticos** (`[data-magnetic]`): sólo con puntero fino.
+
+**Un solo listener de scroll.** Progreso, parallax y línea de proceso se calculan juntos dentro de
+un `requestAnimationFrame`. Tres listeners separados dispararían tres reflows por cuadro.
 
 ## Elevation & Depth
 
-Dos niveles y nada más:
-- `--shadow` (`0 1px 2px` + `0 8px 22px`): tarjetas de audiencia y testimonio en hover, ítem de
-  acordeón abierto, formulario, foto de "Sobre mí", captura de prueba.
-- `--shadow-lg`: sólo el video del hero.
-
-El resto de la separación entre planos la da el borde de 1px y el cambio de `--paper` a `--surface`.
-
-## Shapes
-
-Radio de 14px en tarjetas, paneles y campos; 20px en los dos bloques de medios grandes (video del
-hero, foto de retrato); 10px en elementos chicos (celdas, capturas, ítems de nav mobile); pill
-(100px) reservada a botones y al enlace "Volver arriba". Sin formas irregulares ni rotaciones.
+Dos niveles cálidos (`--shadow`, `--shadow-lg`): la sombra tiene la temperatura del papel
+(`rgba(78,44,24,…)`), nunca gris neutro. Además, dos recursos de profundidad sin sombra:
+- **Marco desplazado:** un borde de 1.5px corrido en diagonal detrás del video del hero (terracota)
+  y de la foto de "Sobre mí" (mostaza).
+- **Numeral fantasma:** la cifra de cada métrica repetida en serif enorme al 7% de opacidad.
+- **Textura de motas** al 5% sobre las superficies saturadas — el papel del sistema original, sin la
+  metáfora literal del corcho.
 
 ## Components
 
-### Buttons
-- **Primary:** pill terracota, texto papel. Hover: `accent-deep` + `translateY(-2px)` + sombra.
-- **Ghost:** transparente con borde `--line-2`; hover oscurece el borde y agrega un velo del 4%.
-- **Dark:** tinta plena, ancho completo — submit del formulario; hover pasa a `accent-deep`.
-
-### Section header (`.sec-head`)
-Eyebrow (label en mayúsculas) + `h2` + lead opcional, máximo 62ch. Es el único patrón de entrada
-de sección; ninguna sección abre de otra manera.
-
 ### Accordion (`.acc`)
-Cuatro ítems del mismo peso tipográfico y el mismo espaciado, cada uno una tarjeta con borde. La
-cabecera es un `<button>` real dentro de un `<h3>` — foco, Enter y Espacio los da el navegador — con
-`aria-expanded` y `aria-controls` apuntando al panel (`role="region"` + `aria-labelledby`). El panel
-anima con `grid-template-rows: 0fr → 1fr`. El indicador `+` / `−` es obligatorio y va a la derecha:
-sin él, una fila cerrada no se lee como interactiva. Sólo un ítem abierto por vez; el primero abre
-por defecto.
+Cuatro ítems del mismo peso y espaciado, cada uno una tarjeta. La cabecera es un `<button>` real
+dentro de un `<h3>`, con `aria-expanded` y `aria-controls`. El indicador `+` / `−` a la derecha es
+obligatorio. Filete de color que crece a la izquierda del ítem abierto. Un solo ítem abierto por vez.
 
 ### Work carousel (`.carousel`)
-Carril con scroll-snap y clones antes/después para loop infinito. La pieza centrada va a escala 1 y
-opacidad 1; las laterales a `.88` y `.42` (sin `blur`: animar un filtro obliga a rasterizar de nuevo
-un subárbol que tiene un video adentro). Un solo iframe de YouTube por carrusel, montado recién
-cuando el desplazamiento se detiene y sólo mientras el carrusel está a la vista. Autoplay silenciado
-con badge de sonido; el clic en la pieza centrada alterna el audio, y fuera del centro la centra.
-Flechas debajo del carril, no encima de la pieza.
+Sobre fondo tinta. Carril con scroll-snap y clones antes/después para loop infinito; la pieza
+centrada va a escala 1 y opacidad 1, las laterales a `.86` / `.3`. Un solo iframe de YouTube por
+carrusel, montado recién cuando el desplazamiento se detiene y sólo mientras el carrusel está a la
+vista. Autoplay silenciado con badge de sonido.
 
 ### Testimonial card
-Mensaje **textual** del cliente como cita, meta ("Cliente · WhatsApp") y la captura real dentro de
-un `<details>` plegado ("Ver captura"). La captura es la prueba, no el elemento principal: nunca va
-suelta, rotada ni con chinches simuladas.
+Cita **textual** del cliente, meta ("Cliente · WhatsApp") y la captura real dentro de un `<details>`
+plegado. La captura es la prueba, no el elemento principal.
 
 ### Form
-Campos con caja (borde 1px, radio 10px) sobre `--paper`. Cuatro estados explícitos: hover (borde
-`--ink-2`), foco (borde acento + anillo de 3px), inválido (`aria-invalid="true"` → borde danger +
-fondo teñido al 4% + mensaje bajo el campo) y confirmación (`.form-status.is-ok`). El error aparece
-al salir del campo y se limpia mientras se corrige, nunca mientras se tipea por primera vez.
+Campos con caja sobre crema. Cuatro estados: hover, foco (borde terracota + anillo de 3px),
+inválido (`aria-invalid` + borde danger + mensaje bajo el campo) y confirmación. El error aparece al
+salir del campo y se limpia mientras se corrige.
 
 ### Navigation
 Header sticky con desenfoque **en un pseudo-elemento, no en el header**: un `backdrop-filter`
 convierte a su elemento en bloque contenedor de todo descendiente `position:fixed`, y eso encierra
-al cajón del menú mobile dentro de la barra. Ítems con ícono arriba y label debajo; por debajo de
-860px pasan a cajón a pantalla completa con ícono a la izquierda. `section[id]` lleva
-`scroll-margin-top: 96px` para que el header sticky no tape el título al llegar por un enlace.
+al cajón del menú mobile dentro de la barra. `section[id]` lleva `scroll-margin-top: 96px`.
 
-### Logo wall
-Grilla de 7 columnas con separadores de 1px. Todos los logos van en escala de grises al 50% de
-opacidad y suben a 85% en hover — **nunca a color**: normalizarlos es lo que evita que catorce
-identidades ajenas compitan entre sí y con el contenido.
+### Stripe (`.stripe`)
+`<hr>` de 16px con `repeating-linear-gradient` de cuatro bandas de 24px, en dos órdenes de color
+(`--a` / `--b`). Marca las transiciones mayores; no se usa dentro de una sección.
 
 ## Do's and Don'ts
 
 ### Do:
+- **Do** envolver el texto de cada `h2` en un `<span>` — es lo que anima el revelado por máscara.
+- **Do** alternar la superficie de cada sección respecto de la anterior.
+- **Do** verificar el contraste de mostaza según el fondo: sobre tinta sirve para texto chico, sobre
+  terracota sólo para texto grande.
+- **Do** sumar cualquier efecto de scroll nuevo al orquestador existente, no con un listener propio.
 - **Do** usar `minmax(0,1fr)` en toda columna de grid que pueda contener un carril con scroll.
-- **Do** dar a cada fila desplegable un indicador explícito de estado (`+` / `−`) además del cambio
-  de color.
-- **Do** mantener los logos de clientes monocromáticos y a opacidad pareja.
-- **Do** citar a los clientes de forma textual y dejar la captura original disponible como prueba.
-- **Do** apoyar la jerarquía en escala, peso y espaciado antes que en color.
 
 ### Don't:
-- **Don't** reintroducir una segunda familia tipográfica para "dar carácter".
-- **Don't** usar terracota como fondo de sección ni como color de párrafo — es el color de lo
-  accionable y de los datos.
-- **Don't** volver a chinches, cintas, corcho, rotaciones sueltas, franjas de colores ni marquee.
+- **Don't** volver a chinches, cintas, corcho, símbolos flotantes ni rotaciones al azar.
+- **Don't** poner el serif en párrafos, labels, botones o campos.
+- **Don't** animar `width`, `top` o `left` en efectos de scroll — sólo `transform` y `opacity`.
+- **Don't** poner texto crema sobre mostaza, ni texto chico en mostaza sobre terracota.
 - **Don't** poner `backdrop-filter` sobre un ancestro de un elemento `position:fixed`.
-- **Don't** apilar sombras: si algo necesita destacarse más, subile el contraste del borde o el aire
-  alrededor.
