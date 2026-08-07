@@ -2,22 +2,29 @@
 
 Sitio web de portfolio profesional para Daiana Sosa, freelance de estrategia y creación de contenido.
 
-Es un sitio estático de una sola página (`index.html`), sin dependencias ni build — HTML, CSS y JavaScript vanilla, listo para publicar en GitHub Pages, Netlify, Vercel o cualquier hosting estático. Las tipografías viven como archivos `.woff2` en `fonts/`.
-
-**Pendiente antes de publicar**: la sección "Selección de proyectos" y los testimonios todavía tienen contenido placeholder — hay que reemplazarlos por casos y prueba social reales.
+Es un sitio estático de una sola página (`index.html`), sin dependencias ni build — HTML, CSS y JavaScript vanilla, listo para publicar en GitHub Pages, Netlify, Vercel o cualquier hosting estático. La tipografía (Archivo, un único `.woff2` variable) vive en `fonts/`.
 
 ## Contenido del sitio
 
-- Hero de portada
-- Trabajo / casos
+- Hero con video de portada
+- Marcas y métricas
+- Para quién trabajo
+- Trabajo (Mis ediciones / Mis guiones)
+- Servicios (acordeón)
 - Proceso
-- Servicios
+- Testimonios
 - Sobre mí
-- Contacto
+- Contacto y footer
+
+## Cómo editar el contenido
+
+- **Videos**: cada pieza de los carruseles es un `<li class="carousel-item">` con `data-id` (el ID del Short de YouTube) y `data-video` (la URL completa). El video del hero usa los mismos atributos en `[data-hero-media]`.
+- **Testimonios**: la cita es la transcripción literal de la captura que está en `assets/testimonios/`. Si cambiás una, tiene que seguir coincidiendo con la imagen.
+- **Redes sociales**: el bloque de Instagram y LinkedIn del footer está escrito y comentado en `index.html` — descomentalo y completá las URLs.
 
 ## Cómo verlo en local
 
-Abrí `index.html` directamente en el navegador, o serví la carpeta con cualquier servidor estático, por ejemplo:
+Conviene servir la carpeta con un servidor estático en vez de abrir el archivo directamente: con `file://` el navegador bloquea la carga de la tipografía por CORS y el sitio se ve con la fuente del sistema.
 
 ```bash
 python3 -m http.server 8080

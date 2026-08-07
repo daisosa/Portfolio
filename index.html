@@ -1,231 +1,290 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#F4ECE0;color:#2B1B12}img{max-width:100%}</style>
-<title>Dai Sosa — Estrategia de Contenido | Portfolio Freelance</title>
-<meta name="description" content="Portfolio de Dai Sosa: estrategia de contenido y creación de contenido para marcas. Buenos Aires, Argentina.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dai Sosa — Estrategia, guion y edición de video | Portfolio</title>
+<meta name="description" content="Dai Sosa: estrategia de contenido, guiones y edición de video para marcas y creadores. Más de cuatro años y +20 marcas. Buenos Aires, Argentina.">
+<meta name="theme-color" content="#F6F0E6">
 <link rel="preload" href="fonts/archivo-100-900-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/instrument-serif-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-display:swap;src:url('fonts/archivo-100-900-normal.woff2') format('woff2');}
-@font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/instrument-serif-400-normal.woff2') format('woff2');}
-@font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-display:swap;src:url('fonts/instrument-serif-400-italic.woff2') format('woff2');}
+
 /* ==========================================================================
-   DAI SOSA — PORTFOLIO — Versión B
-   Sistema visual cálido "Terracota-mostaza": crema tibio de base, acento
-   principal terracota (CTA, títulos de énfasis, marcos), acento secundario
-   mostaza (chips, numerales), franja decorativa a rayas como firma
-   recurrente entre secciones. Instrument Serif itálica para titulares,
-   Archivo para cuerpo. Reemplaza al sistema "Lavanda-durazno" anterior.
+   DAI SOSA — PORTFOLIO — Versión C "Editorial neutro"
+   Una sola familia tipográfica (Archivo) con contraste fuerte de escala y
+   peso; papel cálido de base, terracota reservado a lo accionable (CTA,
+   enlaces, foco, acentos de dato). Sin franjas de colores, sin corcho, sin
+   rotaciones "de mano suelta", sin marquee: la jerarquía la sostienen la
+   tipografía, la grilla y el aire. Reemplaza al sistema "Terracota-mostaza".
    ========================================================================== */
 
 /* ---------- 1. TOKENS ---------- */
 :root{
-  --cream:        #F4ECE0; /* base — hero, para quién es, proceso, servicios, contacto */
-  --cream-card:   #EFE1C9; /* tarjetas — stats, casos de estudio, testimonios */
-  --ink:          #2B1B12; /* texto principal */
-  --ink-muted:    #6B5140; /* texto secundario */
-  --cream-onterracota: #EFD9C4; /* cuerpo de texto sobre fondo terracota */
-  --terracota:      #9C3B20; /* acento principal — CTA, títulos de énfasis, marcos oscuros */
-  --terracota-deep: #6E2814; /* franja decorativa */
-  --mustard:        #E8B33D; /* acento secundario — highlight, chips, numerales */
-  --dusty:          #AFCBDD; /* franja decorativa únicamente */
-  --cork:           #7A5236; /* superficie del tablero de testimonios — única sección con fondo de corcho */
-  --cork-shadow:    rgba(52,32,18,.28); /* sombra de las fotos sobre el corcho y viñeta del tablero */
-  --line-on-cream: rgba(43,27,18,.16);
+  color-scheme: light;
 
-  --serif: 'Instrument Serif', Georgia, serif;
+  --paper:      #F6F0E6; /* fondo de página */
+  --surface:    #FCFAF5; /* tarjetas y paneles elevados */
+  --surface-2:  #EFE7DA; /* superficies hundidas — slots, separadores suaves */
+  --ink:        #1C1613; /* texto principal */
+  --ink-2:      #6E655C; /* texto secundario */
+  --line:       rgba(28,22,19,.14);
+  --line-2:     rgba(28,22,19,.26);
+
+  --accent:      #9C3B20; /* terracota — CTA, enlaces, foco, datos destacados */
+  --accent-deep: #6E2814; /* hover de CTA */
+  --accent-soft: rgba(156,59,32,.10);
+
+  --dark:      #2A211A; /* footer */
+  --on-dark:   #F6F0E6;
+  --on-dark-2: rgba(246,240,230,.66);
+  --dark-line: rgba(246,240,230,.18);
+
+  --danger: #A32D1C;
+  --ok:     #2C6A4A;
+
   --sans: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
 
   --gutter: clamp(20px, 4vw, 56px);
-  --radius-card: 18px;
-  --radius-pill: 100px;
+  --maxw: 1240px;
+  --r-sm: 10px;
+  --r:    14px;
+  --r-lg: 20px;
+  --r-pill: 100px;
+
+  /* elevación suave — la única profundidad del sistema */
+  --shadow:    0 1px 2px rgba(28,22,19,.04), 0 8px 22px rgba(28,22,19,.06);
+  --shadow-lg: 0 2px 4px rgba(28,22,19,.05), 0 18px 38px rgba(28,22,19,.10);
+
   --ease: cubic-bezier(.16,.84,.24,1);
 }
 
 /* ---------- 2. RESET ---------- */
 *, *::before, *::after{ box-sizing: border-box; }
-html{ scroll-behavior: smooth; }
+/* clip y no hidden: recorta el cajón del menú mobile, que espera fuera de pantalla a la derecha,
+   sin convertir a <html> en un contenedor de scroll (eso rompería el header sticky). */
+html{ scroll-behavior: smooth; overflow-x: clip; }
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior: auto; }
-  *, *::before, *::after{ animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+  *, *::before, *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
 }
 body{
-  margin:0;
-  background: var(--cream);
-  color: var(--ink);
-  font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: clip;
+  margin:0; background: var(--paper); color: var(--ink);
+  font-family: var(--sans); font-size:16px; line-height:1.55;
+  -webkit-font-smoothing: antialiased; overflow-x: clip;
 }
 img, svg{ display:block; max-width:100%; }
 a{ color:inherit; text-decoration:none; }
 ul{ margin:0; padding:0; list-style:none; }
 h1,h2,h3,h4,p,figure{ margin:0; }
-button, input, textarea{ font-family: inherit; color: inherit; }
-::selection{ background: var(--mustard); color: var(--ink); }
+button, input, textarea, select{ font:inherit; color:inherit; }
+::selection{ background: var(--accent); color: var(--paper); }
+:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:4px; }
 
 .visually-hidden{
   position:absolute; width:1px; height:1px; padding:0; margin:-1px;
   overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
 }
 
-.container{ max-width: 1240px; margin-inline:auto; padding-inline: var(--gutter); }
-section{ position:relative; }
+/* ---------- 3. LAYOUT ---------- */
+.wrap{ max-width: var(--maxw); margin-inline:auto; padding-inline: var(--gutter); }
+.section{ padding: clamp(56px,7.5vw,104px) 0; }
+.section + .section{ border-top:1px solid var(--line); }
+/* el header es sticky: sin este margen el título de cada sección queda debajo de la barra al
+   llegar desde un enlace del menú */
+section[id]{ scroll-margin-top: 96px; }
 
-/* Subrayado de marcador — trazo SVG de borde superior irregular. Va como background con
-   box-decoration-break:clone para que se repita en CADA renglón cuando el texto corta en dos
-   líneas; un ::after posicionado en absoluto sólo pintaría un fragmento suelto. */
-.process-lead em, .audience-lead em, .brands-title-main em{
-  font-style:italic; color: var(--terracota);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'%3E%3Cpath d='M0,5 C20,1.5 42,8 62,4 C82,0.8 100,7 120,3 L120,12 L0,12 Z' fill='%23E8B33D' fill-opacity='.62'/%3E%3C/svg%3E");
-  background-repeat:no-repeat; background-size:100% .22em; background-position:0 96%;
-  padding: 0 .06em .04em;
-  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+/* cabecera de sección — un patrón único para las seis secciones */
+.sec-head{ max-width: 62ch; margin-bottom: clamp(32px,4vw,52px); }
+.eyebrow{
+  display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase; color: var(--ink-2); margin-bottom:14px;
 }
+.h2{ font-size: clamp(1.65rem,3.4vw,2.5rem); font-weight:700; letter-spacing:-.02em; line-height:1.1; }
+.lede{ margin-top:16px; font-size: clamp(15px,1.5vw,17px); line-height:1.65; color: var(--ink-2); max-width:56ch; }
 
-/* reveal utilities (JS toggles .is-in) — --tilt lets cards keep their resting rotation through the reveal instead of the rotate() colliding with translateY() */
-[data-reveal]{ --tilt: 0deg; opacity:0; transform: translateY(24px) rotate(var(--tilt)); transition: opacity .8s var(--ease), transform .8s var(--ease); }
-[data-reveal].is-in{ opacity:1; transform: translateY(0) rotate(var(--tilt)); }
+/* ---------- 4. BOTONES Y ENLACES ---------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  padding:15px 26px; border-radius: var(--r-pill); border:1px solid transparent;
+  font-size:14.5px; font-weight:600; letter-spacing:.01em; cursor:pointer;
+  transition: background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+.btn--primary{ background: var(--accent); color: var(--paper); }
+.btn--primary:hover{ background: var(--accent-deep); transform: translateY(-2px); box-shadow: var(--shadow); }
+.btn--ghost{ background: transparent; color: var(--ink); border-color: var(--line-2); }
+.btn--ghost:hover{ border-color: var(--ink); background: rgba(28,22,19,.04); }
+.btn--dark{ background: var(--ink); color: var(--paper); }
+.btn--dark:hover{ background: var(--accent-deep); transform: translateY(-2px); }
+.btn svg{ width:16px; height:16px; }
 
-/* franja decorativa — firma recurrente entre secciones */
-.stripe{ height:18px; }
-.stripe--a{ background: repeating-linear-gradient(90deg,var(--terracota) 0 24px,var(--dusty) 24px 48px,var(--mustard) 48px 72px,var(--terracota-deep) 72px 96px); }
-.stripe--b{ background: repeating-linear-gradient(90deg,var(--dusty) 0 24px,var(--terracota) 24px 48px,var(--cream-card) 48px 72px,var(--mustard) 72px 96px); }
+.link-arrow{
+  display:inline-flex; align-items:center; gap:7px; font-size:13.5px; font-weight:600; color: var(--accent);
+  text-decoration:underline; text-underline-offset:4px; text-decoration-thickness:1px;
+  transition: color .25s var(--ease), gap .25s var(--ease);
+}
+.link-arrow:hover{ color: var(--accent-deep); gap:11px; }
+
+/* ---------- 5. REVEAL ---------- */
+[data-reveal]{ opacity:0; transform: translateY(18px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+[data-reveal].is-in{ opacity:1; transform:none; }
 
 /* ==========================================================================
    HEADER
    ========================================================================== */
 .site-header{
-  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
-  padding: 18px var(--gutter);
-  border-bottom: 1px solid var(--line-on-cream);
-  background: var(--cream);
-  position: relative; z-index: 100;
+  position: sticky; top:0; z-index:100;
+  border-bottom:1px solid var(--line);
 }
-.logo-mark{ font-family: var(--serif); font-style:italic; font-size:24px; }
-.site-nav{ display:flex; align-items:center; flex-wrap:wrap; gap: clamp(10px,2.4vw,32px); font-size:13px; font-weight:600; }
-.site-nav a{ position:relative; }
-.site-nav a:not(.nav-cta){ padding-bottom:3px; }
-.site-nav a:not(.nav-cta)::after{ content:''; position:absolute; left:0; right:100%; bottom:0; height:1px; background: var(--terracota); transition: right .4s var(--ease); }
-.site-nav a:not(.nav-cta):hover::after{ right:0; }
-.nav-cta{ background: var(--terracota); color: var(--cream); padding:10px 20px; border-radius: var(--radius-pill); transition: background .3s var(--ease), transform .3s var(--ease); }
-.nav-cta:hover{ background: var(--terracota-deep); }
-.nav-toggle{ display:none; background:none; border:0; cursor:pointer; width:44px; height:44px; position:relative; }
-.nav-toggle span{ position:absolute; left:50%; width:26px; height:1.5px; background: var(--ink); transform: translateX(-50%); transition: transform .3s var(--ease), opacity .3s; border-radius:2px; }
-.nav-toggle span:nth-child(1){ top:14px; }
-.nav-toggle span:nth-child(2){ top:22px; }
-.nav-toggle span:nth-child(3){ top:30px; }
+/* El desenfoque va en un pseudo-elemento, no en el header. Un backdrop-filter convierte a su
+   elemento en bloque contenedor de todo descendiente position:fixed, y eso encerraba al cajón
+   del menú mobile dentro de la barra en vez de dejarlo cubrir la pantalla. */
+.site-header::before{
+  content:''; position:absolute; inset:0; z-index:-1;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+}
+.header-inner{
+  max-width: var(--maxw); margin-inline:auto; padding: 12px var(--gutter);
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+}
+.logo-mark{ font-size:17px; font-weight:800; letter-spacing:-.02em; }
+.logo-mark span{ color: var(--accent); }
+
+.site-nav{ display:flex; align-items:center; gap: clamp(6px,1.6vw,10px); }
+.site-nav a{
+  display:flex; flex-direction:column; align-items:center; gap:5px;
+  padding:8px 12px; border-radius: var(--r-sm);
+  font-size:11.5px; font-weight:600; letter-spacing:.01em; color: var(--ink-2);
+  transition: color .25s var(--ease), background .25s var(--ease);
+}
+.site-nav a svg{ width:19px; height:19px; }
+.site-nav a:hover{ color: var(--ink); background: rgba(28,22,19,.05); }
+.site-nav a.is-cta{ color: var(--accent); }
+.site-nav a.is-cta:hover{ color: var(--accent-deep); background: var(--accent-soft); }
+
+.nav-toggle{ display:none; background:none; border:1px solid var(--line-2); border-radius: var(--r-sm); cursor:pointer; width:44px; height:40px; position:relative; }
+.nav-toggle span{ position:absolute; left:50%; width:20px; height:1.5px; background: var(--ink); transform: translateX(-50%); transition: transform .3s var(--ease), opacity .2s; border-radius:2px; }
+.nav-toggle span:nth-child(1){ top:13px; }
+.nav-toggle span:nth-child(2){ top:19px; }
+.nav-toggle span:nth-child(3){ top:25px; }
+.nav-toggle[aria-expanded="true"] span:nth-child(1){ transform: translateX(-50%) translateY(6px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3){ transform: translateX(-50%) translateY(-6px) rotate(-45deg); }
 
 /* ==========================================================================
    HERO
    ========================================================================== */
-.hero{ padding: clamp(56px,9vw,110px) var(--gutter) clamp(48px,7vw,80px); text-align:center; overflow:hidden; }
+.hero{ padding: clamp(40px,6vw,80px) 0 clamp(48px,7vw,88px); }
+.hero-grid{
+  display:grid; grid-template-columns: minmax(0,320px) minmax(0,1fr);
+  gap: clamp(28px,5vw,72px); align-items:center;
+}
+.hero-media{
+  position:relative; width:100%; border-radius: var(--r-lg); overflow:hidden;
+  aspect-ratio:9/16; background: var(--surface-2); box-shadow: var(--shadow-lg);
+}
+.hero-media .work-slot{ position:absolute; inset:0; border-radius:0; }
+.hero-media-foot{ margin-top:12px; display:flex; justify-content:center; }
+
 .hero-title{
-  font-family: var(--serif); font-weight:400; font-size: clamp(2.4rem,6vw,5.2rem); line-height:1.06;
-  max-width: 960px; margin-inline:auto;
+  font-size: clamp(2.05rem,5.4vw,4.1rem); font-weight:800; line-height:1.03;
+  letter-spacing:-.035em; text-transform:uppercase; text-wrap:balance;
 }
-/* trazo de marcador: bordes irregulares y una pizca de rotación en vez del rectángulo perfecto */
-.hero-title mark{
-  background: var(--mustard); color: inherit; padding:0 12px; display:inline-block;
-  border-radius: 16px 7px 18px 9px / 9px 16px 7px 14px; transform: rotate(-.9deg);
+.hero-title em{ font-style:normal; color: var(--accent); }
+.hero-lede{ margin-top:24px; font-size: clamp(15.5px,1.55vw,17.5px); line-height:1.65; color: var(--ink-2); max-width:52ch; }
+.hero-lede strong{ color: var(--ink); font-weight:600; }
+.hero-actions{ margin-top:32px; display:flex; flex-wrap:wrap; gap:12px; }
+.hero-note{ margin-top:20px; font-size:13px; color: var(--ink-2); display:flex; align-items:center; gap:8px; }
+.hero-note::before{ content:''; width:7px; height:7px; border-radius:50%; background: var(--ok); flex:none; }
+
+/* entrada escalonada — sólo CSS, se neutraliza con prefers-reduced-motion */
+@media (prefers-reduced-motion: no-preference){
+  .hero-anim{ animation: riseIn .8s var(--ease) both; }
+  .hero-anim:nth-child(1){ animation-delay:.05s; }
+  .hero-anim:nth-child(2){ animation-delay:.15s; }
+  .hero-anim:nth-child(3){ animation-delay:.25s; }
+  .hero-anim:nth-child(4){ animation-delay:.35s; }
+  @keyframes riseIn{ from{ opacity:0; transform: translateY(20px); } to{ opacity:1; transform:none; } }
 }
-.hero-title em{ font-style:italic; color: var(--terracota); position:relative; }
-.hero-title em::after{ content:''; position:absolute; left:0; right:0; bottom:-2px; height:3px; background:var(--terracota); transform-origin:left center; }
-.hero-sub{ margin: 44px auto 0; max-width:44ch; font-size: clamp(15px,1.6vw,18px); line-height:1.7; color: var(--ink-muted); }
-.hero-cta{
-  margin-top:40px; display:inline-flex; align-items:center; gap:10px;
-  background: var(--terracota); color: var(--cream); padding:18px 32px; border-radius: var(--radius-pill);
-  font-weight:600; font-size:14px; transition: background .3s var(--ease), transform .3s var(--ease);
-}
-.hero-cta:hover{ background: var(--terracota-deep); transform: translateY(-3px); }
 
 /* ==========================================================================
-   MARCAS + STATS
+   MARCAS + MÉTRICAS
    ========================================================================== */
-.brands{ padding: clamp(40px,6vw,64px) 0 clamp(16px,3vw,32px); }
-.brands h2{ text-align:center; margin: 0 0 32px; font-weight:400; display:flex; flex-direction:column; align-items:center; gap:10px; }
-.brands-title-main{ font-family: var(--serif); font-size: clamp(1.7rem,3.2vw,2.5rem); line-height:1.15; }
-.brands-title-sub{ font-family: var(--sans); font-size: clamp(13px,1.35vw,14.5px); font-weight:500; letter-spacing:.02em; color: var(--ink-muted); max-width:34ch; line-height:1.5; }
-.marquee{
-  border-top:1px solid var(--line-on-cream); border-bottom:1px solid var(--line-on-cream); padding:20px 0; overflow:hidden;
-  mask-image: linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+.logo-grid{
+  display:grid; grid-template-columns: repeat(7,1fr); gap:4px;
+  border:1px solid var(--line); border-radius: var(--r); overflow:hidden; background: var(--line);
 }
-.marquee-track{ display:flex; width:max-content; align-items:center; gap:56px; animation: marqueeScroll 30s linear infinite; }
-.marquee:hover .marquee-track{ animation-play-state: paused; }
-@keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
-.brand-logo{ display:flex; align-items:center; justify-content:center; height:56px; width:150px; flex:none; background: var(--cream-card); border-radius:10px; padding:8px 16px; }
-.brand-logo img{ max-height:100%; max-width:100%; width:auto; height:auto; object-fit:contain; filter:grayscale(1); opacity:.6; transition: filter .3s var(--ease), opacity .3s var(--ease); }
-.brand-logo:hover img{ filter:grayscale(0); opacity:1; }
+.logo-cell{
+  display:flex; align-items:center; justify-content:center;
+  background: var(--surface); padding:22px 16px; min-height:96px;
+}
+.logo-cell img{
+  max-height:38px; width:auto; max-width:100%; object-fit:contain;
+  filter: grayscale(1); opacity:.5;
+  transition: filter .3s var(--ease), opacity .3s var(--ease);
+}
+.logo-cell:hover img{ filter: grayscale(1); opacity:.85; }
 
-.stats{ display:grid; grid-template-columns: repeat(3,1fr); gap:24px; padding: clamp(40px,6vw,56px) var(--gutter) 0; }
-.stat-card{ background: var(--cream-card); border-radius:20px; padding:32px 28px; text-align:center; display:flex; flex-direction:column; align-items:center; }
-.stat-card:nth-child(1){ --tilt: -1deg; }
-.stat-card:nth-child(3){ --tilt: 1deg; }
-.stat-figure{ font-family: var(--serif); font-size: clamp(3rem,6vw,4.5rem); line-height:.9; }
-.stat-card:nth-child(1) .stat-figure{ color: var(--terracota); }
-.stat-card p{ margin: 12px auto 0; font-size:14px; color: var(--ink-muted); max-width:22ch; }
+.stats{
+  margin-top: clamp(36px,4.5vw,56px);
+  display:grid; grid-template-columns: repeat(3,1fr); gap:1px; background: var(--line);
+  border:1px solid var(--line); border-radius: var(--r); overflow:hidden;
+}
+.stat{ background: var(--paper); padding: clamp(24px,3vw,36px) clamp(18px,2.5vw,32px); }
+.stat-figure{ font-size: clamp(2.4rem,5vw,3.6rem); font-weight:800; letter-spacing:-.04em; line-height:1; color: var(--accent); font-variant-numeric: tabular-nums; }
+.stat p{ margin-top:10px; font-size:14px; line-height:1.5; color: var(--ink-2); max-width:24ch; }
 
 /* ==========================================================================
    PARA QUIÉN ES
    ========================================================================== */
-.audience{ padding: clamp(56px,8vw,84px) var(--gutter); }
-.diamond-row{ border-top:1px solid var(--line-on-cream); border-bottom:1px solid var(--line-on-cream); padding:14px 0; display:flex; justify-content:center; gap:28px; color: var(--terracota); opacity:.45; font-size:13px; }
-.audience-intro{ max-width:820px; margin: clamp(40px,6vw,56px) auto 0; text-align:center; }
-.audience-lead{ font-family: var(--serif); font-size: clamp(1.7rem,3.4vw,2.6rem); line-height:1.35; }
-.audience-si{ font-family: var(--serif); font-weight:400; font-size: clamp(2.2rem,4.4vw,3.4rem); margin: clamp(56px,8vw,88px) 0 0; }
-.audience-si::before{ content:''; display:block; width:48px; height:3px; background: var(--mustard); border-radius:2px; margin: 0 auto clamp(24px,3.5vw,32px); }
-.audience-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:24px; max-width:1100px; margin: clamp(28px,4vw,40px) auto 0; }
-.audience-card{ background: var(--terracota); color: var(--cream); border-radius:18px; padding:32px 26px; }
-.audience-card:nth-child(1){ --tilt: -1deg; }
-.audience-card:nth-child(3){ --tilt: 1deg; }
-.audience-card:nth-child(1){ transition-delay: 0s; }
-.audience-card:nth-child(2){ transition-delay: .12s; }
-.audience-card:nth-child(3){ transition-delay: .24s; }
-.audience-num{ width:34px; height:34px; border-radius:50%; background: var(--mustard); color: var(--ink); display:flex; align-items:center; justify-content:center; font-family: var(--serif); font-style:italic; font-size:15px; transform: rotate(-4deg); }
-.audience-card p{ margin:18px 0 0; font-size:15.5px; line-height:1.55; }
-.audience-outro{ display:flex; flex-direction:column; align-items:center; margin-top: clamp(48px,7vw,64px); }
-.audience-outro p{ text-align:center; font-family: var(--serif); font-style:italic; font-size: clamp(1.6rem,3vw,2.2rem); color: var(--terracota); margin:0; display:flex; align-items:center; gap:20px; }
-.audience-outro .flip{ transform: scaleX(-1); display:inline-block; }
+.audience-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap: clamp(16px,2vw,24px); }
+.audience-card{
+  background: var(--surface); border:1px solid var(--line); border-radius: var(--r);
+  padding: clamp(22px,2.6vw,30px); transition: box-shadow .3s var(--ease), transform .3s var(--ease), border-color .3s var(--ease);
+}
+.audience-card:hover{ box-shadow: var(--shadow); transform: translateY(-3px); border-color: var(--line-2); }
+.audience-num{ font-size:12px; font-weight:700; letter-spacing:.14em; color: var(--accent); }
+.audience-card p{ margin-top:14px; font-size:15.5px; line-height:1.55; }
 
 /* ==========================================================================
-   CASOS DE ESTUDIO
+   TRABAJO — dos carruseles
    ========================================================================== */
-.work{ padding: clamp(56px,8vw,88px) var(--gutter); }
+/* minmax(0,1fr) y no 1fr: el carril del carrusel es más ancho que su columna y con el mínimo
+   automático de grid estiraría la página entera en vez de desplazarse dentro de su caja. */
+.work-cols{ display:grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: clamp(28px,3.5vw,56px); }
+.carousel-group{ min-width:0; }
+.carousel-group-title{ font-size:15px; font-weight:700; letter-spacing:-.01em; margin-bottom:18px; display:flex; align-items:center; gap:10px; }
+.carousel-group-title::after{ content:''; flex:1; height:1px; background: var(--line); }
 
-/* carrusel de trabajos — un video protagonista al centro, el anterior/siguiente se asoman atenuados a los costados */
-.carousel-group{ max-width:1240px; margin:0 auto; }
-.carousel-group + .carousel-group{ margin-top: clamp(64px,8vw,96px); }
-.carousel-group-title{ font-family: var(--serif); font-style:italic; font-weight:400; font-size: clamp(2.4rem,5vw,4rem); text-align:center; margin:0 0 clamp(32px,4vw,44px); }
-.carousel{ position:relative; }
+.carousel{ position:relative; --item-w: min(70vw,250px); }
 .carousel-track{
-  display:flex; align-items:center; gap: clamp(16px,2.4vw,28px); overflow-x:auto; scroll-snap-type:x mandatory;
-  padding: 12px clamp(10%,22vw,32%) 28px; margin:0; scrollbar-width:none;
+  display:flex; align-items:flex-start; gap: clamp(12px,1.6vw,20px);
+  overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none;
+  margin:0; padding-block: 4px 8px;
+  padding-inline: max(0px, calc(50% - var(--item-w)/2));
 }
 .carousel-track::-webkit-scrollbar{ display:none; }
 .carousel-item{
-  flex:none; width:min(58vw,300px); scroll-snap-align:center;
-  opacity:.4; filter:blur(1px); transform: scale(.82); transition: opacity .5s var(--ease), transform .5s var(--ease), filter .5s var(--ease);
+  flex:none; width: var(--item-w); scroll-snap-align:center;
+  opacity:.42; transform: scale(.88);
+  transition: opacity .45s var(--ease), transform .45s var(--ease);
 }
-.carousel-item.is-active{ opacity:1; filter:blur(0); transform: scale(1); }
+.carousel-item.is-active{ opacity:1; transform: scale(1); }
 .carousel-item-btn{
-  all:unset; display:block; width:100%; background: var(--cream-card); border-radius:18px;
-  padding:14px 14px 18px; cursor:pointer;
+  all:unset; display:block; width:100%; cursor:pointer; border-radius: var(--r);
 }
-.carousel-item-btn:focus-visible{ outline:2px solid var(--terracota); outline-offset:4px; border-radius:18px; }
-.carousel-item .work-slot{
-  width:100%; aspect-ratio:9/16; border-radius:12px; position:relative; overflow:hidden;
-  background: linear-gradient(160deg, color-mix(in oklch, var(--ink) 85%, white 15%), var(--ink) 60%);
-  display:flex; align-items:center; justify-content:center;
+.carousel-item-btn:focus-visible{ outline:2px solid var(--accent); outline-offset:4px; }
+.work-slot{
+  display:block; width:100%; aspect-ratio:9/16; border-radius: var(--r); position:relative; overflow:hidden;
+  background: var(--surface-2); border:1px solid var(--line);
   /* Recortar con esquinas redondeadas un iframe transformado deja a Safari decidiendo capa por
      capa en cada cuadro. Fijarlo como capa 3D estable le saca esa decisión de encima. */
   transform: translateZ(0);
   -webkit-backface-visibility: hidden; backface-visibility: hidden;
 }
-/* Miniatura del Short. Se ve siempre, así ninguna tarjeta queda como un rectángulo negro:
-   el iframe se monta encima sólo en la tarjeta centrada. */
+/* Miniatura del Short: se ve siempre, así ninguna tarjeta queda como un rectángulo vacío;
+   el iframe se monta encima sólo en la pieza centrada. */
 .work-poster{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 /* pointer-events:none evita que el player reciba hover — de ahí viene el cartel con el título
    y el canal. El zoom recorta apenas los bordes donde YouTube apoya sus marcas de agua.
@@ -234,256 +293,246 @@ section{ position:relative; }
 .work-slot-iframe{
   position:absolute; top:50%; left:50%; width:100%; height:100%; border:0; z-index:2;
   /* translate3d y no translate: la versión 3D obliga a componer por GPU de forma estable */
-  transform: translate3d(-50%,-50%,0) scale(var(--video-zoom, 1.06));
+  transform: translate3d(-50%,-50%,0) scale(var(--video-zoom,1.06));
   -webkit-backface-visibility: hidden; backface-visibility: hidden;
-  pointer-events:none;
-  opacity:0; transition: opacity .45s var(--ease);
+  pointer-events:none; opacity:0; transition: opacity .45s var(--ease);
 }
-.carousel-item.is-live .work-slot-iframe{ opacity:1; }
+.is-live .work-slot-iframe{ opacity:1; }
 /* control de sonido: el autoplay del navegador obliga a arrancar en mudo */
 .sound-badge{
-  position:absolute; z-index:3; left:10px; bottom:10px; width:30px; height:30px; border-radius:50%;
-  background: rgba(43,27,18,.55); backdrop-filter: blur(6px); display:flex; align-items:center; justify-content:center;
-  opacity:0; transition: opacity .4s var(--ease), background .3s var(--ease);
+  position:absolute; z-index:3; left:10px; bottom:10px; width:32px; height:32px; border-radius:50%;
+  background: rgba(28,22,19,.6); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; transition: opacity .35s var(--ease), background .25s var(--ease);
 }
-.carousel-item.is-active .sound-badge{ opacity:1; }
-.carousel-item.is-active .carousel-item-btn:hover .sound-badge{ background: rgba(43,27,18,.78); }
-.sound-badge svg{ width:16px; height:16px; color: var(--cream); }
+.carousel-item.is-active .sound-badge,
+.hero-media .sound-badge{ opacity:1; }
+.carousel-item.is-active .carousel-item-btn:hover .sound-badge,
+.hero-media .carousel-item-btn:hover .sound-badge{ background: rgba(28,22,19,.82); }
+.sound-badge svg{ width:16px; height:16px; color: var(--paper); }
 /* Son dos <svg> hermanos y no un solo ícono con partes que se prenden y apagan: lo que entra por
    <use> vive en un árbol de sombra y el CSS del documento no puede alcanzar su interior. */
 .sound-badge .ico-sound{ display:none; }
-.carousel-item.is-unmuted .sound-badge .ico-muted{ display:none; }
-.carousel-item.is-unmuted .sound-badge .ico-sound{ display:block; }
-/* salida de emergencia: si el navegador o el hosting rechaza el embed, el video sigue siendo alcanzable.
-   visibility:hidden (y no opacity sola) lo saca del orden de tabulación mientras no está centrado. */
-/* reemplaza al viejo rótulo "Edición 01": la única etiqueta bajo la tarjeta es el enlace real */
+.is-unmuted .sound-badge .ico-muted{ display:none; }
+.is-unmuted .sound-badge .ico-sound{ display:block; }
+
 .carousel-item-link{
-  display:block; text-align:center; margin-top:12px; font-size:12.5px; font-weight:600;
-  letter-spacing:.01em; color: var(--ink-muted);
-  text-decoration:underline; text-underline-offset:4px; text-decoration-thickness:1px;
-  visibility:hidden; opacity:0; transition: opacity .4s var(--ease), color .3s var(--ease);
+  display:block; text-align:center; margin-top:10px; font-size:12.5px; font-weight:600;
+  color: var(--ink-2); text-decoration:underline; text-underline-offset:4px; text-decoration-thickness:1px;
+  visibility:hidden; opacity:0; transition: opacity .35s var(--ease), color .25s var(--ease);
 }
-.carousel-item.is-active .carousel-item-link{ visibility:visible; opacity:.85; }
-.carousel-item-link:hover{ color: var(--terracota); opacity:1; }
+.carousel-item.is-active .carousel-item-link{ visibility:visible; opacity:1; }
+.carousel-item-link:hover{ color: var(--accent); }
+
+.carousel-nav{ display:flex; align-items:center; justify-content:center; gap:10px; margin-top:14px; }
 .carousel-arrow{
-  position:absolute; top:50%; margin-top:-24px; z-index:2; width:48px; height:48px; border-radius:50%;
-  border:1px solid var(--line-on-cream); background: var(--cream); color: var(--terracota);
-  font-size:22px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center;
-  transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
+  width:38px; height:38px; border-radius:50%; border:1px solid var(--line-2); background: var(--surface);
+  color: var(--ink); cursor:pointer; display:flex; align-items:center; justify-content:center;
+  transition: background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
 }
-.carousel-arrow:hover{ background: var(--terracota); color: var(--cream); border-color: var(--terracota); transform: translateY(-2px); }
-.carousel-arrow--prev{ left: clamp(0px,2vw,12px); }
-.carousel-arrow--next{ right: clamp(0px,2vw,12px); }
+.carousel-arrow svg{ width:15px; height:15px; }
+.carousel-arrow:hover{ background: var(--ink); color: var(--paper); border-color: var(--ink); }
 /* En pantallas táctiles el anclaje obligatorio pelea contra la inercia del dedo y contra el salto
    que reacomoda el loop: el carril queda rebotando entre dos posiciones. "proximity" acomoda
    igual, pero cede cuando algo más está moviendo el scroll. */
 @media (pointer: coarse){
   .carousel-track{ scroll-snap-type: x proximity; }
-  /* Sin desenfoque en táctiles: animar un filter obliga a rasterizar de nuevo todo el subárbol en
-     cada cuadro, y ahí adentro hay un video reproduciéndose. La opacidad y la escala ya bastan
-     para restarle protagonismo a los costados, que en un teléfono casi no se ven. */
-  .carousel-item{ filter:none; transition: opacity .5s var(--ease), transform .5s var(--ease); }
-  .carousel-item.is-active{ filter:none; }
 }
+
+/* ==========================================================================
+   SERVICIOS — acordeón unificado
+   ========================================================================== */
+.services-grid{ display:grid; grid-template-columns: minmax(0,340px) minmax(0,1fr); gap: clamp(28px,4vw,64px); align-items:start; }
+.acc{ display:flex; flex-direction:column; gap:10px; }
+.acc-item{
+  background: var(--surface); border:1px solid var(--line); border-radius: var(--r);
+  transition: border-color .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease);
+}
+.acc-item:hover{ border-color: var(--line-2); }
+.acc-item.is-open{ border-color: var(--line-2); box-shadow: var(--shadow); }
+.acc-head{
+  all:unset; box-sizing:border-box; display:grid; grid-template-columns: auto 1fr auto;
+  align-items:center; gap:16px; width:100%; padding: 20px clamp(18px,2.2vw,26px); cursor:pointer;
+}
+.acc-head:focus-visible{ outline:2px solid var(--accent); outline-offset:-3px; border-radius: var(--r); }
+.acc-num{ font-size:13px; font-weight:700; letter-spacing:.06em; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.acc-item.is-open .acc-num{ color: var(--accent); }
+.acc-title{ font-size: clamp(16px,1.7vw,19px); font-weight:600; letter-spacing:-.01em; }
+/* indicador explícito + / − : dos trazos, el vertical se pliega al abrir */
+.acc-sign{ position:relative; width:18px; height:18px; flex:none; }
+.acc-sign::before, .acc-sign::after{
+  content:''; position:absolute; left:50%; top:50%; background: var(--ink);
+  transform: translate(-50%,-50%); border-radius:2px; transition: transform .35s var(--ease), opacity .25s var(--ease);
+}
+.acc-sign::before{ width:14px; height:1.6px; }
+.acc-sign::after{ width:1.6px; height:14px; }
+.acc-item.is-open .acc-sign::after{ transform: translate(-50%,-50%) scaleY(0); opacity:0; }
+.acc-item.is-open .acc-sign::before{ background: var(--accent); }
+.acc-panel{ display:grid; grid-template-rows:0fr; transition: grid-template-rows .4s var(--ease), opacity .35s var(--ease); opacity:0; }
+.acc-item.is-open .acc-panel{ grid-template-rows:1fr; opacity:1; }
+.acc-panel-inner{ overflow:hidden; min-height:0; }
+.acc-body{ padding: 0 clamp(18px,2.2vw,26px) 22px; padding-left: calc(clamp(18px,2.2vw,26px) + 36px); }
+.acc-body p{ font-size:14.5px; line-height:1.6; color: var(--ink-2); max-width:56ch; }
+.acc-list{ margin-top:14px; display:flex; flex-direction:column; gap:7px; }
+.acc-list li{ position:relative; padding-left:18px; font-size:14px; color: var(--ink); }
+.acc-list li::before{ content:''; position:absolute; left:2px; top:.62em; width:5px; height:5px; border-radius:50%; background: var(--accent); }
 
 /* ==========================================================================
    PROCESO
    ========================================================================== */
-.process{ padding: clamp(56px,8vw,88px) var(--gutter); max-width:1240px; margin:0 auto; }
-/* el tamaño está calibrado para que cada oración entre completa en un renglón hasta ~700px;
-   por debajo de eso corta, que es lo esperable en mobile */
-.process-lead{
-  font-family: var(--serif); font-weight:400; font-size: clamp(1.3rem,2.9vw,2.6rem); line-height:1.34;
-  margin:0; text-align:center;
-}
-.process-lead span{ display:block; }
-.process-lead span + span{ margin-top:.3em; }
-.process-kicker{
-  font-family: var(--serif); font-style:italic; font-size: clamp(1.4rem,2.6vw,2.1rem); color: var(--terracota);
-  margin: clamp(32px,4.5vw,48px) 0 clamp(40px,5.5vw,60px);
-  display:flex; align-items:center; gap: clamp(16px,2.5vw,28px); text-align:center;
-}
-.process-kicker::before,
-.process-kicker::after{ content:''; flex:1; height:1px; background: var(--line-on-cream); }
-.process-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:32px; }
-.process-num{ width:34px; height:34px; border-radius:50%; background: var(--terracota); color: var(--cream); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; }
-.process-step:nth-child(odd) .process-num{ transform: rotate(-4deg); }
-.process-step:nth-child(even) .process-num{ transform: rotate(3deg); }
-.process-step h3{ font-family: var(--serif); font-weight:400; font-size:24px; margin:16px 0 0; }
-.process-step p{ margin-top:10px; font-size:14px; line-height:1.6; color: var(--ink-muted); min-height:3.2em; }
-.process-step{ opacity:0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
-.process-step.is-in{ opacity:1; transform: translateY(0); }
-.type-caret{ display:inline-block; width:2px; height:1em; vertical-align:-.15em; margin-left:2px; background: var(--terracota); animation: caretBlink .9s step-end infinite; }
-@keyframes caretBlink{ 50%{ opacity:0; } }
+.process-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:1px; background: var(--line); border-block:1px solid var(--line); }
+.process-step{ background: var(--paper); padding: clamp(24px,3vw,34px) clamp(16px,2vw,28px); }
+.process-num{ font-size:12px; font-weight:700; letter-spacing:.14em; color: var(--accent); }
+.process-step h3{ margin-top:14px; font-size:19px; font-weight:700; letter-spacing:-.01em; }
+.process-step p{ margin-top:8px; font-size:14px; line-height:1.6; color: var(--ink-2); }
 
 /* ==========================================================================
    TESTIMONIOS
    ========================================================================== */
-/* TABLERO DE CORCHO — las capturas cuelgan como fotos impresas, cada una con su tamaño real */
-.testimonials{
-  position:relative; padding: clamp(56px,8vw,88px) 0 clamp(44px,5.5vw,72px);
-  background-color: var(--cork);
-  background-image:
-    radial-gradient(circle at 20% 30%, rgba(255,236,208,.07) 0 1.6px, transparent 1.6px),
-    radial-gradient(circle at 68% 62%, rgba(52,32,18,.11) 0 2px, transparent 2px),
-    radial-gradient(circle at 44% 84%, rgba(255,236,208,.05) 0 1.4px, transparent 1.4px),
-    radial-gradient(circle at 85% 16%, rgba(52,32,18,.08) 0 1.7px, transparent 1.7px),
-    radial-gradient(circle at 8% 70%, rgba(52,32,18,.07) 0 1.3px, transparent 1.3px);
-  background-size: 29px 23px, 41px 37px, 19px 26px, 53px 47px, 34px 31px;
-}
-/* viñeta interior — hunde el tablero en la página en vez de dejarlo como una banda plana */
-.testimonials::before{
-  content:''; position:absolute; inset:0; pointer-events:none;
-  box-shadow: inset 0 16px 32px var(--cork-shadow), inset 0 -16px 32px var(--cork-shadow);
-}
-.testimonials h2{
-  font-family: var(--serif); font-weight:400; font-size: clamp(1.9rem,3.6vw,3rem);
-  padding: 0 var(--gutter); margin-bottom: clamp(40px,5vw,56px); text-align:center; color: var(--cream);
-  position:relative;
-}
-.testimonial-board{
-  display:grid; grid-template-columns: repeat(3,1fr); gap: clamp(22px,3.2vw,44px);
-  align-items:start; max-width:1080px; margin:0 auto; padding-inline: var(--gutter); position:relative;
-}
+.testimonial-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap: clamp(16px,2vw,24px); align-items:start; }
 .testimonial-card{
-  --tilt: -1.4deg; --drop: 0px;
-  margin: var(--drop) 0 0; background: var(--cream); border-radius:6px; padding:9px 9px 11px;
-  position:relative; box-shadow: 0 12px 24px var(--cork-shadow);
+  background: var(--surface); border:1px solid var(--line); border-radius: var(--r);
+  padding: clamp(22px,2.6vw,30px); display:flex; flex-direction:column; gap:16px;
+  transition: box-shadow .3s var(--ease), transform .3s var(--ease);
 }
-/* alturas y ángulos desparejos: fila 1 lleva las capturas grandes, fila 2 las tiras finas */
-.testimonial-card:nth-child(1){ --tilt:-1.8deg; --drop: 10px; }
-.testimonial-card:nth-child(2){ --tilt: 1.5deg; --drop: 52px; }
-.testimonial-card:nth-child(3){ --tilt:-1.1deg; --drop: 0px; }
-.testimonial-card:nth-child(4){ --tilt: 1.9deg; --drop: 34px; }
-.testimonial-card:nth-child(5){ --tilt:-2.2deg; --drop: 6px; }
-.testimonial-card:nth-child(6){ --tilt: 1.3deg; --drop: 46px; }
-.testimonial-card[data-reveal]{
-  transition: opacity .6s var(--ease), transform .6s var(--ease), box-shadow .3s var(--ease);
-  transform: translateY(30px) scale(.9) rotate(var(--tilt));
+.testimonial-card:hover{ box-shadow: var(--shadow); transform: translateY(-3px); }
+.quote-mark{ font-size:34px; font-weight:800; line-height:.7; color: var(--accent); opacity:.35; }
+.testimonial-card blockquote{ margin:0; font-size: clamp(16px,1.7vw,18.5px); line-height:1.5; letter-spacing:-.01em; }
+.testimonial-meta{ margin-top:auto; padding-top:4px; font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color: var(--ink-2); }
+/* la captura real queda disponible como prueba, en un contenedor limpio y plegado por defecto */
+.proof{ border-top:1px solid var(--line); padding-top:14px; }
+.proof summary{
+  cursor:pointer; font-size:12.5px; font-weight:600; color: var(--accent); list-style:none;
+  display:inline-flex; align-items:center; gap:7px;
 }
-.testimonial-card[data-reveal].is-in{ transform: translateY(0) scale(1) rotate(var(--tilt)); }
-.testimonial-card[data-reveal]:hover{
-  transform: translateY(-6px) scale(1.02) rotate(0deg); box-shadow: 0 20px 34px var(--cork-shadow);
-}
-.testimonial-card.tape::before{
-  content:''; position:absolute; top:-12px; left:50%; width:68px; height:22px;
-  background: rgba(232,179,61,.62); transform: translateX(-50%) rotate(-3deg); box-shadow: 0 2px 5px rgba(43,27,18,.28);
-}
-.testimonial-card.tape.dusty::before{ background: rgba(175,203,221,.66); transform: translateX(-50%) rotate(3deg); }
-.testimonial-card.pin::before{
-  content:''; position:absolute; top:-9px; left:50%; width:17px; height:17px; border-radius:50%; z-index:2;
-  background: radial-gradient(circle at 35% 30%, var(--mustard), var(--terracota) 72%);
-  box-shadow: 0 4px 7px rgba(43,27,18,.45); transform: translateX(-50%);
-}
-.testimonial-shot{ display:block; border-radius:3px; overflow:hidden; background: var(--cream-card); }
-.testimonial-shot img{ display:block; width:100%; height:auto; }
-
-/* ==========================================================================
-   SERVICIOS
-   ========================================================================== */
-.services{ padding: clamp(56px,8vw,88px) var(--gutter); max-width:1240px; margin:0 auto; }
-.services h2{ font-family: var(--serif); font-weight:400; font-size: clamp(2rem,4vw,3.4rem); margin-bottom: clamp(32px,5vw,48px); }
-.service-row{ border-top:1px solid var(--line-on-cream); padding:28px 0; cursor:pointer; transition: transform .3s var(--ease); }
-.services > .service-row:last-of-type{ border-bottom:1px solid var(--line-on-cream); }
-.service-row:hover{ transform: translateY(-4px); }
-.service-row:focus-visible{ outline:2px solid var(--terracota); outline-offset:-2px; }
-.service-head{ display:grid; grid-template-columns:50px 1fr auto; align-items:center; gap:24px; }
-.service-index{ font-family: var(--serif); font-style:italic; font-size:16px; color: var(--ink-muted); }
-.service-title{ font-family: var(--serif); font-size: clamp(1.4rem,2.6vw,2rem); }
-.service-arrow{ font-size:22px; color: var(--terracota); transition: transform .4s var(--ease); }
-.service-row.is-open .service-arrow{ transform: rotate(180deg); }
-.service-detail{ display:grid; grid-template-rows:0fr; transition: grid-template-rows .45s var(--ease), opacity .45s var(--ease); opacity:0; grid-column: 2 / span 1; }
-.service-row.is-open .service-detail{ grid-template-rows:1fr; opacity:1; }
-.service-detail-inner{ overflow:hidden; min-height:0; }
-.service-detail-inner p{ margin:16px 0 0; font-size:14px; line-height:1.6; color: var(--ink-muted); max-width:58ch; }
-.service-tags{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
-.service-tags span{
-  font-size:12px; background: var(--mustard); color: var(--ink); padding:6px 14px;
-  border-radius: var(--radius-pill); transition: transform .35s var(--ease);
-}
-.service-tags span:nth-child(1){ transform: rotate(-1.6deg); }
-.service-tags span:nth-child(2){ transform: rotate(1.3deg); }
-.service-tags span:nth-child(3){ transform: rotate(-.9deg); }
-.service-row:hover .service-tags span{ transform: rotate(0); }
+.proof summary::-webkit-details-marker{ display:none; }
+.proof summary::after{ content:'↓'; font-size:12px; transition: transform .3s var(--ease); }
+.proof[open] summary::after{ transform: rotate(180deg); }
+.proof summary:hover{ color: var(--accent-deep); }
+.proof-shot{ margin-top:14px; border-radius: var(--r-sm); overflow:hidden; border:1px solid var(--line); box-shadow: var(--shadow); }
+.proof-shot img{ width:100%; height:auto; }
 
 /* ==========================================================================
    SOBRE MÍ
    ========================================================================== */
-.about{ background: var(--terracota); color: var(--cream); padding: clamp(56px,8vw,88px) var(--gutter); }
-.about-grid{ display:grid; grid-template-columns: 1fr 300px; gap: clamp(32px,5vw,64px); max-width:1240px; margin:0 auto; align-items:center; }
-.about-photo[data-reveal]{ transition-delay: .15s; }
-.about-lead{ font-family: var(--serif); font-size: clamp(1.5rem,2.6vw,2.1rem); line-height:1.4; }
-.about-lead .drop{ font-style:italic; font-size:1.6em; color: var(--mustard); line-height:.6; }
-.about-body{ margin-top:24px; font-size:15.5px; line-height:1.7; color: var(--cream-onterracota); max-width:70ch; }
-.about-body .handle{ color: var(--mustard); font-weight:600; }
-.about-photo{
-  --tilt: -1.2deg; /* el reveal compone la rotación con el translateY, no la pisa */
-  width:300px; height:380px; border-radius:18px; position:relative; overflow:hidden;
-  background: rgba(244,236,224,.14);
-}
-.about-photo img{ width:100%; height:100%; object-fit:cover; object-position: center 22%; }
+.about-grid{ display:grid; grid-template-columns: minmax(0,300px) minmax(0,1fr); gap: clamp(28px,4.5vw,64px); align-items:center; }
+.about-photo{ border-radius: var(--r-lg); overflow:hidden; aspect-ratio:3/4; background: var(--surface-2); box-shadow: var(--shadow); }
+.about-photo img{ width:100%; height:100%; object-fit:cover; object-position:center 22%; }
+.about-lead{ font-size: clamp(1.2rem,2.2vw,1.6rem); font-weight:600; letter-spacing:-.02em; line-height:1.35; }
+.about-body{ margin-top:18px; font-size:15.5px; line-height:1.7; color: var(--ink-2); max-width:62ch; }
+.about-body .handle{ color: var(--accent); font-weight:600; }
 
 /* ==========================================================================
-   CONTACTO / FOOTER
+   CONTACTO
    ========================================================================== */
-.finale{ padding: clamp(64px,10vw,120px) var(--gutter) clamp(40px,6vw,56px); }
-.finale h2{ text-align:center; font-family: var(--serif); font-weight:400; font-size: clamp(1.9rem,4.4vw,3.4rem); line-height:1.16; max-width:820px; margin:0 auto; }
-.finale h2 em{ font-style:italic; color: var(--terracota); }
-.finale-form{ max-width:600px; margin: clamp(40px,6vw,64px) auto 0; display:flex; flex-direction:column; gap:26px; }
-.field label{ display:block; font-size:12px; color: var(--ink-muted); margin-bottom:8px; }
+.contact-grid{ display:grid; grid-template-columns: minmax(0,1fr) minmax(0,520px); gap: clamp(28px,4.5vw,64px); align-items:start; }
+.contact-list{ margin-top:28px; display:flex; flex-direction:column; gap:2px; }
+.contact-list a{
+  display:flex; align-items:center; gap:14px; padding:16px 4px; border-bottom:1px solid var(--line);
+  font-size:15px; font-weight:500; transition: color .25s var(--ease), padding-left .25s var(--ease);
+}
+.contact-list a:first-child{ border-top:1px solid var(--line); }
+.contact-list a svg{ width:18px; height:18px; color: var(--accent); flex:none; }
+.contact-list a:hover{ color: var(--accent); padding-left:10px; }
+.contact-list span.meta{ margin-left:auto; font-size:12.5px; color: var(--ink-2); }
+
+.form{
+  background: var(--surface); border:1px solid var(--line); border-radius: var(--r-lg);
+  padding: clamp(24px,3vw,36px); display:flex; flex-direction:column; gap:18px; box-shadow: var(--shadow);
+}
+.field{ display:flex; flex-direction:column; gap:7px; }
+.field label{ font-size:12.5px; font-weight:600; letter-spacing:.02em; color: var(--ink-2); }
+.field label .opt{ font-weight:400; text-transform:none; letter-spacing:0; }
 .field input, .field textarea{
-  width:100%; background:none; border:0; border-bottom:1px solid rgba(43,27,18,.3); font-size:16px;
-  padding:8px 2px; font-family: var(--sans); color: var(--ink); transition: border-color .3s var(--ease);
+  width:100%; background: var(--paper); border:1px solid var(--line-2); border-radius: var(--r-sm);
+  padding:13px 14px; font-size:15px; color: var(--ink);
+  transition: border-color .2s var(--ease), box-shadow .2s var(--ease), background .2s var(--ease);
 }
-.field textarea{ min-height:70px; resize:none; }
-.field input:focus, .field textarea:focus{ outline:2px solid var(--terracota); outline-offset:4px; border-color: var(--terracota); }
-.finale-submit{
-  align-self:center; border:none; background: var(--terracota); color: var(--cream); padding:16px 30px;
-  border-radius: var(--radius-pill); font-weight:600; font-size:14px; cursor:pointer;
-  transition: background .3s var(--ease), transform .2s var(--ease);
+.field input::placeholder, .field textarea::placeholder{ color: rgba(110,101,92,.62); }
+.field input:hover, .field textarea:hover{ border-color: var(--ink-2); }
+.field input:focus, .field textarea:focus{
+  outline:none; border-color: var(--accent); background: var(--surface);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
-.finale-submit:hover{ background: var(--terracota-deep); }
-.form-status{ font-size:13px; color: var(--ink-muted); text-align:center; }
-.finale-footer{
-  margin-top: clamp(64px,8vw,100px); padding-top:28px; border-top:1px solid var(--line-on-cream);
-  display:grid; grid-template-columns: 1fr auto 1fr; align-items:center; gap:16px; max-width:1240px; margin-inline:auto;
+.field textarea{ min-height:120px; resize:vertical; }
+.field input[aria-invalid="true"], .field textarea[aria-invalid="true"]{ border-color: var(--danger); background: rgba(163,45,28,.04); }
+.field input[aria-invalid="true"]:focus, .field textarea[aria-invalid="true"]:focus{ box-shadow: 0 0 0 3px rgba(163,45,28,.14); }
+.field-error{ font-size:12.5px; color: var(--danger); min-height:0; }
+.field-error:empty{ display:none; }
+.form-status{ font-size:13.5px; line-height:1.5; }
+.form-status:empty{ display:none; }
+.form-status.is-ok{ color: var(--ok); }
+.form-status.is-err{ color: var(--danger); }
+.form .btn{ width:100%; }
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.site-footer{ background: var(--dark); color: var(--on-dark); padding: clamp(44px,5vw,64px) 0 28px; }
+.footer-top{ display:flex; flex-wrap:wrap; gap:32px; justify-content:space-between; align-items:flex-start; }
+.footer-brand .logo-mark{ font-size:20px; color: var(--on-dark); }
+.footer-brand p{ margin-top:10px; font-size:14px; color: var(--on-dark-2); max-width:34ch; line-height:1.6; }
+.footer-col h4{ font-size:11.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color: var(--on-dark-2); margin-bottom:14px; }
+.footer-col ul{ display:flex; flex-direction:column; gap:9px; }
+.footer-col a{ font-size:14px; color: var(--on-dark); opacity:.86; transition: opacity .2s var(--ease), color .2s var(--ease); }
+.footer-col a:hover{ opacity:1; text-decoration:underline; text-underline-offset:4px; }
+.to-top{
+  display:inline-flex; align-items:center; gap:10px; padding:12px 20px; border-radius: var(--r-pill);
+  border:1px solid var(--dark-line); font-size:13px; font-weight:600; color: var(--on-dark);
+  transition: background .25s var(--ease), border-color .25s var(--ease);
 }
-.finale-footer .logo-mark{ font-size:20px; }
-.finale-footer a[href^="mailto"]{ font-size:13px; color: var(--ink-muted); transition: color .3s; justify-self:center; }
-.finale-footer a[href^="mailto"]:hover{ color: var(--ink); }
-.footer-fine{ font-family: var(--serif); font-style:italic; font-size:12.5px; color: var(--ink-muted); display:flex; gap:16px; flex-wrap:wrap; justify-self:end; text-align:right; }
+.to-top:hover{ background: rgba(246,240,230,.1); border-color: rgba(246,240,230,.4); }
+.to-top svg{ width:14px; height:14px; }
+.footer-fine{
+  margin-top: clamp(32px,4vw,48px); padding-top:20px; border-top:1px solid var(--dark-line);
+  display:flex; flex-wrap:wrap; gap:8px 24px; justify-content:space-between;
+  font-size:12.5px; color: var(--on-dark-2);
+}
 
 /* ==========================================================================
    RESPONSIVE
    ========================================================================== */
+@media (max-width: 1100px){
+  .logo-grid{ grid-template-columns: repeat(5,1fr); }
+  .services-grid{ grid-template-columns:1fr; }
+  .contact-grid{ grid-template-columns:1fr; }
+  .process-grid{ grid-template-columns: repeat(2,1fr); }
+}
 @media (max-width: 1000px){
-  .audience-grid{ grid-template-columns:1fr; }
+  .work-cols{ grid-template-columns:1fr; }
+  .carousel{ --item-w: min(64vw,250px); }
+  .testimonial-grid{ grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 900px){
+  .hero-grid{ grid-template-columns:1fr; gap:32px; }
+  .hero-media{ max-width:300px; margin-inline:auto; }
+  .hero-copy{ text-align:left; }
+  .about-grid{ grid-template-columns:1fr; }
+  .about-photo{ max-width:280px; }
 }
 @media (max-width: 860px){
   .site-nav{
-    position:fixed; inset:0; background: var(--cream); flex-direction:column; justify-content:center;
-    align-items:flex-start; padding: var(--gutter); transform: translateX(100%); transition: transform .5s var(--ease); gap:20px; z-index:99;
+    position:fixed; inset:0; background: var(--paper); flex-direction:column; justify-content:center;
+    align-items:stretch; gap:4px; padding: 80px var(--gutter) var(--gutter);
+    overflow-y:auto; transform: translateX(100%); transition: transform .4s var(--ease); z-index:99;
   }
-  .site-nav.is-open{ transform: translateX(0); }
-  .site-nav a{ font-size:22px; font-family: var(--serif); font-style:italic; }
-  .nav-cta{ order:5; }
+  .site-nav.is-open{ transform:none; }
+  .site-nav a{
+    flex-direction:row; justify-content:flex-start; gap:14px; padding:18px 8px;
+    font-size:19px; font-weight:600; color: var(--ink); border-bottom:1px solid var(--line); border-radius:0;
+  }
+  .site-nav a svg{ width:20px; height:20px; color: var(--ink-2); }
   .nav-toggle{ display:block; z-index:101; }
-  .carousel-arrow{ width:40px; height:40px; margin-top:-20px; font-size:18px; }
-  .testimonial-board{ grid-template-columns: repeat(2,1fr); }
-  .process-grid{ grid-template-columns: repeat(2,1fr); }
-  .about-grid{ grid-template-columns:1fr; }
-  .about-photo{ width:100%; max-width:300px; }
+  .logo-mark{ position:relative; z-index:101; }
 }
-@media (max-width: 600px){
+@media (max-width: 760px){
+  .audience-grid{ grid-template-columns:1fr; }
+  .logo-grid{ grid-template-columns: repeat(3,1fr); }
   .stats{ grid-template-columns:1fr; }
-  .carousel-item{ width:min(78vw,260px); }
-  .carousel-track{ padding: 12px clamp(6%,10vw,18%) 24px; }
-  .testimonial-board{ grid-template-columns:1fr; max-width:420px; }
-  .testimonial-card{ --drop: 0px; }
+  .testimonial-grid{ grid-template-columns:1fr; }
   .process-grid{ grid-template-columns:1fr; }
-  .finale-footer{ grid-template-columns:1fr; justify-items:center; text-align:center; gap:12px; }
-  .finale-footer a[href^="mailto"]{ justify-self:center; }
-  .footer-fine{ justify-self:center; text-align:center; justify-content:center; }
+  .carousel{ --item-w: min(72vw,260px); }
+  .footer-top{ gap:28px; }
 }
 </style>
 </head>
@@ -493,504 +542,652 @@ section{ position:relative; }
   <defs>
     <symbol id="i-muted" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16.5 9.5l5 5M21.5 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
     <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-work" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+    <symbol id="i-process" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-services" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="9" cy="7" r="1.6" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="8" cy="17" r="1.6" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-about" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.7-5.2A8.5 8.5 0 1 1 21 11.5Z"/><path d="M8.8 9.2c.3 2.6 3.4 5.7 6 6l1-1.6 2 .9-.5 1.6c-2.9.6-7.9-4.4-7.3-7.3l1.6-.5.9 2Z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+    <symbol id="i-prev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6l-6 6 6 6"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6l6 6-6 6"/></symbol>
   </defs>
 </svg>
 
 <!-- HEADER -->
-<header class="site-header">
-  <a href="#top" class="logo-mark">Dai Sosa</a>
-  <nav class="site-nav" id="site-nav">
-    <a href="#trabajo">Trabajo</a>
-    <a href="#proceso">Proceso</a>
-    <a href="#servicios">Servicios</a>
-    <a href="#sobre-mi">Sobre mí</a>
-    <a href="#contacto" class="nav-cta">Contacto</a>
-  </nav>
-  <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-nav">
-    <span></span><span></span><span></span>
-  </button>
+<header class="site-header" id="top">
+  <div class="header-inner">
+    <a href="#top" class="logo-mark">Dai Sosa<span>.</span></a>
+    <nav class="site-nav" id="site-nav" aria-label="Principal">
+      <a href="#trabajo"><svg aria-hidden="true"><use href="#i-work"/></svg>Trabajo</a>
+      <a href="#proceso"><svg aria-hidden="true"><use href="#i-process"/></svg>Proceso</a>
+      <a href="#servicios"><svg aria-hidden="true"><use href="#i-services"/></svg>Servicios</a>
+      <a href="#sobre-mi"><svg aria-hidden="true"><use href="#i-about"/></svg>Sobre mí</a>
+      <a href="#contacto" class="is-cta"><svg aria-hidden="true"><use href="#i-mail"/></svg>Contacto</a>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
 
-<main id="top">
+<main>
 
   <!-- HERO -->
-  <section class="hero" id="hero">
-    <h1 class="hero-title">
-      Nunca fue tan <mark>fácil</mark> crear contenido.<br>
-      Nunca fue tan difícil <em>destacar.</em>
-    </h1>
-    <p class="hero-sub">Tu marca tiene segundos para captar atención.<br>Lo que comuniques en ese tiempo marca la diferencia.</p>
-    <a href="https://wa.me/5491135046576?text=Hola%20Dai%2C%20quiero%20potenciar%20mi%20contenido" class="hero-cta" target="_blank" rel="noopener">Escribime y analicemos cómo potenciar tu contenido<span aria-hidden="true">→</span></a>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <!-- Para cambiar el video de portada: reemplazá data-id y data-video por los del Short elegido -->
+      <div class="hero-anim">
+        <div class="hero-media is-unmuted-off" data-hero-media data-id="Cy4bH30SsLg" data-video="https://youtube.com/shorts/Cy4bH30SsLg">
+          <button class="carousel-item-btn" type="button" aria-label="Activar el sonido del video">
+            <span class="work-slot">
+              <img class="work-poster" alt="" loading="eager" src="https://i.ytimg.com/vi/Cy4bH30SsLg/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/Cy4bH30SsLg/hqdefault.jpg">
+              <span class="sound-badge" aria-hidden="true">
+                <svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg>
+                <svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg>
+              </span>
+            </span>
+          </button>
+        </div>
+        <div class="hero-media-foot">
+          <a class="link-arrow" href="https://youtube.com/shorts/Cy4bH30SsLg" target="_blank" rel="noopener">Ver esta pieza en YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="hero-copy">
+        <h1 class="hero-title hero-anim">Estrategia, guion y <em>edición de video</em> para marcas y creadores.</h1>
+        <p class="hero-lede hero-anim">Soy <strong>Dai Sosa</strong>. Hace más de cuatro años convierto ideas en contenido para redes: diagnóstico, línea editorial, guion y edición. Trabajé con Brahma, Café Martínez, Bulldog y +20 marcas más.</p>
+        <div class="hero-actions hero-anim">
+          <a class="btn btn--primary" href="https://wa.me/5491135046576?text=Hola%20Dai%2C%20quiero%20potenciar%20mi%20contenido" target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#i-wa"/></svg>Escribime por WhatsApp
+          </a>
+          <a class="btn btn--ghost" href="#trabajo">Ver mi trabajo</a>
+        </div>
+        <p class="hero-note hero-anim">Disponible para proyectos — Buenos Aires, Argentina (remoto)</p>
+      </div>
+    </div>
   </section>
 
-  <div class="stripe stripe--a" aria-hidden="true"></div>
+  <!-- MARCAS + MÉTRICAS -->
+  <section class="section" id="marcas">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Prueba social</span>
+        <h2 class="h2">Marcas con las que colaboré</h2>
+        <p class="lede">A través de agencias, equipos creativos y trabajo freelance directo.</p>
+      </div>
 
-  <!-- MARCAS + STATS -->
-  <section class="brands" id="marcas">
-    <h2>
-      <span class="brands-title-main">Marcas con las que <em>colaboré</em></span>
-      <span class="brands-title-sub">A través de agencias y equipos creativos</span>
-    </h2>
-    <div class="marquee">
-      <div class="marquee-track" aria-hidden="true">
-        <span class="brand-logo"><img src="assets/logos/logo-URV.jpg" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-airo.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-arakina.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-brahma.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-bulldog.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-cafe-martinez.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-cozy.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-henry.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-incamed.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-oregon.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-otaku.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-porto.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-timeleft.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-tumm.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-URV.jpg" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-airo.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-arakina.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-brahma.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-bulldog.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-cafe-martinez.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-cozy.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-henry.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-incamed.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-oregon.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-otaku.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-porto.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-timeleft.png" alt="" loading="lazy"></span>
-        <span class="brand-logo"><img src="assets/logos/logo-tumm.png" alt="" loading="lazy"></span>
+      <div class="logo-grid" data-reveal>
+        <div class="logo-cell"><img src="assets/logos/logo-brahma.png" alt="Brahma" loading="lazy"></div>
+        <div class="logo-cell"><img src="assets/logos/logo-bulldog.png" alt="Bulldog" loading="lazy"></div>
+        <div class="logo-cell"><img src="assets/logos/logo-cafe-martinez.png" alt="Café Martínez" loading="lazy"></div>
+        <div class="logo-cell"><img src="assets/logos/logo-timeleft.png" alt="Timeleft" loading="lazy"></div>
+        <div class="logo-cell"><img src="assets/logos/logo-incamed.png" alt="Incamed" loading="lazy"></div>
+        <div class="logo-cell"><img src="assets/logos/logo-URV.jpg" alt="URV" loading="lazy"></div>
+        <div class="logo-cell"><img src="assets/logos/logo-airo.png" alt="Airo" loading="lazy"></div>
+        <div class="logo-cell"><img src="assets/logos/logo-arakina.png" alt="Arakina" loading="lazy"></div>
+        <div class="logo-cell"><img src="assets/logos/logo-cozy.png" alt="Cozy" loading="lazy"></div>
+        <div class="logo-cell"><img src="assets/logos/logo-henry.png" alt="Henry" loading="lazy"></div>
+        <div class="logo-cell"><img src="assets/logos/logo-oregon.png" alt="Oregon" loading="lazy"></div>
+        <div class="logo-cell"><img src="assets/logos/logo-otaku.png" alt="Otaku" loading="lazy"></div>
+        <div class="logo-cell"><img src="assets/logos/logo-porto.png" alt="Porto" loading="lazy"></div>
+        <div class="logo-cell"><img src="assets/logos/logo-tumm.png" alt="Tumm" loading="lazy"></div>
       </div>
-      <span class="visually-hidden">Marcas: URV, Airo, Arakina, Brahma, Bulldog, Cozy, Café Martínez, Henry, Incamed, Oregon, Otaku, Porto, Timeleft, Tumm.</span>
-    </div>
-    <div class="stats" id="stats-counter-block">
-      <div class="stat-card" data-reveal>
-        <div class="stat-figure" data-count="4" data-suffix="+">0</div>
-        <p>años desarrollando ideas, guiones y edición para clientes.</p>
-      </div>
-      <div class="stat-card" data-reveal>
-        <div class="stat-figure" data-count="20">0</div>
-        <p>marcas y creadores.</p>
-      </div>
-      <div class="stat-card" data-reveal>
-        <div class="stat-figure" data-count="100" data-suffix="+">0</div>
-        <p>proyectos realizados.</p>
+
+      <div class="stats" id="stats-counter-block" data-reveal>
+        <div class="stat">
+          <div class="stat-figure" data-count="4" data-suffix="+">0</div>
+          <p>años desarrollando ideas, guiones y edición para clientes.</p>
+        </div>
+        <div class="stat">
+          <div class="stat-figure" data-count="20" data-suffix="+">0</div>
+          <p>marcas y creadores acompañados.</p>
+        </div>
+        <div class="stat">
+          <div class="stat-figure" data-count="100" data-suffix="+">0</div>
+          <p>proyectos de video realizados.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- PARA QUIÉN ES -->
-  <section class="audience" id="para-quien">
-    <div class="diamond-row" aria-hidden="true">✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦</div>
-    <div class="audience-intro">
-      <p class="audience-lead">Trabajo con marcas y creadores que quieren <em>dejar de publicar por publicar.</em></p>
-      <p class="audience-si">Si:</p>
-    </div>
-    <div class="audience-grid">
-      <div class="audience-card" data-reveal>
-        <span class="audience-num">1</span>
-        <p>Buscás construir una identidad sin perder tu autenticidad.</p>
+  <section class="section" id="para-quien">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Para quién trabajo</span>
+        <h2 class="h2">Marcas y creadores que quieren dejar de publicar por publicar.</h2>
       </div>
-      <div class="audience-card" data-reveal>
-        <span class="audience-num">2</span>
-        <p>Necesitás una comunicación más clara y consistente.</p>
-      </div>
-      <div class="audience-card" data-reveal>
-        <span class="audience-num">3</span>
-        <p>Querés convertir la atención en oportunidades.</p>
-      </div>
-    </div>
-    <div class="audience-outro">
-      <p><span aria-hidden="true">→</span>Estás en el lugar correcto<span class="flip" aria-hidden="true">→</span></p>
-    </div>
-  </section>
-
-  <div class="stripe stripe--a" aria-hidden="true"></div>
-
-  <!-- CASOS DE ESTUDIO -->
-  <section class="work" id="trabajo">
-    <!-- Para cambiar un video: reemplazá el link de YouTube/Vimeo en el atributo data-video de cada <li class="carousel-item"> -->
-    <div class="carousel-group" data-reveal>
-      <h3 class="carousel-group-title">Mis ediciones</h3>
-      <div class="carousel" data-carousel>
-        <button class="carousel-arrow carousel-arrow--prev" type="button" data-carousel-prev aria-label="Edición anterior"><span aria-hidden="true">‹</span></button>
-        <ul class="carousel-track" data-carousel-track>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/Cy4bH30SsLg" data-id="Cy4bH30SsLg"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/Cy4bH30SsLg/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/Cy4bH30SsLg/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/Cy4bH30SsLg" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/9g_8ryy5PKY" data-id="9g_8ryy5PKY"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/9g_8ryy5PKY/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/9g_8ryy5PKY/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/9g_8ryy5PKY" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/497zn7uONJQ" data-id="497zn7uONJQ"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/497zn7uONJQ/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/497zn7uONJQ/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/497zn7uONJQ" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/WlAQTY7j2o4" data-id="WlAQTY7j2o4"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/WlAQTY7j2o4/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/WlAQTY7j2o4/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/WlAQTY7j2o4" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/lA9q9CTZcNg" data-id="lA9q9CTZcNg"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/lA9q9CTZcNg/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/lA9q9CTZcNg/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/lA9q9CTZcNg" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/xa1P5MHByLE" data-id="xa1P5MHByLE"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/xa1P5MHByLE/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/xa1P5MHByLE/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/xa1P5MHByLE" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-        </ul>
-        <button class="carousel-arrow carousel-arrow--next" type="button" data-carousel-next aria-label="Edición siguiente"><span aria-hidden="true">›</span></button>
-      </div>
-    </div>
-
-    <div class="carousel-group" data-reveal>
-      <h3 class="carousel-group-title">Mis guiones</h3>
-      <div class="carousel" data-carousel>
-        <button class="carousel-arrow carousel-arrow--prev" type="button" data-carousel-prev aria-label="Guion anterior"><span aria-hidden="true">‹</span></button>
-        <ul class="carousel-track" data-carousel-track>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/E-KJv6aDp6g" data-id="E-KJv6aDp6g"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/E-KJv6aDp6g/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/E-KJv6aDp6g/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/E-KJv6aDp6g" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/NQNJuGQyh-U" data-id="NQNJuGQyh-U"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/NQNJuGQyh-U/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/NQNJuGQyh-U/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/NQNJuGQyh-U" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/61HvevUmr8g" data-id="61HvevUmr8g"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/61HvevUmr8g/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/61HvevUmr8g/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/61HvevUmr8g" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/3GYmMsOhSWU" data-id="3GYmMsOhSWU"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/3GYmMsOhSWU/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/3GYmMsOhSWU/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/3GYmMsOhSWU" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/3IHv3ou4Ioc" data-id="3IHv3ou4Ioc"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/3IHv3ou4Ioc/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/3IHv3ou4Ioc/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/3IHv3ou4Ioc" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-          <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/lgXaxunsFDo" data-id="lgXaxunsFDo"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/lgXaxunsFDo/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/lgXaxunsFDo/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/lgXaxunsFDo" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
-        </ul>
-        <button class="carousel-arrow carousel-arrow--next" type="button" data-carousel-next aria-label="Guion siguiente"><span aria-hidden="true">›</span></button>
+      <div class="audience-grid">
+        <div class="audience-card" data-reveal>
+          <span class="audience-num">01</span>
+          <p>Buscás construir una identidad sin perder tu autenticidad.</p>
+        </div>
+        <div class="audience-card" data-reveal>
+          <span class="audience-num">02</span>
+          <p>Necesitás una comunicación más clara y consistente.</p>
+        </div>
+        <div class="audience-card" data-reveal>
+          <span class="audience-num">03</span>
+          <p>Querés convertir la atención en oportunidades.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <div class="stripe stripe--b" aria-hidden="true"></div>
+  <!-- TRABAJO -->
+  <section class="section" id="trabajo">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Trabajo</span>
+        <h2 class="h2">Piezas reales, en el formato en el que se publican.</h2>
+        <p class="lede">Cada video se reproduce en silencio al centrarse. Tocá la pieza para escuchar el audio.</p>
+      </div>
 
-  <!-- PROCESO -->
-  <section class="process" id="proceso">
-    <h2 class="process-lead">
-      <span>Los videos que generan resultados <em>no se improvisan.</em></span>
-      <span>Se construyen sobre <em>una estrategia clara.</em></span>
-    </h2>
-    <p class="process-kicker">De la idea a la publicación</p>
-    <div class="process-grid">
-      <div class="process-step"><span class="process-num">01</span><h3>Diagnosticar</h3><p>Entender y analizar los objetivos.</p></div>
-      <div class="process-step"><span class="process-num">02</span><h3>Pensar</h3><p>Desarrollar ideas y estrategias con intención.</p></div>
-      <div class="process-step"><span class="process-num">03</span><h3>Escribir</h3><p>Bajar esas ideas en un guion claro, dinámico y alineado con la voz de tu marca.</p></div>
-      <div class="process-step"><span class="process-num">04</span><h3>Optimizar</h3><p>Definir qué vamos a medir para evaluar cómo seguir mejorando.</p></div>
-    </div>
-  </section>
+      <!-- Para cambiar un video: reemplazá data-id y data-video de cada <li class="carousel-item"> -->
+      <div class="work-cols">
+        <div class="carousel-group">
+          <h3 class="carousel-group-title">Mis ediciones</h3>
+          <div class="carousel" data-carousel>
+            <ul class="carousel-track" data-carousel-track>
+              <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/Cy4bH30SsLg" data-id="Cy4bH30SsLg"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/Cy4bH30SsLg/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/Cy4bH30SsLg/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/Cy4bH30SsLg" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+              <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/9g_8ryy5PKY" data-id="9g_8ryy5PKY"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/9g_8ryy5PKY/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/9g_8ryy5PKY/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/9g_8ryy5PKY" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+              <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/497zn7uONJQ" data-id="497zn7uONJQ"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/497zn7uONJQ/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/497zn7uONJQ/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/497zn7uONJQ" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+              <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/WlAQTY7j2o4" data-id="WlAQTY7j2o4"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/WlAQTY7j2o4/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/WlAQTY7j2o4/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/WlAQTY7j2o4" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+              <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/lA9q9CTZcNg" data-id="lA9q9CTZcNg"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/lA9q9CTZcNg/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/lA9q9CTZcNg/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/lA9q9CTZcNg" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+              <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/xa1P5MHByLE" data-id="xa1P5MHByLE"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/xa1P5MHByLE/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/xa1P5MHByLE/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/xa1P5MHByLE" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+            </ul>
+            <div class="carousel-nav">
+              <button class="carousel-arrow" type="button" data-carousel-prev aria-label="Edición anterior"><svg aria-hidden="true"><use href="#i-prev"/></svg></button>
+              <button class="carousel-arrow" type="button" data-carousel-next aria-label="Edición siguiente"><svg aria-hidden="true"><use href="#i-next"/></svg></button>
+            </div>
+          </div>
+        </div>
 
-  <!-- TESTIMONIOS -->
-  <section class="testimonials" id="testimonios">
-    <h2>Lo que dicen mis clientes</h2>
-    <div class="testimonial-board">
-      <figure class="testimonial-card pin" data-reveal><span class="testimonial-shot"><img src="assets/testimonios/05.jpeg" alt="Mensaje de un cliente sobre el trabajo de Dai" loading="lazy"></span></figure>
-      <figure class="testimonial-card tape" data-reveal><span class="testimonial-shot"><img src="assets/testimonios/01.jpeg" alt="Mensaje de un cliente sobre el trabajo de Dai" loading="lazy"></span></figure>
-      <figure class="testimonial-card tape dusty" data-reveal><span class="testimonial-shot"><img src="assets/testimonios/03.jpeg" alt="Mensaje de un cliente sobre el trabajo de Dai" loading="lazy"></span></figure>
-      <figure class="testimonial-card tape" data-reveal><span class="testimonial-shot"><img src="assets/testimonios/02.jpeg" alt="Mensaje de un cliente sobre el trabajo de Dai" loading="lazy"></span></figure>
-      <figure class="testimonial-card pin" data-reveal><span class="testimonial-shot"><img src="assets/testimonios/04.jpeg" alt="Mensaje de un cliente sobre el trabajo de Dai" loading="lazy"></span></figure>
-      <figure class="testimonial-card tape dusty" data-reveal><span class="testimonial-shot"><img src="assets/testimonios/06.jpeg" alt="Mensaje de un cliente sobre el trabajo de Dai" loading="lazy"></span></figure>
+        <div class="carousel-group">
+          <h3 class="carousel-group-title">Mis guiones</h3>
+          <div class="carousel" data-carousel>
+            <ul class="carousel-track" data-carousel-track>
+              <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/E-KJv6aDp6g" data-id="E-KJv6aDp6g"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/E-KJv6aDp6g/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/E-KJv6aDp6g/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/E-KJv6aDp6g" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+              <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/NQNJuGQyh-U" data-id="NQNJuGQyh-U"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/NQNJuGQyh-U/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/NQNJuGQyh-U/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/NQNJuGQyh-U" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+              <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/61HvevUmr8g" data-id="61HvevUmr8g"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/61HvevUmr8g/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/61HvevUmr8g/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/61HvevUmr8g" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+              <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/3GYmMsOhSWU" data-id="3GYmMsOhSWU"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/3GYmMsOhSWU/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/3GYmMsOhSWU/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/3GYmMsOhSWU" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+              <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/3IHv3ou4Ioc" data-id="3IHv3ou4Ioc"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/3IHv3ou4Ioc/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/3IHv3ou4Ioc/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/3IHv3ou4Ioc" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+              <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/lgXaxunsFDo" data-id="lgXaxunsFDo"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/lgXaxunsFDo/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/lgXaxunsFDo/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/lgXaxunsFDo" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+            </ul>
+            <div class="carousel-nav">
+              <button class="carousel-arrow" type="button" data-carousel-prev aria-label="Guion anterior"><svg aria-hidden="true"><use href="#i-prev"/></svg></button>
+              <button class="carousel-arrow" type="button" data-carousel-next aria-label="Guion siguiente"><svg aria-hidden="true"><use href="#i-next"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- SERVICIOS -->
-  <section class="services" id="servicios">
-    <h2>En qué puedo ayudarte</h2>
-
-    <div class="service-row" data-service tabindex="0" role="button" aria-expanded="false">
-      <div class="service-head">
-        <span class="service-index">01</span>
-        <span class="service-title">Estrategia de contenido</span>
-        <span class="service-arrow" aria-hidden="true">↓</span>
+  <section class="section" id="servicios">
+    <div class="wrap services-grid">
+      <div class="sec-head" style="margin-bottom:0">
+        <span class="eyebrow">Servicios</span>
+        <h2 class="h2">En qué puedo ayudarte</h2>
+        <p class="lede">Cuatro líneas de trabajo que funcionan solas o combinadas. Tocá cada una para ver qué incluye.</p>
       </div>
-      <div class="service-detail"><div class="service-detail-inner">
-        <p>Definimos objetivos, pilares de contenido, tono de comunicación y calendario mensual de publicaciones.</p>
-        <div class="service-tags"><span>Objetivos</span><span>Tono de marca</span><span>Calendario mensual</span></div>
-      </div></div>
+
+      <div class="acc" data-acc>
+        <div class="acc-item is-open">
+          <h3><button class="acc-head" type="button" id="acc-1-btn" aria-expanded="true" aria-controls="acc-1">
+            <span class="acc-num">01</span><span class="acc-title">Estrategia de contenido</span><span class="acc-sign" aria-hidden="true"></span>
+          </button></h3>
+          <div class="acc-panel" id="acc-1" role="region" aria-labelledby="acc-1-btn"><div class="acc-panel-inner"><div class="acc-body">
+            <p>Definimos objetivos, pilares de contenido, tono de comunicación y calendario mensual de publicaciones.</p>
+            <ul class="acc-list"><li>Objetivos</li><li>Tono de marca</li><li>Calendario mensual</li></ul>
+          </div></div></div>
+        </div>
+
+        <div class="acc-item">
+          <h3><button class="acc-head" type="button" id="acc-2-btn" aria-expanded="false" aria-controls="acc-2">
+            <span class="acc-num">02</span><span class="acc-title">Guiones</span><span class="acc-sign" aria-hidden="true"></span>
+          </button></h3>
+          <div class="acc-panel" id="acc-2" role="region" aria-labelledby="acc-2-btn"><div class="acc-panel-inner"><div class="acc-body">
+            <p>Desarrollo ideas y guiones con una estructura que capte la atención y comunique tu mensaje de forma clara.</p>
+            <ul class="acc-list"><li>Ideas</li><li>Estructura</li><li>Mensaje claro</li></ul>
+          </div></div></div>
+        </div>
+
+        <div class="acc-item">
+          <h3><button class="acc-head" type="button" id="acc-3-btn" aria-expanded="false" aria-controls="acc-3">
+            <span class="acc-num">03</span><span class="acc-title">Edición</span><span class="acc-sign" aria-hidden="true"></span>
+          </button></h3>
+          <div class="acc-panel" id="acc-3" role="region" aria-labelledby="acc-3-btn"><div class="acc-panel-inner"><div class="acc-body">
+            <p>Edición dinámica para TikTok, Instagram Reels y YouTube Shorts, cuidando el ritmo, la narrativa y la retención.</p>
+            <ul class="acc-list"><li>Color</li><li>Sonido</li><li>Imagen</li></ul>
+          </div></div></div>
+        </div>
+
+        <div class="acc-item">
+          <h3><button class="acc-head" type="button" id="acc-4-btn" aria-expanded="false" aria-controls="acc-4">
+            <span class="acc-num">04</span><span class="acc-title">Acompañamiento creativo</span><span class="acc-sign" aria-hidden="true"></span>
+          </button></h3>
+          <div class="acc-panel" id="acc-4" role="region" aria-labelledby="acc-4-btn"><div class="acc-panel-inner"><div class="acc-body">
+            <p>Seguimiento mensual con sesiones 1:1 para revisar tu estrategia, ajustar lo que haga falta y potenciar los resultados de tu contenido.</p>
+            <ul class="acc-list"><li>Sesiones 1:1</li><li>Ajustes</li><li>Resultados</li></ul>
+          </div></div></div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div class="service-row" data-service tabindex="0" role="button" aria-expanded="false">
-      <div class="service-head">
-        <span class="service-index">02</span>
-        <span class="service-title">Guiones</span>
-        <span class="service-arrow" aria-hidden="true">↓</span>
+  <!-- PROCESO -->
+  <section class="section" id="proceso">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Proceso</span>
+        <h2 class="h2">De la idea a la publicación, en cuatro pasos.</h2>
+        <p class="lede">Los videos que generan resultados no se improvisan: se construyen sobre una estrategia clara.</p>
       </div>
-      <div class="service-detail"><div class="service-detail-inner">
-        <p>Desarrollo ideas y guiones con una estructura que capte la atención y comunique tu mensaje de forma clara.</p>
-        <div class="service-tags"><span>Ideas</span><span>Estructura</span><span>Mensaje claro</span></div>
-      </div></div>
+      <div class="process-grid">
+        <div class="process-step" data-reveal><span class="process-num">01</span><h3>Diagnosticar</h3><p>Entender y analizar los objetivos.</p></div>
+        <div class="process-step" data-reveal><span class="process-num">02</span><h3>Pensar</h3><p>Desarrollar ideas y estrategias con intención.</p></div>
+        <div class="process-step" data-reveal><span class="process-num">03</span><h3>Escribir</h3><p>Bajar esas ideas en un guion claro, dinámico y alineado con la voz de tu marca.</p></div>
+        <div class="process-step" data-reveal><span class="process-num">04</span><h3>Optimizar</h3><p>Definir qué vamos a medir para evaluar cómo seguir mejorando.</p></div>
+      </div>
     </div>
+  </section>
 
-    <div class="service-row" data-service tabindex="0" role="button" aria-expanded="false">
-      <div class="service-head">
-        <span class="service-index">03</span>
-        <span class="service-title">Edición</span>
-        <span class="service-arrow" aria-hidden="true">↓</span>
+  <!-- TESTIMONIOS -->
+  <section class="section" id="testimonios">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Testimonios</span>
+        <h2 class="h2">Lo que dicen mis clientes</h2>
+        <p class="lede">Mensajes textuales de clientes. Podés abrir la captura original de cada uno.</p>
       </div>
-      <div class="service-detail"><div class="service-detail-inner">
-        <p>Edición dinámica para TikTok, Instagram Reels y YouTube Shorts, cuidando el ritmo, la narrativa y la retención.</p>
-        <div class="service-tags"><span>Color</span><span>Sonido</span><span>Imagen</span></div>
-      </div></div>
-    </div>
+      <div class="testimonial-grid">
 
-    <div class="service-row" data-service tabindex="0" role="button" aria-expanded="false">
-      <div class="service-head">
-        <span class="service-index">04</span>
-        <span class="service-title">Acompañamiento creativo</span>
-        <span class="service-arrow" aria-hidden="true">↓</span>
+        <figure class="testimonial-card" data-reveal>
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>Tranqui Dai, no te preocupes, quedó muy muy lindo. Me encantó. Sigamos adelante.</blockquote>
+          <figcaption class="testimonial-meta">Cliente · WhatsApp</figcaption>
+          <details class="proof">
+            <summary>Ver captura</summary>
+            <div class="proof-shot"><img src="assets/testimonios/01.jpeg" alt="Captura de WhatsApp con el mensaje del cliente" loading="lazy"></div>
+          </details>
+        </figure>
+
+        <figure class="testimonial-card" data-reveal>
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>Ahí revisamos los 6 videos de Kika y están increíbles… nos encantó. Ves que sos una capa total.</blockquote>
+          <figcaption class="testimonial-meta">Cliente · WhatsApp</figcaption>
+          <details class="proof">
+            <summary>Ver captura</summary>
+            <div class="proof-shot"><img src="assets/testimonios/03.jpeg" alt="Captura de WhatsApp con el mensaje del cliente" loading="lazy"></div>
+          </details>
+        </figure>
+
+        <figure class="testimonial-card" data-reveal>
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>Perfecto. Capa. Me encantó cómo quedó.</blockquote>
+          <figcaption class="testimonial-meta">Cliente · WhatsApp</figcaption>
+          <details class="proof">
+            <summary>Ver captura</summary>
+            <div class="proof-shot"><img src="assets/testimonios/05.jpeg" alt="Captura de WhatsApp con el mensaje del cliente" loading="lazy"></div>
+          </details>
+        </figure>
+
+        <figure class="testimonial-card" data-reveal>
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>Gracias Dai. Espectacular tu trabajo.</blockquote>
+          <figcaption class="testimonial-meta">Cliente · WhatsApp</figcaption>
+          <details class="proof">
+            <summary>Ver captura</summary>
+            <div class="proof-shot"><img src="assets/testimonios/02.jpeg" alt="Captura de WhatsApp con el mensaje del cliente" loading="lazy"></div>
+          </details>
+        </figure>
+
+        <figure class="testimonial-card" data-reveal>
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>Impresionante, me encanta.</blockquote>
+          <figcaption class="testimonial-meta">Cliente · WhatsApp</figcaption>
+          <details class="proof">
+            <summary>Ver captura</summary>
+            <div class="proof-shot"><img src="assets/testimonios/04.jpeg" alt="Captura de WhatsApp con el mensaje del cliente" loading="lazy"></div>
+          </details>
+        </figure>
+
+        <figure class="testimonial-card" data-reveal>
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>Espectacular, me encantó.</blockquote>
+          <figcaption class="testimonial-meta">Cliente · WhatsApp</figcaption>
+          <details class="proof">
+            <summary>Ver captura</summary>
+            <div class="proof-shot"><img src="assets/testimonios/06.jpeg" alt="Captura de WhatsApp con el mensaje del cliente" loading="lazy"></div>
+          </details>
+        </figure>
+
       </div>
-      <div class="service-detail"><div class="service-detail-inner">
-        <p>Sesiones 1:1 para revisar tu estrategia, ajustar lo que haga falta y potenciar los resultados de tu contenido.</p>
-        <div class="service-tags"><span>Sesiones 1:1</span><span>Ajustes</span><span>Resultados</span></div>
-      </div></div>
     </div>
   </section>
 
   <!-- SOBRE MÍ -->
-  <section class="about" id="sobre-mi">
-    <div class="about-grid">
-      <div data-reveal>
-        <p class="about-lead"><span class="drop">S</span>oy Dai. Hace más de cuatro años acompaño a marcas y creadores a transformar ideas en contenido para redes sociales.</p>
-        <p class="about-body">Estudié la Licenciatura en Ciencias de la Comunicación en UBA. Hice cursos de Community Management en la UBA, Edición y ADS en la UTN. Desde 2022 trabajo en marketing digital, colaborando con agencias como <span class="handle">@somoscringe</span>, influencers como <span class="handle">@cocorayado</span> y <span class="handle">@luleoke</span>, además de emprendedores y marcas de forma freelance.</p>
+  <section class="section" id="sobre-mi">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Sobre mí</span>
+        <h2 class="h2">Dai Sosa</h2>
       </div>
-      <div class="about-photo" data-reveal><img src="assets/foto/dai.jpeg" alt="Retrato de Dai Sosa" loading="lazy"></div>
+      <div class="about-grid">
+        <div class="about-photo" data-reveal><img src="assets/foto/dai.jpeg" alt="Retrato de Dai Sosa" loading="lazy"></div>
+        <div data-reveal>
+          <p class="about-lead">Hace más de cuatro años acompaño a marcas y creadores a transformar ideas en contenido para redes sociales.</p>
+          <p class="about-body">Estudié la Licenciatura en Ciencias de la Comunicación en la UBA. Hice cursos de Community Management en la UBA, y de Edición y ADS en la UTN. Desde 2022 trabajo en marketing digital, colaborando con agencias como <span class="handle">@somoscringe</span>, creadores como <span class="handle">@cocorayado</span> y <span class="handle">@luleoke</span>, además de emprendedores y marcas de forma freelance.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- CONTACTO / FOOTER -->
-  <section class="finale" id="contacto">
-    <h2 data-reveal>Contame tus objetivos y encontremos juntos <em>la forma de avanzar.</em></h2>
-
-    <form class="finale-form" id="contact-form" novalidate data-reveal>
-      <div class="field"><label for="f-nombre">Nombre</label><input id="f-nombre" name="nombre" type="text" required autocomplete="name"></div>
-      <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" required autocomplete="email"></div>
-      <div class="field"><label for="f-marca">Marca / proyecto</label><input id="f-marca" name="marca" type="text" autocomplete="organization"></div>
-      <div class="field"><label for="f-mensaje">Contame un poco sobre tu proyecto</label><textarea id="f-mensaje" name="mensaje" required></textarea></div>
-      <button type="submit" class="finale-submit">Enviar</button>
-      <p class="form-status" id="form-status" aria-live="polite"></p>
-    </form>
-
-    <footer class="finale-footer">
-      <span class="logo-mark">Dai Sosa</span>
-      <a href="mailto:mambocreativook@gmail.com">mambocreativook@gmail.com</a>
-      <div class="footer-fine">
-        <span>© <span id="year"></span> Dai Sosa — Estrategia y contenido</span>
-        <span>Buenos Aires, Argentina</span>
+  <!-- CONTACTO -->
+  <section class="section" id="contacto">
+    <div class="wrap contact-grid">
+      <div>
+        <div class="sec-head" style="margin-bottom:0">
+          <span class="eyebrow">Contacto</span>
+          <h2 class="h2">Contame tus objetivos y encontremos juntos la forma de avanzar.</h2>
+          <p class="lede">Respondo dentro de las 24 horas hábiles. Si preferís, escribime directo por WhatsApp o por mail.</p>
+        </div>
+        <div class="contact-list">
+          <a href="https://wa.me/5491135046576?text=Hola%20Dai%2C%20quiero%20potenciar%20mi%20contenido" target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp<span class="meta">+54 9 11 3504-6576</span>
+          </a>
+          <a href="mailto:mambocreativook@gmail.com">
+            <svg aria-hidden="true"><use href="#i-mail"/></svg>mambocreativook@gmail.com
+          </a>
+        </div>
       </div>
-    </footer>
+
+      <form class="form" id="contact-form" novalidate>
+        <div class="field">
+          <label for="f-nombre">Nombre</label>
+          <input id="f-nombre" name="nombre" type="text" required autocomplete="name" placeholder="Tu nombre" aria-describedby="e-nombre">
+          <span class="field-error" id="e-nombre"></span>
+        </div>
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" required autocomplete="email" placeholder="tunombre@mail.com" aria-describedby="e-email">
+          <span class="field-error" id="e-email"></span>
+        </div>
+        <div class="field">
+          <label for="f-marca">Marca o proyecto <span class="opt">(opcional)</span></label>
+          <input id="f-marca" name="marca" type="text" autocomplete="organization" placeholder="Nombre de tu marca">
+        </div>
+        <div class="field">
+          <label for="f-mensaje">Contame un poco sobre tu proyecto</label>
+          <textarea id="f-mensaje" name="mensaje" required placeholder="Qué necesitás, para qué plataforma y en qué plazo." aria-describedby="e-mensaje"></textarea>
+          <span class="field-error" id="e-mensaje"></span>
+        </div>
+        <button type="submit" class="btn btn--dark">Enviar mensaje</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
   </section>
 
 </main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo-mark">Dai Sosa</span>
+        <p>Estrategia de contenido, guiones y edición de video. Buenos Aires, Argentina — trabajo remoto con marcas de toda LATAM.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="mailto:mambocreativook@gmail.com">mambocreativook@gmail.com</a></li>
+          <li><a href="https://wa.me/5491135046576" target="_blank" rel="noopener">WhatsApp +54 9 11 3504-6576</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="#trabajo">Trabajo</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#proceso">Proceso</a></li>
+          <li><a href="#sobre-mi">Sobre mí</a></li>
+        </ul>
+      </div>
+
+      <!-- Redes: agregar acá los enlaces de Instagram y LinkedIn cuando estén definidos
+      <div class="footer-col">
+        <h4>Redes</h4>
+        <ul>
+          <li><a href="https://instagram.com/USUARIO" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://linkedin.com/in/USUARIO" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+      -->
+
+      <a class="to-top" href="#top">Volver arriba <svg aria-hidden="true"><use href="#i-arrow-up"/></svg></a>
+    </div>
+
+    <div class="footer-fine">
+      <span>© <span id="year"></span> Dai Sosa — Estrategia y contenido</span>
+      <span>Buenos Aires, Argentina</span>
+    </div>
+  </div>
+</footer>
 
 <script>
 (() => {
   'use strict';
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  const easeOut = 'cubic-bezier(.16,.84,.24,1)';
 
-  /* ---------- year ---------- */
+  /* ---------- año del footer ---------- */
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  /* ---------- mobile nav ---------- */
+  /* ---------- menú mobile ---------- */
   const navToggle = document.getElementById('nav-toggle');
   const siteNav = document.getElementById('site-nav');
   if (navToggle && siteNav) {
-    navToggle.addEventListener('click', () => {
-      const isOpen = siteNav.classList.toggle('is-open');
-      navToggle.setAttribute('aria-expanded', String(isOpen));
-    });
-    siteNav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        siteNav.classList.remove('is-open');
-        navToggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-  }
-
-  /* ---------- hero entrance — el primer momento que ve cualquier visita ---------- */
-  const heroTitle = document.querySelector('.hero-title');
-  const heroSub = document.querySelector('.hero-sub');
-  const heroCta = document.querySelector('.hero-cta');
-  const heroEm = heroTitle && heroTitle.querySelector('em');
-
-  if (!reduceMotion && heroTitle && heroSub && heroCta && 'animate' in heroTitle) {
-    const riseIn = (el, delay) => {
-      const anim = el.animate(
-        [
-          { opacity: 0, transform: 'translateY(26px)' },
-          { opacity: 1, transform: 'translateY(0)' }
-        ],
-        { duration: 760, delay, easing: easeOut, fill: 'both' }
-      );
-      anim.finished.then(() => {
-        try { anim.commitStyles(); anim.cancel(); } catch (err) { /* no-op: element left in its final visible state either way */ }
-      }).catch(() => {});
+    const setOpen = (open) => {
+      siteNav.classList.toggle('is-open', open);
+      navToggle.setAttribute('aria-expanded', String(open));
+      navToggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
     };
-    riseIn(heroTitle, 60);
-    riseIn(heroSub, 340);
-    riseIn(heroCta, 520);
-
-    if (heroEm && 'pseudoElement' in KeyframeEffect.prototype) {
-      const underline = heroEm.animate(
-        [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }],
-        { duration: 700, delay: 640, easing: easeOut, fill: 'both', pseudoElement: '::after' }
-      );
-      underline.finished.catch(() => {});
-    }
+    navToggle.addEventListener('click', () => setOpen(!siteNav.classList.contains('is-open')));
+    siteNav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
   }
 
-  /* ---------- reveal on scroll ---------- */
+  /* ---------- reveal al hacer scroll ---------- */
   const revealEls = document.querySelectorAll('[data-reveal]');
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-in');
-          io.unobserve(entry.target);
-        }
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        io.unobserve(entry.target);
       });
-    }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
-    revealEls.forEach(el => io.observe(el));
+    }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+    revealEls.forEach((el, i) => {
+      // escalonado por posición dentro de su propia fila, no acumulado en toda la página
+      const siblings = el.parentElement ? Array.from(el.parentElement.children).indexOf(el) : 0;
+      el.style.transitionDelay = (Math.min(siblings, 5) * 0.07) + 's';
+      io.observe(el);
+    });
   } else {
     revealEls.forEach(el => el.classList.add('is-in'));
   }
 
-  /* ---------- pasos del proceso — cadena estrictamente secuencial: el paso 2 espera a que termine de tipear el 1, y así ---------- */
-  const processGrid = document.querySelector('.process-grid');
-  const processSteps = document.querySelectorAll('.process-step');
-  if (processGrid && processSteps.length && 'IntersectionObserver' in window) {
-    const typeText = (el, text, speed, onDone) => {
-      el.textContent = '';
-      const caret = document.createElement('span');
-      caret.className = 'type-caret';
-      el.appendChild(caret);
-      let i = 0;
-      const tick = () => {
-        if (i <= text.length) {
-          el.textContent = text.slice(0, i);
-          el.appendChild(caret);
-          i += 1;
-          setTimeout(tick, speed);
-        } else {
-          caret.remove();
-          if (onDone) onDone();
-        }
-      };
-      tick();
-    };
-
-    // el texto original se guarda antes de tocar nada; el DOM es la fuente de la verdad una sola vez
-    const originals = Array.from(processSteps).map(step => {
-      const p = step.querySelector('p');
-      return p ? p.textContent : '';
-    });
-
-    const runSequence = () => {
-      let i = 0;
-      const revealNext = () => {
-        if (i >= processSteps.length) return;
-        const index = i;
-        const step = processSteps[index];
-        const p = step.querySelector('p');
-        const advance = () => { i = index + 1; setTimeout(revealNext, 260); };
-
-        if (reduceMotion || !p) { step.classList.add('is-in'); advance(); return; }
-
-        // Se reserva la altura final ANTES de vaciar el párrafo: si no, el bloque crece a medida
-        // que se tipea y empuja el borde de la sección siguiente.
-        p.style.minHeight = p.offsetHeight + 'px';
-        // Vaciar ANTES de aplicar .is-in: de lo contrario el texto completo alcanza a verse
-        // durante el fade-in y recién después arranca el tipeado.
-        p.textContent = '';
-        step.classList.add('is-in');
-
-        setTimeout(() => {
-          typeText(p, originals[index], 16, () => { p.style.minHeight = ''; advance(); });
-        }, 550);
-      };
-      revealNext();
-    };
-
-    const processIO = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        runSequence();
-        processIO.disconnect();
-      });
-    }, { threshold: 0.3 });
-    processIO.observe(processGrid);
-  }
-
-  /* ---------- flechas de "estás en el lugar correcto" convergen al entrar ---------- */
-  const outroArrows = document.querySelectorAll('.audience-outro p > span');
-  if (!reduceMotion && outroArrows.length === 2 && 'IntersectionObserver' in window) {
-    const [arrowLeft, arrowRight] = outroArrows;
-    const outroIO = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        arrowLeft.animate(
-          [{ opacity: 0, transform: 'translateX(-18px)' }, { opacity: 1, transform: 'translateX(0)' }],
-          { duration: 620, easing: easeOut, fill: 'both' }
-        );
-        arrowRight.animate(
-          [{ opacity: 0, transform: 'scaleX(-1) translateX(-18px)' }, { opacity: 1, transform: 'scaleX(-1) translateX(0)' }],
-          { duration: 620, delay: 90, easing: easeOut, fill: 'both' }
-        );
-        outroIO.disconnect();
-      });
-    }, { threshold: 0.6 });
-    outroIO.observe(outroArrows[0].closest('.audience-outro'));
-  }
-
-  /* ---------- stat count-up ---------- */
+  /* ---------- conteo de métricas ---------- */
   const statsBlock = document.getElementById('stats-counter-block');
   const statFigures = document.querySelectorAll('.stat-figure');
   if (statsBlock && statFigures.length && 'IntersectionObserver' in window) {
     let started = false;
-    const animate = () => {
+    const run = () => {
       if (started) return;
       started = true;
       statFigures.forEach(el => {
         const target = parseInt(el.dataset.count, 10) || 0;
         const suffix = el.dataset.suffix || '';
         if (reduceMotion) { el.textContent = target + suffix; return; }
-        const duration = 1400;
+        const duration = 1300;
         const start = performance.now();
         const step = (now) => {
           const p = Math.min((now - start) / duration, 1);
-          const eased = 1 - Math.pow(1 - p, 3);
-          el.textContent = Math.round(eased * target) + suffix;
+          el.textContent = Math.round((1 - Math.pow(1 - p, 3)) * target) + suffix;
           if (p < 1) requestAnimationFrame(step);
         };
         requestAnimationFrame(step);
       });
     };
     const statIO = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) { animate(); statIO.disconnect(); } });
-    }, { threshold: 0.4 });
+      entries.forEach(entry => { if (entry.isIntersecting) { run(); statIO.disconnect(); } });
+    }, { threshold: 0.35 });
     statIO.observe(statsBlock);
   }
 
-  /* ---------- services accordion ---------- */
-  const serviceRows = document.querySelectorAll('[data-service]');
-  const toggleServiceRow = (row) => {
-    const willOpen = !row.classList.contains('is-open');
-    serviceRows.forEach(r => { r.classList.remove('is-open'); r.setAttribute('aria-expanded', 'false'); });
-    if (willOpen) { row.classList.add('is-open'); row.setAttribute('aria-expanded', 'true'); }
-  };
-  serviceRows.forEach(row => {
-    row.addEventListener('click', () => toggleServiceRow(row));
-    row.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleServiceRow(row); }
+  /* ---------- acordeón de servicios ----------
+     Los cuatro ítems son <button> reales: foco, Enter y Espacio los da el navegador. */
+  document.querySelectorAll('[data-acc]').forEach(acc => {
+    const items = Array.from(acc.querySelectorAll('.acc-item'));
+    acc.querySelectorAll('.acc-head').forEach(head => {
+      head.addEventListener('click', () => {
+        const item = head.closest('.acc-item');
+        const willOpen = !item.classList.contains('is-open');
+        items.forEach(i => {
+          i.classList.remove('is-open');
+          const h = i.querySelector('.acc-head');
+          if (h) h.setAttribute('aria-expanded', 'false');
+        });
+        if (willOpen) { item.classList.add('is-open'); head.setAttribute('aria-expanded', 'true'); }
+      });
     });
   });
 
-  /* ---------- botones magnéticos — los CTA de contacto siguen levemente al cursor ---------- */
-  if (isFinePointer && !reduceMotion) {
-    document.querySelectorAll('.hero-cta, .finale-submit, .nav-cta').forEach(btn => {
-      let raf = null;
-      const lift = btn.classList.contains('hero-cta') ? -3 : 0;
-      btn.addEventListener('mousemove', (e) => {
-        const rect = btn.getBoundingClientRect();
-        const relX = (e.clientX - rect.left) / rect.width - 0.5;
-        const relY = (e.clientY - rect.top) / rect.height - 0.5;
-        if (raf) cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(() => {
-          btn.style.transform = `translate(${(relX * 16).toFixed(1)}px, ${(relY * 16 + lift).toFixed(1)}px)`;
-        });
-      });
-      btn.addEventListener('mouseleave', () => {
-        if (raf) cancelAnimationFrame(raf);
-        btn.style.transform = '';
-      });
+  /* ==========================================================================
+     VIDEO — miniatura + previsualización silenciada
+     ========================================================================== */
+
+  /* Los Shorts traen "oardefault" en vertical, pero no siempre existe. Si tampoco carga el
+     respaldo, se oculta la imagen: mejor el fondo del slot que el ícono de imagen rota. */
+  document.querySelectorAll('.work-poster[data-fallback]').forEach(img => {
+    let tried = false;
+    img.addEventListener('error', () => {
+      if (!tried) { tried = true; img.src = img.dataset.fallback; }
+      else { img.style.display = 'none'; }
     });
+  });
+
+  /* El player avisa su estado por postMessage. Se lo escucha para destapar el iframe recién
+     cuando arranca a reproducir (estado 1) y no durante la carga, que es cuando YouTube muestra
+     título, canal, logo y controles. */
+  const YT_ORIGIN = 'https://www.youtube.com';
+  const waiting = new Set();
+
+  const goLive = (item) => {
+    if (!item) return;
+    item.classList.add('is-live');
+    waiting.delete(item);
+  };
+
+  window.addEventListener('message', (e) => {
+    if (e.origin !== YT_ORIGIN) return;
+    let data;
+    try { data = JSON.parse(e.data); } catch (err) { return; }
+    let matched = null;
+    waiting.forEach(item => {
+      const f = item.querySelector('.work-slot-iframe');
+      if (f && f.contentWindow === e.source) matched = item;
+    });
+    if (!matched) return;
+    matched.dataset.heard = '1'; // hubo diálogo con el player: su silencio ya no sería ambiguo
+    const info = data.info;
+    const state = (info && typeof info === 'object') ? info.playerState : info;
+    if (state === 1) goLive(matched);
+  });
+
+  const previewUrl = (id) => 'https://www.youtube.com/embed/' + id +
+    '?autoplay=1&mute=1&loop=1&playlist=' + id +
+    '&controls=0&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&fs=0&enablejsapi=1';
+
+  const mountPreview = (item) => {
+    if (!item || reduceMotion) return;
+    const slot = item.querySelector('.work-slot');
+    const id = item.dataset.id;
+    if (!slot || !id || slot.querySelector('.work-slot-iframe')) return;
+
+    const iframe = document.createElement('iframe');
+    iframe.className = 'work-slot-iframe';
+    iframe.src = previewUrl(id);
+    iframe.title = 'Muestra de video';
+    iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
+    iframe.setAttribute('tabindex', '-1');
+
+    delete item.dataset.heard;
+    waiting.add(item);
+    iframe.addEventListener('load', () => {
+      try {
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: 'listening', id: id, channel: 'widget' }), YT_ORIGIN);
+      } catch (err) { /* sin canal con el player: decide el respaldo de abajo */ }
+    });
+    // Si en 5s no llegó ni un mensaje, el canal no está disponible y el silencio no significa
+    // que no se esté reproduciendo: se destapa igual. Si sí hubo mensajes pero nunca el de
+    // "reproduciendo", entonces de verdad no arrancó y conviene dejar la miniatura.
+    setTimeout(() => {
+      if (waiting.has(item) && !item.dataset.heard) goLive(item);
+    }, 5000);
+
+    slot.appendChild(iframe);
+  };
+
+  const unmountPreview = (item) => {
+    if (!item) return;
+    const iframe = item.querySelector('.work-slot-iframe');
+    if (iframe) iframe.remove();
+    item.classList.remove('is-unmuted', 'is-live');
+    waiting.delete(item);
+    delete item.dataset.heard;
+  };
+
+  const toggleSound = (item) => {
+    const iframe = item.querySelector('.work-slot-iframe');
+    if (!iframe || !iframe.contentWindow) return false;
+    const unmuted = item.classList.toggle('is-unmuted');
+    iframe.contentWindow.postMessage(JSON.stringify({
+      event: 'command', func: unmuted ? 'unMute' : 'mute', args: []
+    }), YT_ORIGIN);
+    return unmuted;
+  };
+
+  /* ---------- video del hero ---------- */
+  const heroMedia = document.querySelector('[data-hero-media]');
+  if (heroMedia) {
+    const btn = heroMedia.querySelector('.carousel-item-btn');
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) mountPreview(heroMedia);
+          else unmountPreview(heroMedia);
+        });
+      }, { threshold: 0.25 }).observe(heroMedia);
+    } else {
+      mountPreview(heroMedia);
+    }
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const unmuted = toggleSound(heroMedia);
+        btn.setAttribute('aria-label', unmuted ? 'Silenciar el video' : 'Activar el sonido del video');
+      });
+    }
   }
 
-  /* ---------- scroller de loop infinito — clona el set antes/después y reubica en silencio al cruzar el borde clonado ---------- */
+  /* ---------- carril infinito: clona el set antes/después y reubica en silencio al cruzar ---------- */
   const makeInfiniteTrack = (track, onActiveChange) => {
     const originals = Array.from(track.children);
     const n = originals.length;
@@ -999,7 +1196,6 @@ section{ position:relative; }
     const cloneSet = () => originals.map(el => {
       const clone = el.cloneNode(true);
       clone.setAttribute('aria-hidden', 'true');
-      clone.classList.add('is-in');
       clone.querySelectorAll('button, a, input, textarea, select, [tabindex]').forEach(node => node.setAttribute('tabindex', '-1'));
       return clone;
     });
@@ -1057,48 +1253,9 @@ section{ position:relative; }
     return { items, n, scrollToItem, findActive };
   };
 
-  /* ---------- miniaturas: los Shorts traen "oardefault" en vertical, pero no siempre existe.
-     Si tampoco carga el respaldo, se oculta la imagen: mejor el fondo oscuro del slot que el
-     ícono de imagen rota del navegador. ---------- */
-  document.querySelectorAll('.work-poster[data-fallback]').forEach(img => {
-    let tried = false;
-    img.addEventListener('error', () => {
-      if (!tried) { tried = true; img.src = img.dataset.fallback; }
-      else { img.style.display = 'none'; }
-    });
-  });
-
-  /* ---------- carrusel de trabajos — el video centrado se previsualiza solo, en mudo y en loop ----------
+  /* ---------- carruseles de trabajo ----------
      Sólo vive un iframe por carrusel: montarlos todos serían 12 reproductores de YouTube en una
-     misma página. Las demás tarjetas muestran la miniatura, así ninguna queda en negro.          */
-  /* El player avisa su estado por postMessage. Se lo escucha para destapar el iframe recién
-     cuando arranca a reproducir (estado 1) y no durante la carga, que es cuando YouTube muestra
-     título, canal, logo y controles. */
-  const waiting = new Set();
-  const YT_ORIGIN = 'https://www.youtube.com';
-
-  const goLive = (item) => {
-    if (!item) return;
-    item.classList.add('is-live');
-    waiting.delete(item);
-  };
-
-  window.addEventListener('message', (e) => {
-    if (e.origin !== YT_ORIGIN) return;
-    let data;
-    try { data = JSON.parse(e.data); } catch (err) { return; }
-    let matched = null;
-    waiting.forEach(item => {
-      const f = item.querySelector('.work-slot-iframe');
-      if (f && f.contentWindow === e.source) matched = item;
-    });
-    if (!matched) return;
-    matched.dataset.heard = '1'; // hubo diálogo con el player: su silencio ya no sería ambiguo
-    const info = data.info;
-    const state = (info && typeof info === 'object') ? info.playerState : info;
-    if (state === 1) goLive(matched);
-  });
-
+     misma página. Las demás tarjetas muestran la miniatura, así ninguna queda vacía. */
   document.querySelectorAll('[data-carousel]').forEach(carousel => {
     const track = carousel.querySelector('[data-carousel-track]');
     const prevBtn = carousel.querySelector('[data-carousel-prev]');
@@ -1107,81 +1264,38 @@ section{ position:relative; }
 
     let inView = false;
 
-    const previewUrl = (id) => 'https://www.youtube.com/embed/' + id +
-      '?autoplay=1&mute=1&loop=1&playlist=' + id +
-      '&controls=0&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1&disablekb=1&fs=0&enablejsapi=1';
-
-    const mount = (item) => {
-      if (!item || reduceMotion || !inView) return;
-      const slot = item.querySelector('.work-slot');
-      const id = item.dataset.id;
-      if (!slot || !id || slot.querySelector('.work-slot-iframe')) return;
-      const iframe = document.createElement('iframe');
-      iframe.className = 'work-slot-iframe';
-      iframe.src = previewUrl(id);
-      iframe.title = 'Muestra de video';
-      iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
-      iframe.setAttribute('tabindex', '-1');
-
-      delete item.dataset.heard;
-      waiting.add(item);
-      iframe.addEventListener('load', () => {
-        try {
-          iframe.contentWindow.postMessage(
-            JSON.stringify({ event: 'listening', id: id, channel: 'widget' }), YT_ORIGIN);
-        } catch (err) { /* sin canal con el player: decide el respaldo de abajo */ }
-      });
-      // Si en 5s no llegó ni un mensaje, el canal no está disponible y el silencio no significa
-      // que no se esté reproduciendo: se destapa igual. Si sí hubo mensajes pero nunca el de
-      // "reproduciendo", entonces de verdad no arrancó y conviene dejar la miniatura.
-      setTimeout(() => {
-        if (waiting.has(item) && !item.dataset.heard) goLive(item);
-      }, 5000);
-
-      slot.appendChild(iframe);
-    };
-
-    const unmount = (item) => {
-      if (!item) return;
-      const iframe = item.querySelector('.work-slot-iframe');
-      if (iframe) iframe.remove();
-      item.classList.remove('is-unmuted', 'is-live');
-      waiting.delete(item);
-      delete item.dataset.heard;
-    };
-
     /* El reproductor no se toca mientras el carrusel se está moviendo. Antes se montaba en cada
        tarjeta que pasaba por el centro: con un swipe con inercia que cruza cuatro tarjetas, eso
-       crea y destruye cuatro reproductores de YouTube en menos de un segundo. En una compu ni se
-       nota, pero un teléfono no llega a dibujar ninguno y lo que se ve es un parpadeo.
-       Ahora se espera a que el desplazamiento se detenga y recién ahí se carga el que quedó. */
+       crea y destruye cuatro reproductores en menos de un segundo. En una compu ni se nota, pero
+       un teléfono no llega a dibujar ninguno y lo que se ve es un parpadeo. Ahora se espera a que
+       el desplazamiento se detenga y recién ahí se carga el que quedó. */
     let settleTimer = null;
     const settle = () => {
       const active = scroller.findActive();
-      scroller.items.forEach(i => { if (i !== active) unmount(i); });
-      mount(active);
+      scroller.items.forEach(i => { if (i !== active) unmountPreview(i); });
+      if (inView) mountPreview(active);
     };
 
     const scroller = makeInfiniteTrack(track, (active) => {
       scroller.items.forEach(i => i.classList.toggle('is-active', i === active));
       clearTimeout(settleTimer);
       settleTimer = setTimeout(settle, 350);
+      syncLabels();
     });
     if (!scroller) return;
 
-    // el reproductor sólo se carga mientras el carrusel está a la vista
     if ('IntersectionObserver' in window) {
       new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           inView = entry.isIntersecting;
           clearTimeout(settleTimer);
           if (inView) settleTimer = setTimeout(settle, 350);
-          else scroller.items.forEach(unmount);
+          else scroller.items.forEach(unmountPreview);
         });
       }, { threshold: 0.3 }).observe(carousel);
     } else {
       inView = true;
-      mount(scroller.findActive());
+      mountPreview(scroller.findActive());
     }
 
     const step = (dir) => {
@@ -1196,19 +1310,14 @@ section{ position:relative; }
       const btn = item.querySelector('.carousel-item-btn');
       if (!btn) return;
       btn.addEventListener('click', () => {
+        // fuera del centro el clic sólo centra la pieza; en el centro alterna el sonido
         if (!item.classList.contains('is-active')) { scroller.scrollToItem(item); return; }
-        // en la tarjeta centrada el clic alterna el sonido; el autoplay obliga a arrancar en mudo
-        const iframe = item.querySelector('.work-slot-iframe');
-        if (!iframe || !iframe.contentWindow) return;
-        const unmuted = item.classList.toggle('is-unmuted');
-        iframe.contentWindow.postMessage(JSON.stringify({
-          event: 'command', func: unmuted ? 'unMute' : 'mute', args: []
-        }), YT_ORIGIN);
+        toggleSound(item);
         syncLabels();
       });
     });
 
-    const syncLabels = () => {
+    function syncLabels() {
       scroller.items.forEach(i => {
         const btn = i.querySelector('.carousel-item-btn');
         if (!btn) return;
@@ -1218,60 +1327,73 @@ section{ position:relative; }
         }
         btn.setAttribute('aria-label', label);
       });
-    };
+    }
     syncLabels();
-    track.addEventListener('scroll', syncLabels, { passive: true });
   });
 
-  /* ---------- franja decorativa — deriva sutil al scrollear, la firma visual cobra vida ---------- */
-  const stripes = document.querySelectorAll('.stripe');
-  if (stripes.length && !reduceMotion) {
-    let ticking = false;
-    const updateStripes = () => {
-      stripes.forEach((stripe, i) => {
-        const rect = stripe.getBoundingClientRect();
-        const dir = i % 2 === 0 ? 1 : -1;
-        const shift = (window.innerHeight - rect.top) * 0.05 * dir;
-        stripe.style.backgroundPosition = `${shift.toFixed(1)}px 0`;
-      });
-      ticking = false;
-    };
-    window.addEventListener('scroll', () => {
-      if (!ticking) { requestAnimationFrame(updateStripes); ticking = true; }
-    }, { passive: true });
-    updateStripes();
-  }
-
-  /* ---------- tablero de testimonios — cada foto se "clava" con un pequeño desfase ---------- */
-  const testimonialBoard = document.querySelector('.testimonial-board');
-  if (testimonialBoard) {
-    testimonialBoard.querySelectorAll('[data-reveal]').forEach((card, i) => {
-      card.style.transitionDelay = `${i * 0.09}s`;
-    });
-  }
-
-  /* ---------- contact form — abre el cliente de email con los datos cargados ---------- */
+  /* ==========================================================================
+     FORMULARIO — validación con estados visibles
+     ========================================================================== */
   const form = document.getElementById('contact-form');
   const status = document.getElementById('form-status');
   if (form) {
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
+
+    const rules = [
+      { name: 'nombre',  err: 'e-nombre',  test: (v) => v.trim().length >= 2,  msg: 'Escribí tu nombre.' },
+      { name: 'email',   err: 'e-email',   test: (v) => EMAIL_RE.test(v.trim()), msg: 'Revisá el email: falta el @ o el dominio.' },
+      { name: 'mensaje', err: 'e-mensaje', test: (v) => v.trim().length >= 10, msg: 'Contame un poco más — al menos una oración.' }
+    ];
+
+    const paint = (rule, ok) => {
+      const input = form.elements[rule.name];
+      const slot = document.getElementById(rule.err);
+      if (!input) return;
+      input.setAttribute('aria-invalid', ok ? 'false' : 'true');
+      if (slot) slot.textContent = ok ? '' : rule.msg;
+    };
+
+    // el error aparece al salir del campo, y se limpia mientras se corrige
+    rules.forEach(rule => {
+      const input = form.elements[rule.name];
+      if (!input) return;
+      input.addEventListener('blur', () => { if (input.value.trim()) paint(rule, rule.test(input.value)); });
+      input.addEventListener('input', () => {
+        if (input.getAttribute('aria-invalid') === 'true' && rule.test(input.value)) paint(rule, true);
+      });
+    });
+
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        if (status) status.textContent = 'Revisá los campos marcados antes de enviar.';
+      let firstBad = null;
+      rules.forEach(rule => {
+        const input = form.elements[rule.name];
+        const ok = input ? rule.test(input.value) : true;
+        paint(rule, ok);
+        if (!ok && !firstBad) firstBad = input;
+      });
+
+      if (firstBad) {
+        if (status) { status.textContent = 'Faltan datos para poder responderte. Revisá los campos marcados.'; status.className = 'form-status is-err'; }
+        firstBad.focus();
         return;
       }
-      const nombre = form.nombre.value;
-      const email = form.email.value;
-      const marca = form.marca.value;
-      const mensaje = form.mensaje.value;
-      const body = `Nombre: ${nombre}\nEmail: ${email}\nMarca / proyecto: ${marca}\n\n${mensaje}`;
+
+      const nombre = form.elements.nombre.value.trim();
+      const email = form.elements.email.value.trim();
+      const marca = form.elements.marca.value.trim();
+      const mensaje = form.elements.mensaje.value.trim();
+      const body = `Nombre: ${nombre}\nEmail: ${email}\nMarca / proyecto: ${marca || '—'}\n\n${mensaje}`;
       const subject = 'Contacto desde el sitio - ' + (marca || nombre);
       window.location.href = `mailto:mambocreativook@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      if (status) status.textContent = 'Se abrió tu cliente de email con el mensaje cargado — solo falta enviarlo.';
+      if (status) {
+        status.textContent = 'Listo: se abrió tu cliente de email con el mensaje cargado. Solo falta que lo envíes.';
+        status.className = 'form-status is-ok';
+      }
     });
   }
 
 })();
 </script>
-</body></html>
+</body>
+</html>
