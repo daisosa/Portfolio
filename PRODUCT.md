@@ -45,6 +45,7 @@ Cuatro líneas de servicio ofrecidas, en el orden en que se listan en el sitio (
 
 - Freelance solista, sin equipo fijo. Modalidad principal: por proyecto.
 - Una de las cuatro líneas de servicio ("Acompañamiento creativo") es seguimiento mensual continuo; coexiste con la modalidad principal por proyecto.
+- La sección "Para quién trabajo" se retiró del sitio. Su contenido (los tres perfiles de cliente) ya no se muestra; el filtro de a quién le sirve el servicio queda implícito en el titular del hero y en la sección de servicios.
 - El desglose del proceso en cuatro pasos (Diagnosticar → Pensar → Escribir → Optimizar) se retiró del sitio. En su lugar quedó una sola declaración: "Los videos que generan resultados no se improvisan. Se construyen sobre una estrategia clara". El método se sigue explicando en la conversación con el cliente, no en la página.
 - Ubicada en Buenos Aires, Argentina.
 - Vías de contacto: formulario del sitio, email y WhatsApp (+54 9 11 3504-6576).
@@ -81,7 +82,8 @@ Cuatro líneas de servicio ofrecidas, en el orden en que se listan en el sitio (
   - Timeleft
   - Tumm
 - Testimonios: 6 capturas reales de clientes en `assets/testimonios/01.jpeg`–`06.jpeg`. En el sitio se muestran como cita textual (transcripción literal de la captura, sin nombre porque las capturas no lo exponen) con la captura original disponible en un `<details>` plegado. Ninguna cita puede editarse para "mejorarla": el texto tiene que coincidir con la captura.
-- Los 18 videos de los carruseles (Mis ediciones / Mis guiones) son Shorts de YouTube reales; se cambian reemplazando `data-id` y `data-video` en cada `<li class="carousel-item">` — no se suben archivos de video al repo (límite de tamaño de GitHub). El video del hero usa el mismo mecanismo (`[data-hero-media]`).
+- El hero no lleva video: muestra una composición de motion graphics hecha en SVG dentro del propio `index.html`. No hay archivo que reemplazar.
+- Los 18 videos de los carruseles (Mis ediciones / Mis guiones) son Shorts de YouTube reales; se cambian reemplazando `data-id` y `data-video` en cada `<li class="carousel-item">` — no se suben archivos de video al repo (límite de tamaño de GitHub).
 - Email de contacto: `mambocreativook@gmail.com`.
 
 ## Product Principles

@@ -204,6 +204,28 @@ section[id]{ scroll-margin-top: 96px; }
 }
 .h2[data-reveal].is-in > span, .carousel-group-title[data-reveal].is-in > span, .reveal-mask[data-reveal].is-in > span{ transform:none; }
 
+/* ---------- MARCO DESPLAZADO ----------
+   Un contorno corrido en diagonal detrás del elemento: da espesor sin apilar otra sombra.
+   Se aplica con la clase .offset-frame y se ajusta con tres variables. El contenido sube a
+   z-index 1 para que el marco quede siempre por detrás. */
+.offset-frame{ position:relative; }
+.offset-frame::before{
+  content:''; position:absolute; z-index:0; pointer-events:none;
+  inset: var(--of-inset, 20px -18px -20px 18px);
+  border:1.5px solid var(--of-color, var(--terracota));
+  border-radius: var(--of-radius, var(--r-lg));
+  opacity: var(--of-opacity, .45);
+}
+.offset-frame > *{ position:relative; z-index:1; }
+.offset-frame--mustard{ --of-color: var(--mustard); --of-opacity:.5; }
+/* variante espejada: el marco sale hacia arriba y a la izquierda */
+.offset-frame--up{ --of-inset: -18px 18px 18px -18px; }
+.offset-frame--tight{ --of-inset: 12px -12px -12px 12px; --of-radius: var(--r); --of-opacity:.34; }
+/* en una grilla de seis tarjetas el marco permanente sería ruido: aparece sólo al señalar una */
+.offset-frame--hover{ --of-opacity: 0; }
+.offset-frame--hover::before{ transition: opacity .35s var(--ease); }
+.offset-frame--hover:hover{ --of-opacity: .5; }
+
 /* medios con parallax — el desplazamiento lo escribe el orquestador de scroll en --py */
 [data-parallax]{ will-change: transform; }
 @media (prefers-reduced-motion: no-preference){
@@ -270,18 +292,35 @@ section[id]{ scroll-margin-top: 96px; }
   display:grid; grid-template-columns: minmax(0,330px) minmax(0,1fr);
   gap: clamp(28px,5vw,72px); align-items:center;
 }
-.hero-media-col{ position:relative; }
-.hero-media{
-  position:relative; width:100%; border-radius: var(--r-lg); overflow:hidden;
-  aspect-ratio:9/16; background: var(--cream-card); box-shadow: var(--shadow-lg);
+/* ---------- pieza de motion graphics del hero ----------
+   Reemplaza al video de portada: una composición abstracta que dice "video en construcción"
+   — anillos que giran, el glifo de reproducción latiendo y una línea de tiempo con su cabezal
+   barriendo los clips. Todo en SVG inline: sin assets, sin peticiones y escala sin perder nitidez. */
+.hero-visual{
+  width:100%; aspect-ratio:3/4; border-radius: var(--r-lg); overflow:hidden;
+  background: linear-gradient(158deg, var(--cream-card), var(--surface) 62%, var(--cream));
+  box-shadow: var(--shadow-lg);
 }
-/* marco desplazado: da espesor a la pieza sin recurrir a una sombra más pesada */
-.hero-media-col::before{
-  content:''; position:absolute; inset:18px -16px -18px 16px; border-radius: var(--r-lg);
-  border:1.5px solid var(--terracota); opacity:.45; pointer-events:none;
+.hero-visual svg{ width:100%; height:100%; display:block; }
+
+@media (prefers-reduced-motion: no-preference){
+  .mg-spin{ transform-box: fill-box; transform-origin:center; animation: mgSpin 52s linear infinite; }
+  .mg-spin--rev{ animation: mgSpin 34s linear infinite reverse; }
+  .mg-glow{ transform-box: fill-box; transform-origin:center; animation: mgDrift 16s ease-in-out infinite alternate; }
+  .mg-play{ transform-box: fill-box; transform-origin:center; animation: mgPulse 3.6s var(--ease) infinite; }
+  .mg-head{ animation: mgSweep 7s var(--ease) infinite; }
+  .mg-clip{ animation: mgClip 7s var(--ease) infinite; }
+  .mg-clip:nth-of-type(2){ animation-delay:.9s; }
+  .mg-clip:nth-of-type(3){ animation-delay:1.8s; }
+  .mg-clip:nth-of-type(4){ animation-delay:2.7s; }
+  .mg-clip:nth-of-type(5){ animation-delay:3.6s; }
+
+  @keyframes mgSpin{ to{ transform: rotate(360deg); } }
+  @keyframes mgDrift{ from{ transform: translate(-10px,-14px) scale(1); } to{ transform: translate(14px,10px) scale(1.1); } }
+  @keyframes mgPulse{ 0%,100%{ transform: scale(1); opacity:1; } 50%{ transform: scale(1.07); opacity:.86; } }
+  @keyframes mgSweep{ 0%{ transform: translateX(0); } 100%{ transform: translateX(212px); } }
+  @keyframes mgClip{ 0%,100%{ opacity:.32; } 22%{ opacity:.95; } }
 }
-.hero-media .work-slot{ position:absolute; inset:0; border:0; border-radius:0; }
-.hero-media-foot{ margin-top:16px; display:flex; justify-content:center; }
 
 .hero-title{
   font-size: clamp(2.05rem,5.4vw,4.1rem); font-weight:800; line-height:1.04;
@@ -318,15 +357,21 @@ section[id]{ scroll-margin-top: 96px; }
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
 }
-.marquee-track{ display:flex; align-items:center; gap: clamp(40px,5vw,76px); width:max-content; animation: marqueeScroll 46s linear infinite; }
+.marquee-track{ display:flex; align-items:center; gap: clamp(20px,2.4vw,32px); width:max-content; animation: marqueeScroll 46s linear infinite; }
 .marquee:hover .marquee-track{ animation-play-state: paused; }
 @keyframes marqueeScroll{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
-.brand-logo{ flex:none; display:flex; align-items:center; justify-content:center; height:52px; }
-.brand-logo img{
-  max-height:100%; width:auto; object-fit:contain;
-  filter: grayscale(1); opacity:.48; transition: opacity .3s var(--ease);
+.brand-logo{
+  flex:none; display:flex; align-items:center; justify-content:center;
+  width:150px; height:56px; padding:10px 16px;
+  background: var(--cream-card); border-radius: var(--r-sm);
 }
-.marquee:hover .brand-logo img{ opacity:.72; }
+/* en reposo van en grises para que catorce identidades ajenas no compitan entre sí;
+   el color aparece sólo en la que el cursor señala */
+.brand-logo img{
+  max-height:100%; max-width:100%; width:auto; height:auto; object-fit:contain;
+  filter: grayscale(1); opacity:.6; transition: filter .3s var(--ease), opacity .3s var(--ease);
+}
+.brand-logo:hover img{ filter: grayscale(0); opacity:1; }
 
 .stats{
   margin-top: clamp(44px,5vw,68px);
@@ -425,10 +470,8 @@ section[id]{ scroll-margin-top: 96px; }
   display:flex; align-items:center; justify-content:center;
   opacity:0; transition: opacity .35s var(--ease), background .25s var(--ease);
 }
-.carousel-item.is-active .sound-badge,
-.hero-media .sound-badge{ opacity:1; }
-.carousel-item.is-active .carousel-item-btn:hover .sound-badge,
-.hero-media .carousel-item-btn:hover .sound-badge{ background: var(--terracota); }
+.carousel-item.is-active .sound-badge{ opacity:1; }
+.carousel-item.is-active .carousel-item-btn:hover .sound-badge{ background: var(--terracota); }
 .sound-badge svg{ width:16px; height:16px; color: var(--cream); }
 /* Son dos <svg> hermanos y no un solo ícono con partes que se prenden y apagan: lo que entra por
    <use> vive en un árbol de sombra y el CSS del documento no puede alcanzar su interior. */
@@ -523,6 +566,11 @@ section[id]{ scroll-margin-top: 96px; }
   max-width:24ch; margin-inline:auto; text-wrap:balance;
 }
 .statement-text em{ font-family: var(--serif); font-style:italic; font-weight:400; color: var(--terracota); }
+/* sobre la banda terracota el énfasis pasa a mostaza — terracota sobre terracota es invisible.
+   El texto es grande (≥24px), así que 3.58:1 cumple AA. La regla también cambia de tinta. */
+.section--terracota .statement-text em{ color: var(--mustard); }
+.section--terracota .statement-rule{ background: rgba(244,236,224,.24); }
+.section--terracota .statement-rule span{ background: linear-gradient(90deg, var(--on-terracota), var(--mustard)); }
 
 /* ==========================================================================
    TESTIMONIOS
@@ -557,13 +605,8 @@ section[id]{ scroll-margin-top: 96px; }
    SOBRE MÍ — banda terracota
    ========================================================================== */
 .about-grid{ display:grid; grid-template-columns: minmax(0,320px) minmax(0,1fr); gap: clamp(28px,4.5vw,68px); align-items:center; }
-.about-photo-col{ position:relative; }
 .about-photo{ border-radius: var(--r-lg); overflow:hidden; aspect-ratio:3/4; background: rgba(244,236,224,.12); box-shadow: var(--shadow-lg); }
 .about-photo img{ width:100%; height:100%; object-fit:cover; object-position:center 22%; }
-.about-photo-col::before{
-  content:''; position:absolute; inset:-16px 16px 16px -16px; border-radius: var(--r-lg);
-  border:1.5px solid var(--mustard); opacity:.5; pointer-events:none;
-}
 .about-lead{ font-size: clamp(1.3rem,2.4vw,1.85rem); line-height:1.36; letter-spacing:-.015em; }
 .about-lead .drop{ font-family: var(--serif); font-style:italic; font-size:1.7em; line-height:.6; color: var(--mustard); }
 .about-body{ margin-top:22px; font-size:15.5px; line-height:1.7; color: var(--on-terracota); max-width:62ch; }
@@ -650,7 +693,7 @@ section[id]{ scroll-margin-top: 96px; }
 }
 @media (max-width: 900px){
   .hero-grid{ grid-template-columns:1fr; gap:36px; }
-  .hero-media-col{ max-width:300px; margin-inline:auto; }
+  .hero-visual{ max-width:300px; margin-inline:auto; }
   .about-grid{ grid-template-columns:1fr; }
   .about-photo-col{ max-width:300px; }
 }
@@ -675,8 +718,8 @@ section[id]{ scroll-margin-top: 96px; }
   .stats{ grid-template-columns:1fr; }
   .testimonial-grid{ grid-template-columns:1fr; }
   .carousel{ --item-w: min(72vw,260px); }
-  .hero-media-col::before, .about-photo-col::before{ inset:12px -10px -12px 10px; }
-  .about-photo-col::before{ inset:-10px 10px 10px -10px; }
+  .offset-frame{ --of-inset: 12px -10px -12px 10px; }
+  .offset-frame--up{ --of-inset: -10px 10px 10px -10px; }
 }
 </style>
 </head>
@@ -716,27 +759,50 @@ section[id]{ scroll-margin-top: 96px; }
 </header>
 
 <main>
-
   <!-- HERO -->
   <section class="hero">
     <div class="wrap hero-grid">
-      <!-- Para cambiar el video de portada: reemplazá data-id y data-video por los del Short elegido -->
-      <div class="hero-anim">
-        <div class="hero-media-col" data-parallax="-0.06">
-          <div class="hero-media" data-hero-media data-id="Cy4bH30SsLg" data-video="https://youtube.com/shorts/Cy4bH30SsLg">
-            <button class="carousel-item-btn" type="button" aria-label="Activar el sonido del video">
-              <span class="work-slot">
-                <img class="work-poster" alt="" loading="eager" src="https://i.ytimg.com/vi/Cy4bH30SsLg/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/Cy4bH30SsLg/hqdefault.jpg">
-                <span class="sound-badge" aria-hidden="true">
-                  <svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg>
-                  <svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg>
-                </span>
-              </span>
-            </button>
-          </div>
-        </div>
-        <div class="hero-media-foot">
-          <a class="link-arrow" href="https://youtube.com/shorts/Cy4bH30SsLg" target="_blank" rel="noopener">Ver esta pieza en YouTube ↗</a>
+      <div class="hero-anim offset-frame" data-parallax="-0.06">
+        <div class="hero-visual">
+          <svg viewBox="0 0 300 400" role="img" aria-label="Composición animada: anillos girando alrededor de un símbolo de reproducción, sobre una línea de tiempo de edición">
+            <defs>
+              <radialGradient id="mg-glow-grad">
+                <stop offset="0%" stop-color="#E8B33D" stop-opacity=".55"/>
+                <stop offset="60%" stop-color="#9C3B20" stop-opacity=".18"/>
+                <stop offset="100%" stop-color="#9C3B20" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+
+            <circle class="mg-glow" cx="150" cy="150" r="112" fill="url(#mg-glow-grad)"/>
+
+            <circle class="mg-spin" cx="150" cy="150" r="88" fill="none"
+                    stroke="#9C3B20" stroke-width="1.5" stroke-dasharray="7 11" opacity=".7"/>
+            <circle class="mg-spin mg-spin--rev" cx="150" cy="150" r="64" fill="none"
+                    stroke="#E8B33D" stroke-width="1.5" stroke-dasharray="2 13" opacity=".9"/>
+            <circle cx="150" cy="150" r="42" fill="none" stroke="#9C3B20" stroke-width="1" opacity=".28"/>
+
+            <path class="mg-play" d="M139 133l30 17-30 17z" fill="#9C3B20"/>
+
+            <!-- línea de tiempo: los clips se encienden por turno y el cabezal los barre -->
+            <g opacity=".9">
+              <line x1="44" y1="300" x2="256" y2="300" stroke="#241A13" stroke-width="1" opacity=".16"/>
+              <rect class="mg-clip" x="44"  y="286" width="42" height="9" rx="4.5" fill="#9C3B20"/>
+              <rect class="mg-clip" x="92"  y="286" width="28" height="9" rx="4.5" fill="#E8B33D"/>
+              <rect class="mg-clip" x="126" y="286" width="54" height="9" rx="4.5" fill="#9C3B20"/>
+              <rect class="mg-clip" x="186" y="286" width="24" height="9" rx="4.5" fill="#AFCBDD"/>
+              <rect class="mg-clip" x="216" y="286" width="40" height="9" rx="4.5" fill="#9C3B20"/>
+              <g class="mg-head">
+                <line x1="44" y1="272" x2="44" y2="316" stroke="#6E2814" stroke-width="2"/>
+                <circle cx="44" cy="270" r="4" fill="#6E2814"/>
+              </g>
+            </g>
+
+            <g opacity=".22" fill="none" stroke="#241A13" stroke-width="1">
+              <rect x="85"  y="340" width="38" height="26" rx="4"/>
+              <rect x="131" y="340" width="38" height="26" rx="4"/>
+              <rect x="177" y="340" width="38" height="26" rx="4"/>
+            </g>
+          </svg>
         </div>
       </div>
 
@@ -820,30 +886,6 @@ section[id]{ scroll-margin-top: 96px; }
 
   <hr class="stripe stripe--b" aria-hidden="true">
 
-  <!-- PARA QUIÉN ES -->
-  <section class="section section--terracota" id="para-quien">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="eyebrow" data-reveal>Para quién trabajo</span>
-        <h2 class="h2" data-reveal><span>Trabajo con agencias, marcas y creadores que quieren convertir atención en oportunidades <em>sin perder su autenticidad.</em></span></h2>
-      </div>
-      <div class="audience-grid">
-        <div class="audience-card" data-reveal>
-          <span class="audience-num">1</span>
-          <p>Sentís que estás repitiendo lo que hacen los demás sin un motivo claro.</p>
-        </div>
-        <div class="audience-card" data-reveal>
-          <span class="audience-num">2</span>
-          <p>Te cuesta convertir lo que hacés en contenido que genere interés.</p>
-        </div>
-        <div class="audience-card" data-reveal>
-          <span class="audience-num">3</span>
-          <p>Tenés material grabado y nunca encontrás el momento para editarlo.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- TRABAJO -->
   <section class="section section--dark" id="trabajo">
     <div class="wrap">
@@ -900,8 +942,93 @@ section[id]{ scroll-margin-top: 96px; }
     </div>
   </section>
 
+  <!-- DECLARACIÓN — el desglose en cuatro pasos se retiró; queda la frase que lo resume -->
+  <section class="section section--terracota statement" id="proceso">
+    <div class="wrap">
+      <div class="statement-rule" id="statement-rule" aria-hidden="true"><span></span></div>
+      <p class="statement-text">
+        <span class="reveal-mask" data-reveal><span>Los videos que generan resultados <em>no se improvisan.</em></span></span>
+        <span class="reveal-mask" data-reveal><span>Se construyen sobre <em>una estrategia clara.</em></span></span>
+      </p>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section class="section" id="testimonios">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow" data-reveal>Testimonios</span>
+        <h2 class="h2" data-reveal><span>Lo que dicen <em>mis clientes</em></span></h2>
+        <p class="lede" data-reveal>Mensajes textuales de clientes. Podés abrir la captura original de cada uno.</p>
+      </div>
+      <div class="testimonial-grid">
+
+        <div class="offset-frame offset-frame--hover offset-frame--tight" data-reveal><figure class="testimonial-card">
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>Tranqui Dai, no te preocupes, quedó muy muy lindo. Me encantó. Sigamos adelante.</blockquote>
+          <figcaption class="testimonial-meta">Cliente · WhatsApp</figcaption>
+          <details class="proof">
+            <summary>Ver captura</summary>
+            <div class="proof-shot"><img src="assets/testimonios/01.jpeg" alt="Captura de WhatsApp con el mensaje del cliente" loading="lazy"></div>
+          </details>
+        </figure></div>
+
+        <div class="offset-frame offset-frame--hover offset-frame--tight" data-reveal><figure class="testimonial-card">
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>Ahí revisamos los 6 videos de Kika y están increíbles… nos encantó. Ves que sos una capa total.</blockquote>
+          <figcaption class="testimonial-meta">Cliente · WhatsApp</figcaption>
+          <details class="proof">
+            <summary>Ver captura</summary>
+            <div class="proof-shot"><img src="assets/testimonios/03.jpeg" alt="Captura de WhatsApp con el mensaje del cliente" loading="lazy"></div>
+          </details>
+        </figure></div>
+
+        <div class="offset-frame offset-frame--hover offset-frame--tight" data-reveal><figure class="testimonial-card">
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>Perfecto. Capa. Me encantó cómo quedó.</blockquote>
+          <figcaption class="testimonial-meta">Cliente · WhatsApp</figcaption>
+          <details class="proof">
+            <summary>Ver captura</summary>
+            <div class="proof-shot"><img src="assets/testimonios/05.jpeg" alt="Captura de WhatsApp con el mensaje del cliente" loading="lazy"></div>
+          </details>
+        </figure></div>
+
+        <div class="offset-frame offset-frame--hover offset-frame--tight" data-reveal><figure class="testimonial-card">
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>Gracias Dai. Espectacular tu trabajo.</blockquote>
+          <figcaption class="testimonial-meta">Cliente · WhatsApp</figcaption>
+          <details class="proof">
+            <summary>Ver captura</summary>
+            <div class="proof-shot"><img src="assets/testimonios/02.jpeg" alt="Captura de WhatsApp con el mensaje del cliente" loading="lazy"></div>
+          </details>
+        </figure></div>
+
+        <div class="offset-frame offset-frame--hover offset-frame--tight" data-reveal><figure class="testimonial-card">
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>Impresionante, me encanta.</blockquote>
+          <figcaption class="testimonial-meta">Cliente · WhatsApp</figcaption>
+          <details class="proof">
+            <summary>Ver captura</summary>
+            <div class="proof-shot"><img src="assets/testimonios/04.jpeg" alt="Captura de WhatsApp con el mensaje del cliente" loading="lazy"></div>
+          </details>
+        </figure></div>
+
+        <div class="offset-frame offset-frame--hover offset-frame--tight" data-reveal><figure class="testimonial-card">
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>Espectacular, me encantó.</blockquote>
+          <figcaption class="testimonial-meta">Cliente · WhatsApp</figcaption>
+          <details class="proof">
+            <summary>Ver captura</summary>
+            <div class="proof-shot"><img src="assets/testimonios/06.jpeg" alt="Captura de WhatsApp con el mensaje del cliente" loading="lazy"></div>
+          </details>
+        </figure></div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- SERVICIOS -->
-  <section class="section" id="servicios">
+  <section class="section section--card" id="servicios">
     <div class="wrap services-grid">
       <div class="sec-head" style="margin-bottom:0">
         <span class="eyebrow" data-reveal>Servicios</span>
@@ -950,91 +1077,6 @@ section[id]{ scroll-margin-top: 96px; }
     </div>
   </section>
 
-  <!-- DECLARACIÓN — el desglose en cuatro pasos se retiró; queda la frase que lo resume -->
-  <section class="section section--card statement" id="proceso">
-    <div class="wrap">
-      <div class="statement-rule" id="statement-rule" aria-hidden="true"><span></span></div>
-      <p class="statement-text">
-        <span class="reveal-mask" data-reveal><span>Los videos que generan resultados <em>no se improvisan.</em></span></span>
-        <span class="reveal-mask" data-reveal><span>Se construyen sobre <em>una estrategia clara.</em></span></span>
-      </p>
-    </div>
-  </section>
-
-  <!-- TESTIMONIOS -->
-  <section class="section" id="testimonios">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="eyebrow" data-reveal>Testimonios</span>
-        <h2 class="h2" data-reveal><span>Lo que dicen <em>mis clientes</em></span></h2>
-        <p class="lede" data-reveal>Mensajes textuales de clientes. Podés abrir la captura original de cada uno.</p>
-      </div>
-      <div class="testimonial-grid">
-
-        <figure class="testimonial-card" data-reveal>
-          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
-          <blockquote>Tranqui Dai, no te preocupes, quedó muy muy lindo. Me encantó. Sigamos adelante.</blockquote>
-          <figcaption class="testimonial-meta">Cliente · WhatsApp</figcaption>
-          <details class="proof">
-            <summary>Ver captura</summary>
-            <div class="proof-shot"><img src="assets/testimonios/01.jpeg" alt="Captura de WhatsApp con el mensaje del cliente" loading="lazy"></div>
-          </details>
-        </figure>
-
-        <figure class="testimonial-card" data-reveal>
-          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
-          <blockquote>Ahí revisamos los 6 videos de Kika y están increíbles… nos encantó. Ves que sos una capa total.</blockquote>
-          <figcaption class="testimonial-meta">Cliente · WhatsApp</figcaption>
-          <details class="proof">
-            <summary>Ver captura</summary>
-            <div class="proof-shot"><img src="assets/testimonios/03.jpeg" alt="Captura de WhatsApp con el mensaje del cliente" loading="lazy"></div>
-          </details>
-        </figure>
-
-        <figure class="testimonial-card" data-reveal>
-          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
-          <blockquote>Perfecto. Capa. Me encantó cómo quedó.</blockquote>
-          <figcaption class="testimonial-meta">Cliente · WhatsApp</figcaption>
-          <details class="proof">
-            <summary>Ver captura</summary>
-            <div class="proof-shot"><img src="assets/testimonios/05.jpeg" alt="Captura de WhatsApp con el mensaje del cliente" loading="lazy"></div>
-          </details>
-        </figure>
-
-        <figure class="testimonial-card" data-reveal>
-          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
-          <blockquote>Gracias Dai. Espectacular tu trabajo.</blockquote>
-          <figcaption class="testimonial-meta">Cliente · WhatsApp</figcaption>
-          <details class="proof">
-            <summary>Ver captura</summary>
-            <div class="proof-shot"><img src="assets/testimonios/02.jpeg" alt="Captura de WhatsApp con el mensaje del cliente" loading="lazy"></div>
-          </details>
-        </figure>
-
-        <figure class="testimonial-card" data-reveal>
-          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
-          <blockquote>Impresionante, me encanta.</blockquote>
-          <figcaption class="testimonial-meta">Cliente · WhatsApp</figcaption>
-          <details class="proof">
-            <summary>Ver captura</summary>
-            <div class="proof-shot"><img src="assets/testimonios/04.jpeg" alt="Captura de WhatsApp con el mensaje del cliente" loading="lazy"></div>
-          </details>
-        </figure>
-
-        <figure class="testimonial-card" data-reveal>
-          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
-          <blockquote>Espectacular, me encantó.</blockquote>
-          <figcaption class="testimonial-meta">Cliente · WhatsApp</figcaption>
-          <details class="proof">
-            <summary>Ver captura</summary>
-            <div class="proof-shot"><img src="assets/testimonios/06.jpeg" alt="Captura de WhatsApp con el mensaje del cliente" loading="lazy"></div>
-          </details>
-        </figure>
-
-      </div>
-    </div>
-  </section>
-
   <hr class="stripe" aria-hidden="true">
 
   <!-- SOBRE MÍ -->
@@ -1045,7 +1087,7 @@ section[id]{ scroll-margin-top: 96px; }
         <h2 class="h2" data-reveal><span>Dai Sosa</span></h2>
       </div>
       <div class="about-grid">
-        <div class="about-photo-col" data-reveal data-parallax="-0.05">
+        <div class="about-photo-col offset-frame offset-frame--mustard offset-frame--up" data-reveal data-parallax="-0.05">
           <div class="about-photo"><img src="assets/foto/dai.jpeg" alt="Retrato de Dai Sosa" loading="lazy"></div>
         </div>
         <div data-reveal>
@@ -1075,7 +1117,8 @@ section[id]{ scroll-margin-top: 96px; }
         </div>
       </div>
 
-      <form class="form" id="contact-form" novalidate data-reveal>
+      <div class="offset-frame" data-reveal>
+      <form class="form" id="contact-form" novalidate>
         <div class="field">
           <label for="f-nombre">Nombre</label>
           <input id="f-nombre" name="nombre" type="text" required autocomplete="name" placeholder="Tu nombre" aria-describedby="e-nombre">
@@ -1098,9 +1141,9 @@ section[id]{ scroll-margin-top: 96px; }
         <button type="submit" class="btn btn--dark" data-magnetic>Enviar mensaje</button>
         <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
       </form>
+      </div>
     </div>
   </section>
-
 </main>
 
 <footer class="site-footer">
@@ -1404,28 +1447,6 @@ section[id]{ scroll-margin-top: 96px; }
     }), YT_ORIGIN);
     return unmuted;
   };
-
-  /* ---------- video del hero ---------- */
-  const heroMedia = document.querySelector('[data-hero-media]');
-  if (heroMedia) {
-    const btn = heroMedia.querySelector('.carousel-item-btn');
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) mountPreview(heroMedia);
-          else unmountPreview(heroMedia);
-        });
-      }, { threshold: 0.25 }).observe(heroMedia);
-    } else {
-      mountPreview(heroMedia);
-    }
-    if (btn) {
-      btn.addEventListener('click', () => {
-        const unmuted = toggleSound(heroMedia);
-        btn.setAttribute('aria-label', unmuted ? 'Silenciar el video' : 'Activar el sonido del video');
-      });
-    }
-  }
 
   /* ---------- carril infinito: clona el set antes/después y reubica en silencio al cruzar ---------- */
   const makeInfiniteTrack = (track, onActiveChange) => {

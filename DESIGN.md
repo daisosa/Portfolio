@@ -97,12 +97,16 @@ testimonios siguen siendo cita textual con la captura plegada como prueba, y el 
 unificado con indicador `+` / `−`.
 
 **Key Characteristics:**
-- **Ritmo de superficies:** crema → terracota → tinta → crema → crema-card → crema → terracota →
-  tinta. Ninguna sección contigua repite fondo; el cambio de superficie es la puntuación del sitio.
-  La banda de declaración (`.statement`) va en crema-card justamente por eso: queda entre servicios
-  y testimonios, que son crema.
+- **Ritmo de superficies:** crema → crema → tinta → terracota → crema → crema-card → terracota →
+  crema → tinta. Ninguna sección contigua repite fondo; el cambio de superficie es la puntuación
+  del sitio. Cuando se mueve o se elimina una sección hay que rebalancear los fondos: al retirarse
+  "Para quién trabajo" (terracota), la banda de declaración tomó ese color para que el sitio no
+  quedara con un solo momento saturado antes del footer.
 - **La sección de trabajo es oscura ("sala de cine"):** los Shorts verticales sobre `--ink` con
   sombra profunda. Es la única forma de que un video vertical se lea como pieza y no como recuadro.
+- **El hero no muestra video:** lleva una composición de motion graphics en SVG inline (anillos que
+  giran, glifo de reproducción latiendo, línea de tiempo con cabezal). Sin assets ni peticiones, y
+  escala sin perder nitidez. El trabajo real se ve en su sección, no en la portada.
 - **Serif de énfasis:** Instrument Serif itálica aparece sólo dentro de un titular, en la frase que
   carga el significado — nunca un titular entero, nunca texto corrido.
 - **Coreografía de scroll** en un único orquestador rAF: barra de progreso, parallax de medios y
@@ -194,7 +198,13 @@ Todo lo de abajo se neutraliza bajo `prefers-reduced-motion: reduce` por el rese
 - **Regla de la declaración:** `--fill` va de 0 a 1 según el avance de la banda por la pantalla, y
   traza la regla que corona la frase. Es el mismo mecanismo que llenaba la línea del proceso, que se
   retiró junto con el desglose en cuatro pasos.
-- **Marquee de marcas:** animación CSS pura de 46s, en pausa al pasar el cursor.
+- **Marquee de marcas:** animación CSS pura de 46s, en pausa al pasar el cursor. Cada logo va en
+  una caja `--cream-card` de 150×56, en escala de grises al 60%; **el color aparece sólo en el que
+  el cursor señala**. Normalizarlos en reposo es lo que evita que catorce identidades ajenas
+  compitan entre sí y con el contenido.
+- **Motion graphics del hero:** anillos con `mgSpin`, glifo con `mgPulse`, resplandor con `mgDrift`,
+  cabezal con `mgSweep` y clips encendiéndose por turno con `mgClip`. Todo dentro de
+  `@media (prefers-reduced-motion: no-preference)`.
 - **Botones magnéticos** (`[data-magnetic]`): sólo con puntero fino.
 
 **Un solo listener de scroll.** Progreso, parallax y regla de la declaración se calculan juntos dentro de
@@ -204,8 +214,13 @@ un `requestAnimationFrame`. Tres listeners separados dispararían tres reflows p
 
 Dos niveles cálidos (`--shadow`, `--shadow-lg`): la sombra tiene la temperatura del papel
 (`rgba(78,44,24,…)`), nunca gris neutro. Además, dos recursos de profundidad sin sombra:
-- **Marco desplazado:** un borde de 1.5px corrido en diagonal detrás del video del hero (terracota)
-  y de la foto de "Sobre mí" (mostaza).
+- **Marco desplazado (`.offset-frame`):** un borde de 1.5px corrido en diagonal por detrás del
+  elemento. Es una utilidad con tres variables (`--of-inset`, `--of-color`, `--of-opacity`) y tres
+  modificadores (`--mustard`, `--up` para espejarlo, `--tight` para acercarlo). Lo llevan la pieza
+  de motion graphics del hero, el formulario de contacto, la foto de "Sobre mí" y —sólo al pasar el
+  cursor— las tarjetas de testimonio.
+  **Requiere un contenedor con un hijo opaco:** el marco se pinta sobre el fondo del propio elemento
+  si se aplica directo sobre él, y asoma por los huecos si el contenido es una grilla con `gap`.
 - **Numeral fantasma:** la cifra de cada métrica repetida en serif enorme al 7% de opacidad.
 - **Textura de motas** al 5% sobre las superficies saturadas — el papel del sistema original, sin la
   metáfora literal del corcho.

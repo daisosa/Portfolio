@@ -6,19 +6,18 @@ Es un sitio estático de una sola página (`index.html`), sin dependencias ni bu
 
 ## Contenido del sitio
 
-- Hero con video de portada
+- Hero con una pieza de motion graphics
 - Marcas y métricas
-- Para quién trabajo
 - Trabajo (Mis ediciones / Mis guiones)
-- Servicios (acordeón)
-- Proceso
+- Declaración
 - Testimonios
+- Servicios (acordeón)
 - Sobre mí
 - Contacto y footer
 
 ## Cómo editar el contenido
 
-- **Videos**: cada pieza de los carruseles es un `<li class="carousel-item">` con `data-id` (el ID del Short de YouTube) y `data-video` (la URL completa). El video del hero usa los mismos atributos en `[data-hero-media]`.
+- **Videos**: cada pieza de los carruseles es un `<li class="carousel-item">` con `data-id` (el ID del Short de YouTube) y `data-video` (la URL completa).
 - **Testimonios**: la cita es la transcripción literal de la captura que está en `assets/testimonios/`. Si cambiás una, tiene que seguir coincidiendo con la imagen.
 - **Redes sociales**: el bloque de Instagram y LinkedIn del footer está escrito y comentado en `index.html` — descomentalo y completá las URLs.
 
