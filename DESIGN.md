@@ -104,9 +104,11 @@ unificado con indicador `+` / `−`.
   quedara con un solo momento saturado antes del footer.
 - **La sección de trabajo es oscura ("sala de cine"):** los Shorts verticales sobre `--ink` con
   sombra profunda. Es la única forma de que un video vertical se lea como pieza y no como recuadro.
-- **El hero no muestra video:** lleva una composición de motion graphics en SVG inline (anillos que
-  giran, glifo de reproducción latiendo, línea de tiempo con cabezal). Sin assets ni peticiones, y
-  escala sin perder nitidez. El trabajo real se ve en su sección, no en la portada.
+- **El hero no muestra video: la composición de motion graphics ES su fondo.** Una capa a sangre
+  (`.hero-bg`) ocupa toda la sección por detrás del texto — resplandor cálido y anillos girando a
+  la derecha, línea de tiempo cruzando el ancho completo con su cabezal barriendo los clips. SVG
+  inline con `preserveAspectRatio="xMidYMid slice"`: sin assets, sin peticiones, nítido a cualquier
+  tamaño. El trabajo real se ve en su sección, no en la portada.
 - **Serif de énfasis:** Instrument Serif itálica aparece sólo dentro de un titular, en la frase que
   carga el significado — nunca un titular entero, nunca texto corrido.
 - **Coreografía de scroll** en un único orquestador rAF: barra de progreso, parallax de medios y
@@ -204,7 +206,18 @@ Todo lo de abajo se neutraliza bajo `prefers-reduced-motion: reduce` por el rese
   compitan entre sí y con el contenido.
 - **Motion graphics del hero:** anillos con `mgSpin`, glifo con `mgPulse`, resplandor con `mgDrift`,
   cabezal con `mgSweep` y clips encendiéndose por turno con `mgClip`. Todo dentro de
-  `@media (prefers-reduced-motion: no-preference)`.
+  `@media (prefers-reduced-motion: no-preference)`. La capa entera además deriva con el scroll
+  (`data-parallax="-0.04"`); el SVG se dibuja 96px más alto que su caja y arranca desplazado hacia
+  arriba, para que la deriva nunca deje ver su borde.
+
+**Reglas de la capa de fondo del hero.** Como el titular se apoya encima:
+1. Formas de **trazo**, no rellenos: un triángulo o un bloque sólido detrás de texto ensucia.
+2. Opacidad de capa contenida (`.55`, y `.38` por debajo de 900px, donde el recorte acerca los
+   anillos al texto).
+3. Máscara vertical que la desvanece contra los bordes de la sección.
+4. Nada de la composición puede caer detrás del bloque de texto: los anillos van a la derecha y la
+   línea de tiempo por debajo del último renglón. Una fila de fotogramas que quedaba detrás del
+   titular se retiró justamente por esto.
 - **Botones magnéticos** (`[data-magnetic]`): sólo con puntero fino.
 
 **Un solo listener de scroll.** Progreso, parallax y regla de la declaración se calculan juntos dentro de

@@ -280,28 +280,27 @@ section[id]{ scroll-margin-top: 96px; }
 /* ==========================================================================
    HERO
    ========================================================================== */
-.hero{ position:relative; padding: clamp(44px,6vw,88px) 0 clamp(56px,8vw,104px); overflow:hidden; }
-/* halo cálido detrás del titular — profundidad sin ensuciar el texto */
-.hero::after{
-  content:''; position:absolute; z-index:0; top:-16%; right:-8%; width:min(780px,72vw); aspect-ratio:1;
-  background: radial-gradient(circle, rgba(232,179,61,.22) 0%, rgba(156,59,32,.10) 42%, transparent 68%);
-  pointer-events:none;
+.hero{
+  position:relative; overflow:hidden;
+  display:flex; align-items:center;
+  min-height: clamp(560px, 78vh, 780px);
+  padding: clamp(48px,6vw,88px) 0 clamp(104px,12vw,168px);
 }
-.hero-grid{
-  position:relative; z-index:1;
-  display:grid; grid-template-columns: minmax(0,330px) minmax(0,1fr);
-  gap: clamp(28px,5vw,72px); align-items:center;
+.hero-inner{ position:relative; z-index:1; width:100%; }
+
+/* ---------- pieza de motion graphics ----------
+   Es el fondo de TODO el hero, no un panel al costado: anillos girando a la derecha, el glifo de
+   reproducción latiendo, un resplandor cálido y una línea de tiempo que cruza el ancho completo
+   con su cabezal barriendo los clips. SVG inline: sin assets, sin peticiones, nítido a cualquier
+   tamaño. Como el titular se apoya encima, la legibilidad manda: formas de trazo en vez de
+   rellenos, opacidad contenida y una máscara que la desvanece contra los bordes de la sección. */
+.hero-bg{
+  position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+  opacity:.55;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 12%, #000 90%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 12%, #000 90%, transparent);
 }
-/* ---------- pieza de motion graphics del hero ----------
-   Reemplaza al video de portada: una composición abstracta que dice "video en construcción"
-   — anillos que giran, el glifo de reproducción latiendo y una línea de tiempo con su cabezal
-   barriendo los clips. Todo en SVG inline: sin assets, sin peticiones y escala sin perder nitidez. */
-.hero-visual{
-  width:100%; aspect-ratio:3/4; border-radius: var(--r-lg); overflow:hidden;
-  background: linear-gradient(158deg, var(--cream-card), var(--surface) 62%, var(--cream));
-  box-shadow: var(--shadow-lg);
-}
-.hero-visual svg{ width:100%; height:100%; display:block; }
+.hero-bg svg{ position:absolute; left:0; top:-48px; width:100%; height:calc(100% + 96px); display:block; }
 
 @media (prefers-reduced-motion: no-preference){
   .mg-spin{ transform-box: fill-box; transform-origin:center; animation: mgSpin 52s linear infinite; }
@@ -310,15 +309,19 @@ section[id]{ scroll-margin-top: 96px; }
   .mg-play{ transform-box: fill-box; transform-origin:center; animation: mgPulse 3.6s var(--ease) infinite; }
   .mg-head{ animation: mgSweep 7s var(--ease) infinite; }
   .mg-clip{ animation: mgClip 7s var(--ease) infinite; }
-  .mg-clip:nth-of-type(2){ animation-delay:.9s; }
-  .mg-clip:nth-of-type(3){ animation-delay:1.8s; }
-  .mg-clip:nth-of-type(4){ animation-delay:2.7s; }
-  .mg-clip:nth-of-type(5){ animation-delay:3.6s; }
+  .mg-clip:nth-of-type(2){ animation-delay:.7s; }
+  .mg-clip:nth-of-type(3){ animation-delay:1.4s; }
+  .mg-clip:nth-of-type(4){ animation-delay:2.1s; }
+  .mg-clip:nth-of-type(5){ animation-delay:2.8s; }
+  .mg-clip:nth-of-type(6){ animation-delay:3.5s; }
+  .mg-clip:nth-of-type(7){ animation-delay:4.2s; }
+  .mg-clip:nth-of-type(8){ animation-delay:4.9s; }
+  .mg-clip:nth-of-type(9){ animation-delay:5.6s; }
 
   @keyframes mgSpin{ to{ transform: rotate(360deg); } }
   @keyframes mgDrift{ from{ transform: translate(-10px,-14px) scale(1); } to{ transform: translate(14px,10px) scale(1.1); } }
   @keyframes mgPulse{ 0%,100%{ transform: scale(1); opacity:1; } 50%{ transform: scale(1.07); opacity:.86; } }
-  @keyframes mgSweep{ 0%{ transform: translateX(0); } 100%{ transform: translateX(212px); } }
+  @keyframes mgSweep{ 0%{ transform: translateX(0); } 100%{ transform: translateX(1280px); } }
   @keyframes mgClip{ 0%,100%{ opacity:.32; } 22%{ opacity:.95; } }
 }
 
@@ -328,6 +331,7 @@ section[id]{ scroll-margin-top: 96px; }
 }
 /* la frase de énfasis rompe la caja alta: serif itálico, en minúscula, terracota */
 .hero-title em{ text-transform:none; font-size:1.06em; }
+.hero-title{ max-width:19ch; }
 .hero-lede{ margin-top:26px; font-size: clamp(15.5px,1.55vw,17.5px); line-height:1.65; color: var(--ink-2); max-width:52ch; }
 .hero-lede strong{ color: var(--ink); font-weight:600; }
 .hero-actions{ margin-top:34px; display:flex; flex-wrap:wrap; gap:12px; }
@@ -692,8 +696,9 @@ section[id]{ scroll-margin-top: 96px; }
   .testimonial-grid{ grid-template-columns: repeat(2,1fr); }
 }
 @media (max-width: 900px){
-  .hero-grid{ grid-template-columns:1fr; gap:36px; }
-  .hero-visual{ max-width:300px; margin-inline:auto; }
+  .hero{ min-height:auto; }
+  .hero-bg{ opacity:.38; }
+  .hero-title{ max-width:none; }
   .about-grid{ grid-template-columns:1fr; }
   .about-photo-col{ max-width:300px; }
 }
@@ -761,51 +766,50 @@ section[id]{ scroll-margin-top: 96px; }
 <main>
   <!-- HERO -->
   <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-anim offset-frame" data-parallax="-0.06">
-        <div class="hero-visual">
-          <svg viewBox="0 0 300 400" role="img" aria-label="Composición animada: anillos girando alrededor de un símbolo de reproducción, sobre una línea de tiempo de edición">
-            <defs>
-              <radialGradient id="mg-glow-grad">
-                <stop offset="0%" stop-color="#E8B33D" stop-opacity=".55"/>
-                <stop offset="60%" stop-color="#9C3B20" stop-opacity=".18"/>
-                <stop offset="100%" stop-color="#9C3B20" stop-opacity="0"/>
-              </radialGradient>
-            </defs>
+    <div class="hero-bg" aria-hidden="true">
+      <svg viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" focusable="false" data-parallax="-0.04">
+        <defs>
+          <radialGradient id="mg-glow-grad">
+            <stop offset="0%" stop-color="#E8B33D" stop-opacity=".62"/>
+            <stop offset="55%" stop-color="#9C3B20" stop-opacity=".22"/>
+            <stop offset="100%" stop-color="#9C3B20" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
 
-            <circle class="mg-glow" cx="150" cy="150" r="112" fill="url(#mg-glow-grad)"/>
+        <circle class="mg-glow" cx="1060" cy="300" r="380" fill="url(#mg-glow-grad)"/>
 
-            <circle class="mg-spin" cx="150" cy="150" r="88" fill="none"
-                    stroke="#9C3B20" stroke-width="1.5" stroke-dasharray="7 11" opacity=".7"/>
-            <circle class="mg-spin mg-spin--rev" cx="150" cy="150" r="64" fill="none"
-                    stroke="#E8B33D" stroke-width="1.5" stroke-dasharray="2 13" opacity=".9"/>
-            <circle cx="150" cy="150" r="42" fill="none" stroke="#9C3B20" stroke-width="1" opacity=".28"/>
+        <!-- núcleo de anillos, anclado a la derecha para no pisar el titular -->
+        <g>
+          <circle class="mg-spin" cx="1060" cy="300" r="238" fill="none"
+                  stroke="#9C3B20" stroke-width="1.5" stroke-dasharray="10 16" opacity=".62"/>
+          <circle class="mg-spin mg-spin--rev" cx="1060" cy="300" r="172" fill="none"
+                  stroke="#E8B33D" stroke-width="1.5" stroke-dasharray="3 18" opacity=".85"/>
+          <circle cx="1060" cy="300" r="112" fill="none" stroke="#9C3B20" stroke-width="1" opacity=".3"/>
+          <path class="mg-play" d="M1042 268l52 32-52 32z" fill="none" stroke="#9C3B20" stroke-width="2" stroke-linejoin="round" opacity=".55"/>
+        </g>
 
-            <path class="mg-play" d="M139 133l30 17-30 17z" fill="#9C3B20"/>
+        <!-- línea de tiempo: cruza el ancho completo, por debajo del bloque de texto -->
+        <g>
+          <line x1="0" y1="712" x2="1440" y2="712" stroke="#241A13" stroke-width="1" opacity=".14"/>
+          <rect class="mg-clip" x="80"   y="698" width="126" height="10" rx="5" fill="#9C3B20"/>
+          <rect class="mg-clip" x="222"  y="698" width="74"  height="10" rx="5" fill="#E8B33D"/>
+          <rect class="mg-clip" x="312"  y="698" width="182" height="10" rx="5" fill="#9C3B20"/>
+          <rect class="mg-clip" x="510"  y="698" width="62"  height="10" rx="5" fill="#AFCBDD"/>
+          <rect class="mg-clip" x="588"  y="698" width="148" height="10" rx="5" fill="#9C3B20"/>
+          <rect class="mg-clip" x="752"  y="698" width="96"  height="10" rx="5" fill="#E8B33D"/>
+          <rect class="mg-clip" x="864"  y="698" width="210" height="10" rx="5" fill="#9C3B20"/>
+          <rect class="mg-clip" x="1090" y="698" width="88"  height="10" rx="5" fill="#AFCBDD"/>
+          <rect class="mg-clip" x="1194" y="698" width="166" height="10" rx="5" fill="#9C3B20"/>
+          <g class="mg-head">
+            <line x1="80" y1="670" x2="80" y2="754" stroke="#6E2814" stroke-width="2"/>
+            <circle cx="80" cy="666" r="5" fill="#6E2814"/>
+          </g>
+        </g>
 
-            <!-- línea de tiempo: los clips se encienden por turno y el cabezal los barre -->
-            <g opacity=".9">
-              <line x1="44" y1="300" x2="256" y2="300" stroke="#241A13" stroke-width="1" opacity=".16"/>
-              <rect class="mg-clip" x="44"  y="286" width="42" height="9" rx="4.5" fill="#9C3B20"/>
-              <rect class="mg-clip" x="92"  y="286" width="28" height="9" rx="4.5" fill="#E8B33D"/>
-              <rect class="mg-clip" x="126" y="286" width="54" height="9" rx="4.5" fill="#9C3B20"/>
-              <rect class="mg-clip" x="186" y="286" width="24" height="9" rx="4.5" fill="#AFCBDD"/>
-              <rect class="mg-clip" x="216" y="286" width="40" height="9" rx="4.5" fill="#9C3B20"/>
-              <g class="mg-head">
-                <line x1="44" y1="272" x2="44" y2="316" stroke="#6E2814" stroke-width="2"/>
-                <circle cx="44" cy="270" r="4" fill="#6E2814"/>
-              </g>
-            </g>
+      </svg>
+    </div>
 
-            <g opacity=".22" fill="none" stroke="#241A13" stroke-width="1">
-              <rect x="85"  y="340" width="38" height="26" rx="4"/>
-              <rect x="131" y="340" width="38" height="26" rx="4"/>
-              <rect x="177" y="340" width="38" height="26" rx="4"/>
-            </g>
-          </svg>
-        </div>
-      </div>
-
+    <div class="wrap hero-inner">
       <div class="hero-copy">
         <h1 class="hero-title hero-anim">Estrategia, guion y <em>edición de video</em> para marcas y creadores.</h1>
         <p class="hero-lede hero-anim">Te ayudo a hacer videos que conectan con tu audiencia. Soy <strong>Dai Sosa</strong>: hace más de cuatro años trabajo con agencias, marcas y creadores — entre ellos Brahma, Café Martínez y Bulldog.</p>
