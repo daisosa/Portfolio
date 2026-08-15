@@ -26,7 +26,7 @@ El tono debe ser profesional, cercano y difícil de ignorar ("un-ignorable"). De
 
 Portfolio freelance de Daiana "Dai" Sosa para conseguir clientes de estrategia y creación de contenido.
 
-El mensaje central es directo y verificable: Dai hace estrategia de contenido, guiones y edición de video para marcas y creadores, con más de cuatro años de trabajo y clientes reales detrás. La propuesta de valor se enuncia en el titular; el diagnóstico, la línea editorial y la optimización aparecen como el método (sección Proceso), no como el gancho.
+El mensaje central es directo y verificable: Dai hace estrategia de contenido, guiones y edición de video para marcas y creadores, con más de cuatro años de trabajo y clientes reales detrás. La propuesta de valor se enuncia en el titular y se resume en una línea: "Te ayudo a hacer videos que conectan con tu audiencia".
 
 Se descartó el mensaje anterior ("nunca fue tan fácil crear contenido, nunca fue tan difícil destacar") por genérico: no decía qué hace Dai, para quién ni cómo, y es una construcción intercambiable con la de cualquier otro perfil del rubro.
 
@@ -34,18 +34,18 @@ Se descartó el mensaje anterior ("nunca fue tan fácil crear contenido, nunca f
 
 El contenido se trata como un sistema con propósito (diagnóstico + línea editorial + producción), no como piezas o decisiones de publicación aisladas.
 
-Cuatro líneas de servicio ofrecidas:
+Cuatro líneas de servicio ofrecidas, en el orden en que se listan en el sitio (definido por Dai):
 
-- Estrategia de contenido.
-- Guiones.
 - Edición.
+- Guiones.
+- Estrategia de contenido.
 - Acompañamiento creativo continuo.
 
 ## Operating Context
 
 - Freelance solista, sin equipo fijo. Modalidad principal: por proyecto.
 - Una de las cuatro líneas de servicio ("Acompañamiento creativo") es seguimiento mensual continuo; coexiste con la modalidad principal por proyecto.
-- Proceso de trabajo declarado en el sitio: Diagnosticar → Pensar → Escribir → Optimizar.
+- El desglose del proceso en cuatro pasos (Diagnosticar → Pensar → Escribir → Optimizar) se retiró del sitio. En su lugar quedó una sola declaración: "Los videos que generan resultados no se improvisan. Se construyen sobre una estrategia clara". El método se sigue explicando en la conversación con el cliente, no en la página.
 - Ubicada en Buenos Aires, Argentina.
 - Vías de contacto: formulario del sitio, email y WhatsApp (+54 9 11 3504-6576).
 - El footer no incluye enlaces de Instagram o LinkedIn (pendiente de definir). El bloque está escrito y comentado en `index.html`: sólo hay que descomentarlo y completar las URLs.
@@ -81,7 +81,7 @@ Cuatro líneas de servicio ofrecidas:
   - Timeleft
   - Tumm
 - Testimonios: 6 capturas reales de clientes en `assets/testimonios/01.jpeg`–`06.jpeg`. En el sitio se muestran como cita textual (transcripción literal de la captura, sin nombre porque las capturas no lo exponen) con la captura original disponible en un `<details>` plegado. Ninguna cita puede editarse para "mejorarla": el texto tiene que coincidir con la captura.
-- Los 12 videos de los carruseles (Mis ediciones / Mis guiones) son Shorts de YouTube reales; se cambian reemplazando `data-id` y `data-video` en cada `<li class="carousel-item">` — no se suben archivos de video al repo (límite de tamaño de GitHub). El video del hero usa el mismo mecanismo (`[data-hero-media]`).
+- Los 18 videos de los carruseles (Mis ediciones / Mis guiones) son Shorts de YouTube reales; se cambian reemplazando `data-id` y `data-video` en cada `<li class="carousel-item">` — no se suben archivos de video al repo (límite de tamaño de GitHub). El video del hero usa el mismo mecanismo (`[data-hero-media]`).
 - Email de contacto: `mambocreativook@gmail.com`.
 
 ## Product Principles

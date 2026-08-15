@@ -196,11 +196,13 @@ section[id]{ scroll-margin-top: 96px; }
 [data-reveal].is-in{ opacity:1; transform:none; }
 
 /* revelado de titular: la línea sube desde detrás de una máscara */
-.h2[data-reveal], .carousel-group-title[data-reveal]{ opacity:1; transform:none; overflow:hidden; padding-bottom:.1em; }
-.h2[data-reveal] > span, .carousel-group-title[data-reveal] > span{
+.h2[data-reveal], .carousel-group-title[data-reveal], .reveal-mask[data-reveal]{
+  display:block; opacity:1; transform:none; overflow:hidden; padding-bottom:.1em;
+}
+.h2[data-reveal] > span, .carousel-group-title[data-reveal] > span, .reveal-mask[data-reveal] > span{
   display:block; transform: translateY(110%); transition: transform .95s var(--ease);
 }
-.h2[data-reveal].is-in > span, .carousel-group-title[data-reveal].is-in > span{ transform:none; }
+.h2[data-reveal].is-in > span, .carousel-group-title[data-reveal].is-in > span, .reveal-mask[data-reveal].is-in > span{ transform:none; }
 
 /* medios con parallax — el desplazamiento lo escribe el orquestador de scroll en --py */
 [data-parallax]{ will-change: transform; }
@@ -502,20 +504,25 @@ section[id]{ scroll-margin-top: 96px; }
 }
 
 /* ==========================================================================
-   PROCESO — la línea se llena al scrollear
+   DECLARACIÓN — una sola frase a tamaño de titular, con la regla que se dibuja
    ========================================================================== */
-.process-rail{ position:relative; margin-bottom:34px; height:2px; background: var(--line); border-radius:2px; }
-.process-rail span{
-  position:absolute; inset:0; background: linear-gradient(90deg, var(--terracota), var(--mustard));
-  transform-origin:0 50%; transform: scaleX(var(--fill,0)); border-radius:2px;
+.statement{ text-align:center; }
+/* la regla se traza a medida que la banda cruza la pantalla: el mismo mecanismo que llenaba la
+   línea del proceso, ahora sosteniendo la frase que lo reemplazó */
+.statement-rule{
+  position:relative; width:min(180px,40vw); height:2px; margin:0 auto clamp(28px,3.5vw,44px);
+  background: var(--line); border-radius:2px; overflow:hidden;
 }
-.process-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap: clamp(18px,2.4vw,30px); }
-.process-num{
-  width:40px; height:40px; border-radius:50%; background: var(--terracota); color: var(--cream);
-  display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700;
+.statement-rule span{
+  position:absolute; inset:0; border-radius:2px;
+  background: linear-gradient(90deg, var(--terracota), var(--mustard));
+  transform-origin:0 50%; transform: scaleX(var(--fill,0));
 }
-.process-step h3{ margin-top:18px; font-size:20px; font-weight:700; letter-spacing:-.015em; }
-.process-step p{ margin-top:10px; font-size:14px; line-height:1.6; color: var(--ink-2); }
+.statement-text{
+  font-size: clamp(1.45rem,3.6vw,2.9rem); font-weight:700; letter-spacing:-.028em; line-height:1.24;
+  max-width:24ch; margin-inline:auto; text-wrap:balance;
+}
+.statement-text em{ font-family: var(--serif); font-style:italic; font-weight:400; color: var(--terracota); }
 
 /* ==========================================================================
    TESTIMONIOS
@@ -635,7 +642,6 @@ section[id]{ scroll-margin-top: 96px; }
 @media (max-width: 1100px){
   .services-grid{ grid-template-columns:1fr; }
   .contact-grid{ grid-template-columns:1fr; }
-  .process-grid{ grid-template-columns: repeat(2,1fr); row-gap: clamp(28px,4vw,40px); }
 }
 @media (max-width: 1000px){
   .work-cols{ grid-template-columns:1fr; }
@@ -668,7 +674,6 @@ section[id]{ scroll-margin-top: 96px; }
   .audience-grid{ grid-template-columns:1fr; }
   .stats{ grid-template-columns:1fr; }
   .testimonial-grid{ grid-template-columns:1fr; }
-  .process-grid{ grid-template-columns:1fr; }
   .carousel{ --item-w: min(72vw,260px); }
   .hero-media-col::before, .about-photo-col::before{ inset:12px -10px -12px 10px; }
   .about-photo-col::before{ inset:-10px 10px 10px -10px; }
@@ -684,7 +689,6 @@ section[id]{ scroll-margin-top: 96px; }
     <symbol id="i-muted" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16.5 9.5l5 5M21.5 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
     <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
     <symbol id="i-work" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
-    <symbol id="i-process" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
     <symbol id="i-services" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="9" cy="7" r="1.6" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="8" cy="17" r="1.6" fill="currentColor" stroke="none"/></symbol>
     <symbol id="i-about" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></symbol>
@@ -701,7 +705,6 @@ section[id]{ scroll-margin-top: 96px; }
     <a href="#top" class="logo-mark">Dai Sosa<em>.</em></a>
     <nav class="site-nav" id="site-nav" aria-label="Principal">
       <a href="#trabajo"><svg aria-hidden="true"><use href="#i-work"/></svg>Trabajo</a>
-      <a href="#proceso"><svg aria-hidden="true"><use href="#i-process"/></svg>Proceso</a>
       <a href="#servicios"><svg aria-hidden="true"><use href="#i-services"/></svg>Servicios</a>
       <a href="#sobre-mi"><svg aria-hidden="true"><use href="#i-about"/></svg>Sobre mí</a>
       <a href="#contacto" class="is-cta"><svg aria-hidden="true"><use href="#i-mail"/></svg>Contacto</a>
@@ -739,10 +742,10 @@ section[id]{ scroll-margin-top: 96px; }
 
       <div class="hero-copy">
         <h1 class="hero-title hero-anim">Estrategia, guion y <em>edición de video</em> para marcas y creadores.</h1>
-        <p class="hero-lede hero-anim">Soy <strong>Dai Sosa</strong>. Hace más de cuatro años convierto ideas en contenido para redes: diagnóstico, línea editorial, guion y edición. Trabajé con Brahma, Café Martínez, Bulldog y +20 marcas más.</p>
+        <p class="hero-lede hero-anim">Te ayudo a hacer videos que conectan con tu audiencia. Soy <strong>Dai Sosa</strong>: hace más de cuatro años trabajo con agencias, marcas y creadores — entre ellos Brahma, Café Martínez y Bulldog.</p>
         <div class="hero-actions hero-anim">
           <a class="btn btn--primary" data-magnetic href="https://wa.me/5491135046576?text=Hola%20Dai%2C%20quiero%20potenciar%20mi%20contenido" target="_blank" rel="noopener">
-            <svg aria-hidden="true"><use href="#i-wa"/></svg>Escribime por WhatsApp
+            <svg aria-hidden="true"><use href="#i-wa"/></svg>Empecemos
           </a>
           <a class="btn btn--ghost" href="#trabajo">Ver mi trabajo</a>
         </div>
@@ -822,20 +825,20 @@ section[id]{ scroll-margin-top: 96px; }
     <div class="wrap">
       <div class="sec-head">
         <span class="eyebrow" data-reveal>Para quién trabajo</span>
-        <h2 class="h2" data-reveal><span>Marcas y creadores que quieren <em>dejar de publicar por publicar.</em></span></h2>
+        <h2 class="h2" data-reveal><span>Trabajo con agencias, marcas y creadores que quieren convertir atención en oportunidades <em>sin perder su autenticidad.</em></span></h2>
       </div>
       <div class="audience-grid">
         <div class="audience-card" data-reveal>
           <span class="audience-num">1</span>
-          <p>Buscás construir una identidad sin perder tu autenticidad.</p>
+          <p>Sentís que estás repitiendo lo que hacen los demás sin un motivo claro.</p>
         </div>
         <div class="audience-card" data-reveal>
           <span class="audience-num">2</span>
-          <p>Necesitás una comunicación más clara y consistente.</p>
+          <p>Te cuesta convertir lo que hacés en contenido que genere interés.</p>
         </div>
         <div class="audience-card" data-reveal>
           <span class="audience-num">3</span>
-          <p>Querés convertir la atención en oportunidades.</p>
+          <p>Tenés material grabado y nunca encontrás el momento para editarlo.</p>
         </div>
       </div>
     </div>
@@ -862,6 +865,9 @@ section[id]{ scroll-margin-top: 96px; }
               <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/WlAQTY7j2o4" data-id="WlAQTY7j2o4"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/WlAQTY7j2o4/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/WlAQTY7j2o4/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/WlAQTY7j2o4" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
               <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/lA9q9CTZcNg" data-id="lA9q9CTZcNg"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/lA9q9CTZcNg/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/lA9q9CTZcNg/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/lA9q9CTZcNg" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
               <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/xa1P5MHByLE" data-id="xa1P5MHByLE"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/xa1P5MHByLE/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/xa1P5MHByLE/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/xa1P5MHByLE" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+              <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/cxVZ5-t7Pk0" data-id="cxVZ5-t7Pk0"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/cxVZ5-t7Pk0/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/cxVZ5-t7Pk0/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/cxVZ5-t7Pk0" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+              <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/aL4YrWkXlRQ" data-id="aL4YrWkXlRQ"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/aL4YrWkXlRQ/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/aL4YrWkXlRQ/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/aL4YrWkXlRQ" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+              <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/Y9B1nJO7OVs" data-id="Y9B1nJO7OVs"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/Y9B1nJO7OVs/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/Y9B1nJO7OVs/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/Y9B1nJO7OVs" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
             </ul>
             <div class="carousel-nav">
               <button class="carousel-arrow" type="button" data-carousel-prev aria-label="Edición anterior"><svg aria-hidden="true"><use href="#i-prev"/></svg></button>
@@ -880,6 +886,9 @@ section[id]{ scroll-margin-top: 96px; }
               <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/3GYmMsOhSWU" data-id="3GYmMsOhSWU"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/3GYmMsOhSWU/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/3GYmMsOhSWU/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/3GYmMsOhSWU" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
               <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/3IHv3ou4Ioc" data-id="3IHv3ou4Ioc"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/3IHv3ou4Ioc/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/3IHv3ou4Ioc/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/3IHv3ou4Ioc" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
               <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/lgXaxunsFDo" data-id="lgXaxunsFDo"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/lgXaxunsFDo/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/lgXaxunsFDo/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/lgXaxunsFDo" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+              <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/S6wVazsZiDU" data-id="S6wVazsZiDU"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/S6wVazsZiDU/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/S6wVazsZiDU/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/S6wVazsZiDU" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+              <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/lI9TtdapOYc" data-id="lI9TtdapOYc"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/lI9TtdapOYc/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/lI9TtdapOYc/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/lI9TtdapOYc" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
+              <li class="carousel-item" data-carousel-item data-video="https://youtube.com/shorts/VC-5e30XhlA" data-id="VC-5e30XhlA"><button class="carousel-item-btn" type="button"><span class="work-slot"><img class="work-poster" alt="" loading="lazy" src="https://i.ytimg.com/vi/VC-5e30XhlA/oardefault.jpg" data-fallback="https://i.ytimg.com/vi/VC-5e30XhlA/hqdefault.jpg"><span class="sound-badge" aria-hidden="true"><svg class="ico-muted" viewBox="0 0 24 24"><use href="#i-muted"/></svg><svg class="ico-sound" viewBox="0 0 24 24"><use href="#i-sound"/></svg></span></span></button><a class="carousel-item-link" href="https://youtube.com/shorts/VC-5e30XhlA" target="_blank" rel="noopener">Ver en YouTube ↗</a></li>
             </ul>
             <div class="carousel-nav">
               <button class="carousel-arrow" type="button" data-carousel-prev aria-label="Guion anterior"><svg aria-hidden="true"><use href="#i-prev"/></svg></button>
@@ -903,14 +912,13 @@ section[id]{ scroll-margin-top: 96px; }
       <div class="acc" data-acc>
         <div class="acc-item is-open">
           <h3><button class="acc-head" type="button" id="acc-1-btn" aria-expanded="true" aria-controls="acc-1">
-            <span class="acc-num">01</span><span class="acc-title">Estrategia de contenido</span><span class="acc-sign" aria-hidden="true"></span>
+            <span class="acc-num">01</span><span class="acc-title">Edición</span><span class="acc-sign" aria-hidden="true"></span>
           </button></h3>
           <div class="acc-panel" id="acc-1" role="region" aria-labelledby="acc-1-btn"><div class="acc-panel-inner"><div class="acc-body">
-            <p>Definimos objetivos, pilares de contenido, tono de comunicación y calendario mensual de publicaciones.</p>
-            <ul class="acc-list"><li>Objetivos</li><li>Tono de marca</li><li>Calendario mensual</li></ul>
+            <p>Edición dinámica para TikTok, Instagram Reels y YouTube Shorts, cuidando el ritmo, la narrativa y la retención.</p>
+            <ul class="acc-list"><li>Color</li><li>Sonido</li><li>Imagen</li></ul>
           </div></div></div>
         </div>
-
         <div class="acc-item">
           <h3><button class="acc-head" type="button" id="acc-2-btn" aria-expanded="false" aria-controls="acc-2">
             <span class="acc-num">02</span><span class="acc-title">Guiones</span><span class="acc-sign" aria-hidden="true"></span>
@@ -920,17 +928,15 @@ section[id]{ scroll-margin-top: 96px; }
             <ul class="acc-list"><li>Ideas</li><li>Estructura</li><li>Mensaje claro</li></ul>
           </div></div></div>
         </div>
-
         <div class="acc-item">
           <h3><button class="acc-head" type="button" id="acc-3-btn" aria-expanded="false" aria-controls="acc-3">
-            <span class="acc-num">03</span><span class="acc-title">Edición</span><span class="acc-sign" aria-hidden="true"></span>
+            <span class="acc-num">03</span><span class="acc-title">Estrategia de contenido</span><span class="acc-sign" aria-hidden="true"></span>
           </button></h3>
           <div class="acc-panel" id="acc-3" role="region" aria-labelledby="acc-3-btn"><div class="acc-panel-inner"><div class="acc-body">
-            <p>Edición dinámica para TikTok, Instagram Reels y YouTube Shorts, cuidando el ritmo, la narrativa y la retención.</p>
-            <ul class="acc-list"><li>Color</li><li>Sonido</li><li>Imagen</li></ul>
+            <p>Definimos objetivos, pilares de contenido, tono de comunicación y calendario mensual de publicaciones.</p>
+            <ul class="acc-list"><li>Objetivos</li><li>Tono de marca</li><li>Calendario mensual</li></ul>
           </div></div></div>
         </div>
-
         <div class="acc-item">
           <h3><button class="acc-head" type="button" id="acc-4-btn" aria-expanded="false" aria-controls="acc-4">
             <span class="acc-num">04</span><span class="acc-title">Acompañamiento creativo</span><span class="acc-sign" aria-hidden="true"></span>
@@ -944,21 +950,14 @@ section[id]{ scroll-margin-top: 96px; }
     </div>
   </section>
 
-  <!-- PROCESO -->
-  <section class="section section--card" id="proceso">
+  <!-- DECLARACIÓN — el desglose en cuatro pasos se retiró; queda la frase que lo resume -->
+  <section class="section section--card statement" id="proceso">
     <div class="wrap">
-      <div class="sec-head">
-        <span class="eyebrow" data-reveal>Proceso</span>
-        <h2 class="h2" data-reveal><span>De la idea a la publicación, <em>en cuatro pasos.</em></span></h2>
-        <p class="lede" data-reveal>Los videos que generan resultados no se improvisan: se construyen sobre una estrategia clara.</p>
-      </div>
-      <div class="process-rail" id="process-rail" aria-hidden="true"><span></span></div>
-      <div class="process-grid">
-        <div class="process-step" data-reveal><span class="process-num">01</span><h3>Diagnosticar</h3><p>Entender y analizar los objetivos.</p></div>
-        <div class="process-step" data-reveal><span class="process-num">02</span><h3>Pensar</h3><p>Desarrollar ideas y estrategias con intención.</p></div>
-        <div class="process-step" data-reveal><span class="process-num">03</span><h3>Escribir</h3><p>Bajar esas ideas en un guion claro, dinámico y alineado con la voz de tu marca.</p></div>
-        <div class="process-step" data-reveal><span class="process-num">04</span><h3>Optimizar</h3><p>Definir qué vamos a medir para evaluar cómo seguir mejorando.</p></div>
-      </div>
+      <div class="statement-rule" id="statement-rule" aria-hidden="true"><span></span></div>
+      <p class="statement-text">
+        <span class="reveal-mask" data-reveal><span>Los videos que generan resultados <em>no se improvisan.</em></span></span>
+        <span class="reveal-mask" data-reveal><span>Se construyen sobre <em>una estrategia clara.</em></span></span>
+      </p>
     </div>
   </section>
 
@@ -1125,7 +1124,6 @@ section[id]{ scroll-margin-top: 96px; }
         <ul>
           <li><a href="#trabajo">Trabajo</a></li>
           <li><a href="#servicios">Servicios</a></li>
-          <li><a href="#proceso">Proceso</a></li>
           <li><a href="#sobre-mi">Sobre mí</a></li>
         </ul>
       </div>
@@ -1203,10 +1201,10 @@ section[id]{ scroll-margin-top: 96px; }
      ========================================================================== */
   const progressBar = document.getElementById('scroll-progress');
   const parallaxEls = Array.from(document.querySelectorAll('[data-parallax]'));
-  const processRail = document.getElementById('process-rail');
-  const processSection = document.getElementById('proceso');
+  const statementRule = document.getElementById('statement-rule');
+  const statementSection = document.getElementById('proceso');
 
-  if (progressBar || parallaxEls.length || processRail) {
+  if (progressBar || parallaxEls.length || statementRule) {
     let ticking = false;
 
     const update = () => {
@@ -1230,12 +1228,12 @@ section[id]{ scroll-margin-top: 96px; }
         });
       }
 
-      if (processRail && processSection) {
-        const rect = processSection.getBoundingClientRect();
-        // 0 cuando la sección entra por abajo, 1 cuando su parte baja llega al medio de la pantalla
+      if (statementRule && statementSection) {
+        const rect = statementSection.getBoundingClientRect();
+        // 0 cuando la banda entra por abajo, 1 cuando su parte baja llega al medio de la pantalla
         const total = rect.height + vh * 0.5;
         const done = vh - rect.top;
-        processRail.style.setProperty('--fill', Math.min(Math.max(done / total, 0), 1).toFixed(3));
+        statementRule.style.setProperty('--fill', Math.min(Math.max(done / total, 0), 1).toFixed(3));
       }
     };
 

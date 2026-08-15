@@ -99,12 +99,14 @@ unificado con indicador `+` / `−`.
 **Key Characteristics:**
 - **Ritmo de superficies:** crema → terracota → tinta → crema → crema-card → crema → terracota →
   tinta. Ninguna sección contigua repite fondo; el cambio de superficie es la puntuación del sitio.
+  La banda de declaración (`.statement`) va en crema-card justamente por eso: queda entre servicios
+  y testimonios, que son crema.
 - **La sección de trabajo es oscura ("sala de cine"):** los Shorts verticales sobre `--ink` con
   sombra profunda. Es la única forma de que un video vertical se lea como pieza y no como recuadro.
 - **Serif de énfasis:** Instrument Serif itálica aparece sólo dentro de un titular, en la frase que
   carga el significado — nunca un titular entero, nunca texto corrido.
 - **Coreografía de scroll** en un único orquestador rAF: barra de progreso, parallax de medios y
-  llenado de la línea de proceso salen del mismo listener.
+  trazado de la regla de la declaración salen del mismo listener.
 
 ## Colors
 
@@ -121,7 +123,7 @@ unificado con indicador `+` / `−`.
 
 ### Neutral
 - **Cream** (`#F4ECE0`): fondo de página.
-- **Cream Card** (`#EFE1C9`): superficie de sección alterna (Proceso) y tarjetas de métricas.
+- **Cream Card** (`#EFE1C9`): superficie de sección alterna (banda de declaración) y tarjetas de métricas.
 - **Surface** (`#FBF6EE`): tarjetas elevadas sobre crema — acordeón, testimonios, formulario.
 - **Ink** (`#241A13`): texto principal, superficie de "Trabajo" y del footer.
 - **Ink-2** (`#6B5140`): texto secundario sobre crema.
@@ -151,7 +153,7 @@ el texto; Instrument Serif itálica sólo como acento de énfasis.
   `<em>` en serif itálica terracota (o mostaza sobre fondos oscuros).
 - **Carousel title** (Instrument Serif itálica, `clamp(1.3rem,2.4vw,1.9rem)`, mostaza): único caso
   de titular íntegramente en serif, justificado porque es un rótulo de agrupación, no una jerarquía.
-- **Title** (Archivo 600, 16–19.5px): acordeón, pasos del proceso, citas.
+- **Title** (Archivo 600, 16–19.5px): acordeón y citas de testimonio.
 - **Body** (400, 15–16px, 1.55–1.7).
 - **Label / eyebrow** (700, 11.5px, `.18em`, mayúsculas) con un filete de 26px a la izquierda.
 
@@ -167,12 +169,12 @@ Contenedor centrado `max-width: 1240px` con padding lateral fluido (`--gutter`).
 
 Bandas a dos columnas donde la relación entre mitades es real: hero (video | copy), trabajo
 (ediciones | guiones), servicios (cabecera | acordeón), contacto (vías directas | formulario),
-sobre mí (foto | texto).
+sobre mí (foto | texto). La banda de declaración es la única centrada del sitio.
 
 **Todas las columnas de grid usan `minmax(0,1fr)`, nunca `1fr`**: el carril del carrusel es más
 ancho que su columna y con el mínimo automático de grid estiraría la página entera.
 
-Quiebres: 1100px (servicios/contacto a una columna, proceso a dos), 1000px (carruseles apilados),
+Quiebres: 1100px (servicios y contacto a una columna), 1000px (carruseles apilados),
 900px (hero y sobre-mí a una), 860px (menú en cajón), 760px (todo a una).
 
 ## Motion — la coreografía de scroll
@@ -189,11 +191,13 @@ Todo lo de abajo se neutraliza bajo `prefers-reduced-motion: reduce` por el rese
 - **Parallax** (`[data-parallax="-0.06"]`): el orquestador escribe `--py` y el CSS lo aplica como
   `translate3d`. El valor es la distancia del centro del elemento al centro de la pantalla por la
   velocidad; recorrido real de ~40px en 700px de scroll.
-- **Línea del proceso:** `--fill` va de 0 a 1 según el avance de la sección por la pantalla.
+- **Regla de la declaración:** `--fill` va de 0 a 1 según el avance de la banda por la pantalla, y
+  traza la regla que corona la frase. Es el mismo mecanismo que llenaba la línea del proceso, que se
+  retiró junto con el desglose en cuatro pasos.
 - **Marquee de marcas:** animación CSS pura de 46s, en pausa al pasar el cursor.
 - **Botones magnéticos** (`[data-magnetic]`): sólo con puntero fino.
 
-**Un solo listener de scroll.** Progreso, parallax y línea de proceso se calculan juntos dentro de
+**Un solo listener de scroll.** Progreso, parallax y regla de la declaración se calculan juntos dentro de
 un `requestAnimationFrame`. Tres listeners separados dispararían tres reflows por cuadro.
 
 ## Elevation & Depth
@@ -240,7 +244,10 @@ al cajón del menú mobile dentro de la barra. `section[id]` lleva `scroll-margi
 ## Do's and Don'ts
 
 ### Do:
-- **Do** envolver el texto de cada `h2` en un `<span>` — es lo que anima el revelado por máscara.
+- **Do** envolver el texto de cada `h2` (y de cada `.reveal-mask`) en un `<span>` — es lo que anima
+  el revelado por máscara.
+- **Do** numerar el acordeón de forma correlativa (01–04) según el orden en que se muestra: una
+  lista que arranca en 03 se lee como un error de maquetado, no como una decisión.
 - **Do** alternar la superficie de cada sección respecto de la anterior.
 - **Do** verificar el contraste de mostaza según el fondo: sobre tinta sirve para texto chico, sobre
   terracota sólo para texto grande.
